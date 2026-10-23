@@ -65,8 +65,11 @@
       "role": "Team Mentor",
       "team": "lead",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/nida_akdo%C4%9Fan_9v30FiQ.jpeg",
-      "bio": null,
+      "bio": "Matematik (İngilizce) mezunuyum, Anadolu Üniversitesi'nde bilgisayar programcılığı okudum. Python ve SQL ile veri odaklı uygulamalar geliştiriyorum. Eylül 2025'ten beri bu toplulukta önce Yazılım ve Teknik Ekip lideri, şimdi mentor olarak yer alıyorum; Python 101 atölyesinde eğitmenlik yaptım. Matematiksel düşünmeyi yazılımla birleştirmeyi seviyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/nidaakdogan/",
+        "github": "https://github.com/nidakd",
+        "website": "https://nidaakdogan.vercel.app",
         "gdgCommunity": "https://gdg.community.dev/u/mvjrdf/"
       },
       "order": 3
