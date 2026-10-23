@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Event } from "@/lib/content";
 import { formatDate, releaseTag } from "@/lib/format";
 import { Tag } from "@/components/ui/tag";
@@ -6,10 +7,8 @@ import { Tag } from "@/components/ui/tag";
 /** Etkinliği bir sürüm notu gibi gösteren kart. */
 export function ReleaseCard({ event }: { event: Event }) {
   return (
-    <a
-      href={event.sourceUrl}
-      target="_blank"
-      rel="noreferrer"
+    <Link
+      href={`/etkinlikler/${event.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-card border-2 border-border-strong bg-surface shadow-sticker transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-sticker-lg"
     >
       {event.coverUrl && (
@@ -37,6 +36,6 @@ export function ReleaseCard({ event }: { event: Event }) {
           ))}
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

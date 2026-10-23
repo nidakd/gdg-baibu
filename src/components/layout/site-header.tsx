@@ -6,11 +6,11 @@ import { getSite } from "@/lib/content";
 const nav = [
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/ekip", label: "Ekip" },
+  { href: "/etkinlikler", label: "Etkinlikler" },
 ];
 
 export function SiteHeader() {
   const site = getSite();
-  const links = [...nav, { href: site.links.gdgCommunity, label: "Etkinlikler" }];
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md">
@@ -18,7 +18,7 @@ export function SiteHeader() {
         <Logo className="h-6 sm:h-8" />
 
         <nav aria-label="Ana menü" className="hidden items-center gap-6 md:flex">
-          {links.map((link) => (
+          {nav.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
           <ButtonLink href={site.links.coreTeamForm} tone="yellow">
@@ -40,7 +40,7 @@ export function SiteHeader() {
             aria-label="Mobil menü"
             className="absolute right-0 mt-3 flex w-56 flex-col gap-1 rounded-card border-2 border-border-strong bg-surface p-3 shadow-sticker"
           >
-            {links.map((link) => (
+            {nav.map((link) => (
               <NavLink key={link.href} {...link} block />
             ))}
             <div className="mt-2">

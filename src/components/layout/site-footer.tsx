@@ -14,6 +14,7 @@ export function SiteFooter() {
   const pages = [
     { label: "Hakkımızda", href: "/hakkimizda" },
     { label: "Ekip", href: "/ekip" },
+    { label: "Etkinlikler", href: "/etkinlikler" },
   ];
 
   return (
