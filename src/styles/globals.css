@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* dark: varyantı hem sistem temasını hem data-theme="dark" zorlamasını izler */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+}
+
 /*
  * Tema token'ları — GDG on Campus marka rehberine göre (docs/BRAND.md).
  *
