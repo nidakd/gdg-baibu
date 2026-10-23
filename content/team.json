@@ -3,32 +3,38 @@
     {
       "id": "lead",
       "name": "Yönetim",
-      "description": null
+      "description": "Topluluğun yönünü belirler, ekipleri koordine eder ve üniversiteyle iletişimi yürütür.",
+      "tone": "blue"
     },
     {
       "id": "software",
       "name": "Yazılım ve Teknik Ekip",
-      "description": null
+      "description": "Teknik etkinlikleri ve atölyeleri hazırlar, topluluğun yazılım projelerini yürütür.",
+      "tone": "green"
     },
     {
       "id": "design",
       "name": "Tasarım Ekibi",
-      "description": null
+      "description": "Afişlerden sosyal medya görsellerine topluluğun görsel kimliğini tasarlar.",
+      "tone": "red"
     },
     {
       "id": "events",
       "name": "Etkinlik ve Organizasyon Ekibi",
-      "description": null
+      "description": "Etkinliklerin planlamasını, mekân ve konuşmacı organizasyonunu üstlenir.",
+      "tone": "yellow"
     },
     {
       "id": "sponsorship",
       "name": "Sponsorluk ve İletişim Ekibi",
-      "description": null
+      "description": "Sponsor ilişkilerini kurar, diğer topluluklar ve kurumlarla iş birliklerini yürütür.",
+      "tone": "blue"
     },
     {
       "id": "social",
       "name": "Sosyal Medya Ekibi",
-      "description": null
+      "description": "Instagram ve LinkedIn hesaplarını yönetir, duyuruları ve etkinlik içeriklerini paylaşır.",
+      "tone": "green"
     }
   ],
   "members": [
