@@ -24,7 +24,7 @@ export function Terminal({ title = "~/gdg-aibu", children }: TerminalProps) {
 export function Prompt({ children }: { children: ReactNode }) {
   return (
     <p>
-      <span className="text-green">$</span> {children}
+      <span className="text-green-ink">$</span> {children}
     </p>
   );
 }
