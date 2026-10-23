@@ -2,10 +2,10 @@
 // Logonun kendisi değildir; logo yerine kullanılmaz.
 
 const pills = [
-  { x: 8, y: 14, r: -35, fill: "var(--brand-red)", w: 150 },
-  { x: 2, y: 34, r: 35, fill: "var(--brand-blue)", w: 190 },
-  { x: 74, y: 8, r: 35, fill: "var(--brand-green)", w: 200 },
-  { x: 82, y: 30, r: -35, fill: "var(--brand-yellow)", w: 140 },
+  { x: 54, y: 8, r: -35, fill: "var(--brand-red)", w: 150 },
+  { x: 50, y: 74, r: 35, fill: "var(--brand-blue)", w: 190 },
+  { x: 84, y: 4, r: 35, fill: "var(--brand-green)", w: 200 },
+  { x: 88, y: 78, r: -35, fill: "var(--brand-yellow)", w: 140 },
 ];
 
 export function PillShapes({ className = "" }: { className?: string }) {
