@@ -218,6 +218,8 @@
   }
 
   body {
+    /* Eğik şerit gibi döndürülmüş öğeler yatay kaydırma yaratmasın */
+    overflow-x: clip;
     background-color: var(--bg);
     background-image: radial-gradient(var(--dot) 1px, transparent 1.4px);
     background-size: 22px 22px;
