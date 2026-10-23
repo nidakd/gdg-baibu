@@ -53,7 +53,9 @@ src/
   components/
     brand/            Logo ve logodan türetilen dekoratif şekiller
     events/           Etkinlik kartları
+    fun/              Eğlenceli bölüm geçişleri (dinozor oyunu, kayan şerit)
     layout/           Header, footer gibi sayfa iskeleti parçaları
+    motion/           Yumuşak kaydırma, kaydırınca belirme, "hareketi azalt" desteği
     sections/         Birden fazla sayfada kullanılan bölümler (rakamlar, odak alanları)
     team/             Avatar ve üye kartları
     ui/               Genel arayüz parçaları (buton, kart, terminal, etiket)
