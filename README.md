@@ -51,9 +51,12 @@ scripts/              Yardımcı scriptler (içerik senkronu)
 src/
   app/                Sayfalar ve route'lar; favicon ve ikonlar
   components/
-    brand/            Logo
+    brand/            Logo ve logodan türetilen dekoratif şekiller
+    events/           Etkinlik kartları
     layout/           Header, footer gibi sayfa iskeleti parçaları
-    ui/               Tekrar kullanılan arayüz parçaları (terminal, kart, buton)
+    sections/         Birden fazla sayfada kullanılan bölümler (rakamlar, odak alanları)
+    team/             Avatar ve üye kartları
+    ui/               Genel arayüz parçaları (buton, kart, terminal, etiket)
   lib/                Veri okuma ve yardımcı fonksiyonlar
   styles/             Global CSS, tema token'ları, fontlar
 ```

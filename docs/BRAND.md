@@ -45,13 +45,14 @@ Token'lar `src/styles/globals.css` içinde.
 
 ## Logolar
 
-| Dosya                                               | Kullanım                                        |
-| --------------------------------------------------- | ----------------------------------------------- |
-| `public/brand/gdg-on-campus-aibu-lockup.png`        | Tam yatay logo, açık zeminde (afiş, OG görseli) |
-| `public/brand/gdg-mark.png`                         | Sadece simge                                    |
-| `src/app/icon.png`, `favicon.ico`, `apple-icon.png` | Tarayıcı ve telefon ikonları                    |
+| Dosya                                               | Kullanım                                   |
+| --------------------------------------------------- | ------------------------------------------ |
+| `public/brand/gdg-on-campus-aibu-horizontal-*.png`  | Yatay logo: light, dark ve tek renk (blue) |
+| `public/brand/gdg-on-campus-aibu-stacked-light.png` | Dikey logo, dar alanlar için               |
+| `public/brand/gdg-mark.png`                         | Sadece simge                               |
+| `src/app/icon.png`, `favicon.ico`, `apple-icon.png` | Tarayıcı ve telefon ikonları               |
 
-Header'daki logo (`src/components/brand/logo.tsx`) simge görseli + Google Sans ile yazılmış
-metinden oluşur; resmî yatay düzeni taklit eder ve koyu temada da okunur.
+Logolar topluluğun Drive klasöründeki resmî çizimlerden alındı. Header'daki logo
+(`src/components/brand/logo.tsx`) açık temada `light`, koyu temada `dark` sürümü gösterir.
 
 Yatay logo tercih edilir; yer darsa dikey (stacked) logo kullanılabilir.

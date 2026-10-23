@@ -4,6 +4,7 @@
 import siteJson from "../../content/site.json";
 import teamJson from "../../content/team.json";
 import eventsJson from "../../content/events.json";
+import type { Tone } from "@/components/ui/button";
 import { slugify } from "./slug";
 
 export type Site = typeof siteJson;
@@ -12,6 +13,7 @@ export type Team = {
   id: string;
   name: string;
   description: string | null;
+  tone: Tone;
 };
 
 export type Member = {
@@ -49,7 +51,7 @@ export type Event = {
   sourceUrl: string;
 };
 
-const teams: Team[] = teamJson.teams;
+const teams = teamJson.teams as Team[];
 const teamById = new Map(teams.map((t) => [t.id, t]));
 
 const members: Member[] = teamJson.members
@@ -76,6 +78,10 @@ export function getMembers(): Member[] {
 
 export function getMemberBySlug(slug: string): Member | undefined {
   return members.find((m) => m.slug === slug);
+}
+
+export function getMembersByTeam(teamId: string): Member[] {
+  return members.filter((m) => m.team.id === teamId);
 }
 
 /** En yeniden en eskiye sıralı tüm etkinlikler. */

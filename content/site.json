@@ -1,11 +1,11 @@
 {
-  "name": "GDG on Campus Bolu Abant İzzet Baysal University",
+  "name": "GDG on Campus Abant İzzet Baysal University",
   "shortName": "GDG on Campus AİBÜ",
   "university": "Bolu Abant İzzet Baysal Üniversitesi",
   "city": "Bolu",
   "gdgCommunitySince": "2024-09-17",
   "tagline": "GDG on Campus Abant İzzet Baysal Üniversitesi resmi topluluğu. Powered by Google for Developers ve GDG Türkiye.",
-  "disclaimer": "GDG on Campus Bolu Abant Izzet Baysal University bağımsız bir topluluktur; etkinliklerimiz ve burada ifade edilen görüşler Google ile ilişkilendirilmemelidir.",
+  "disclaimer": "GDG on Campus Abant İzzet Baysal University bağımsız bir topluluktur; etkinliklerimiz ve burada ifade edilen görüşler Google ile ilişkilendirilmemelidir.",
   "stats": {
     "communityMembers": 572,
     "instagramFollowers": 1168,
@@ -16,6 +16,15 @@
     "linkedin": "https://www.linkedin.com/company/gdgoncampusaibu/",
     "gdgCommunity": "https://gdg.community.dev/gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye/",
     "whatsapp": "https://chat.whatsapp.com/K7XWLXEmqbf92cxbe5r1nL",
-    "linktree": "https://linktr.ee/gdgoncampusaibu"
+    "linktree": "https://linktr.ee/gdgoncampusaibu",
+    "coreTeamForm": "https://forms.gle/MMXt2GYqBVcQmYjo7"
+  },
+  "hashtag": "#GDGOnCampus",
+  "about": {
+    "intro": "Abant İzzet Baysal Üniversitesi'nde teknolojiye meraklı öğrencileri bir araya getiren, Google for Developers destekli bir öğrenci topluluğuyuz.",
+    "paragraphs": [
+      "Atölyelerde birlikte kod yazıyor, kariyer buluşmalarında sektörden insanlarla tanışıyor, hackathon ve jam'lerde fikirleri ürüne dönüştürüyoruz. Kahve sohbetleri ve oyun geceleri de en az atölyeler kadar önemli: topluluk önce insanlarla kurulur.",
+      "Hangi bölümde okuduğun ya da ne kadar deneyimin olduğu fark etmez. Yapay zekâdan mobil geliştirmeye, tasarımdan etkinlik organizasyonuna kadar herkesin katkı verebileceği bir yer var."
+    ]
   }
 }
