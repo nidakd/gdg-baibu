@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { getSite } from "@/lib/content";
 import { googleSans, googleSansCode } from "@/styles/fonts";
 import "@/styles/globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <SmoothScroll />
       </body>
     </html>
   );

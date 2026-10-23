@@ -13,7 +13,7 @@ export function SiteHeader() {
   const links = [...nav, { href: site.links.gdgCommunity, label: "Etkinlikler" }];
 
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-border-strong bg-bg/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-content items-center justify-between gap-4 px-4 sm:px-6">
         <Logo className="h-6 sm:h-8" />
 

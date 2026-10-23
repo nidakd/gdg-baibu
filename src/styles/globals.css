@@ -188,6 +188,26 @@
       opacity: 0;
     }
   }
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-nudge: nudge 1.6s ease-in-out infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    50% {
+      translate: 0 -14px;
+    }
+  }
+  @keyframes nudge {
+    50% {
+      transform: translateY(6px);
+    }
+  }
 }
 
 @layer base {
@@ -198,6 +218,8 @@
   }
 
   body {
+    /* Eğik şerit gibi döndürülmüş öğeler yatay kaydırma yaratmasın */
+    overflow-x: clip;
     background-color: var(--bg);
     background-image: radial-gradient(var(--dot) 1px, transparent 1.4px);
     background-size: 22px 22px;
@@ -214,7 +236,23 @@
   }
 }
 
+/* Kaydırınca belirme (src/components/motion/reveal.tsx) */
+[data-reveal] {
+  transition:
+    opacity 0.7s ease,
+    translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+[data-reveal="out"] {
+  opacity: 0;
+  translate: 0 28px;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  [data-reveal="out"] {
+    opacity: 1;
+    translate: none;
+  }
+
   *,
   *::before,
   *::after {
