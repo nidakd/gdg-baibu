@@ -19,31 +19,31 @@ günlük işini kolaylaştıran bir araçtır:
 
 Her bölüm bir geliştiricinin her gün gördüğü bir şeye benzer; metafor abartılmaz, okunabilirlik önce gelir.
 
-| Bölüm | Görünüm |
-| --- | --- |
-| Hero | Terminalde yazılan `$ gdg init --campus aibu`, ardından "derlenip" açılan başlık |
-| Bölüm başlıkları | `// 01 — biz kimiz` gibi kod yorumları, kenarda satır numaraları |
-| Hakkımızda | `README.md` görünümünde topluluk hikâyesi + rakamlar (üye, etkinlik, konuşmacı) |
-| Ekip | `team/` klasör ağacı: ekipler klasör, üyeler dosya; tıklayınca profil kartı açılır |
-| Etkinlikler | `releases`: her etkinlik bir sürüm notu (`v2026.05 · CYBERFIRST`), etiketler `label` olarak |
-| Etkinlik arşivi | Yıllara göre `git log --graph` benzeri zaman çizelgesi |
-| Duyurular | Commit mesajı biçiminde kısa başlıklar, tıklayınca detay |
-| Katıl | `git clone → npm install → deploy yourself` adımları + form |
-| Panel girişi | `sudo login` |
+| Bölüm            | Görünüm                                                                                     |
+| ---------------- | ------------------------------------------------------------------------------------------- |
+| Hero             | Terminalde yazılan `$ gdg init --campus aibu`, ardından "derlenip" açılan başlık            |
+| Bölüm başlıkları | `// 01 — biz kimiz` gibi kod yorumları, kenarda satır numaraları                            |
+| Hakkımızda       | `README.md` görünümünde topluluk hikâyesi + rakamlar (üye, etkinlik, konuşmacı)             |
+| Ekip             | `team/` klasör ağacı: ekipler klasör, üyeler dosya; tıklayınca profil kartı açılır          |
+| Etkinlikler      | `releases`: her etkinlik bir sürüm notu (`v2026.05 · CYBERFIRST`), etiketler `label` olarak |
+| Etkinlik arşivi  | Yıllara göre `git log --graph` benzeri zaman çizelgesi                                      |
+| Duyurular        | Commit mesajı biçiminde kısa başlıklar, tıklayınca detay                                    |
+| Katıl            | `git clone → npm install → deploy yourself` adımları + form                                 |
+| Panel girişi     | `sudo login`                                                                                |
 
 Animasyonlar: yazılan terminal metni, bölüm açılışlarında build progress bar, scroll ile
 dolan zaman çizelgesi, syntax highlight renginde hover'lar. `prefers-reduced-motion` açıkken sadeleşir.
 
 ## 3. Teknik altyapı
 
-| Katman | Seçim | Neden |
-| --- | --- | --- |
-| Framework | Next.js (App Router) + TypeScript | SEO, sunucu bileşenleri, Vercel ile doğal uyum |
-| Stil | Tailwind CSS | Hızlı, tutarlı tasarım token'ları |
-| Animasyon | GSAP (ScrollTrigger) + Framer Motion | Scroll ve geçiş animasyonları |
-| Veritabanı + Giriş + Dosya | Supabase (Postgres, Auth, Storage, RLS) | Ücretsiz katman yeterli, satır bazlı güvenlik |
-| Yayın | Vercel | Her PR'da önizleme linki |
-| E-posta | Resend (ileride) | Kayıt onayı, QR bileti gönderimi |
+| Katman                     | Seçim                                   | Neden                                          |
+| -------------------------- | --------------------------------------- | ---------------------------------------------- |
+| Framework                  | Next.js (App Router) + TypeScript       | SEO, sunucu bileşenleri, Vercel ile doğal uyum |
+| Stil                       | Tailwind CSS                            | Hızlı, tutarlı tasarım token'ları              |
+| Animasyon                  | GSAP (ScrollTrigger) + Framer Motion    | Scroll ve geçiş animasyonları                  |
+| Veritabanı + Giriş + Dosya | Supabase (Postgres, Auth, Storage, RLS) | Ücretsiz katman yeterli, satır bazlı güvenlik  |
+| Yayın                      | Vercel                                  | Her PR'da önizleme linki                       |
+| E-posta                    | Resend (ileride)                        | Kayıt onayı, QR bileti gönderimi               |
 
 ## 4. Sayfalar
 
@@ -80,10 +80,10 @@ dolan zaman çizelgesi, syntax highlight renginde hover'lar. `prefers-reduced-mo
 
 ### Başlangıç içeriği (`content/`)
 
-| Dosya | Kaynak |
-| --- | --- |
-| `site.json` | Topluluk adı, tanıtım, sosyal linkler (Instagram, Linktree) |
-| `team.json` | GDG Community organizatör listesi: 14 kişi, 6 ekip |
+| Dosya         | Kaynak                                                                               |
+| ------------- | ------------------------------------------------------------------------------------ |
+| `site.json`   | Topluluk adı, tanıtım, sosyal linkler (Instagram, Linktree)                          |
+| `team.json`   | GDG Community organizatör listesi: 14 kişi, 6 ekip                                   |
 | `events.json` | GDG Community API: 67 etkinlik (`node scripts/sync-gdg-community.mjs` ile yenilenir) |
 
 Supabase kurulunca bu dosyalar veritabanına seed olarak aktarılır; sonrasında içerik panelden yönetilir.
@@ -108,18 +108,18 @@ posts           id, slug, title, excerpt, body, cover_url, published_at, status
 
 ## 7. Yol haritası
 
-| Adım | İçerik | Çıktı |
-| --- | --- | --- |
-| 0 | Plan, repo, başlangıç içeriği | Bu doküman + `content/` |
-| 1 | Next.js iskeleti, Tailwind, tema token'ları, font, lint | Boş ama çalışan site, Vercel önizleme |
-| 2 | Ana sayfa + hakkımızda + ekip sayfaları (JSON içerikle) | Biz kimiz sorusu cevaplanır |
-| 3 | Etkinlik listesi, arşiv zaman çizelgesi, etkinlik detayı | 67 etkinlik sitede |
-| 4 | Supabase şeması, RLS, seed, giriş, panel iskeleti | `/giris`, `/panel` |
-| 5 | Etkinlik kaydı + QR bilet + yoklama | Google Forms yerine site |
-| 6 | Core team başvuruları | `/katil` + panelde takip |
-| 7 | Projeler, kaynaklar, duyurular, ekip yönetimi | İçerik panelden yönetilir |
-| 8 | SEO, Open Graph görselleri, erişilebilirlik, performans | Yayına hazır |
-| 9 | Alan adı, yayın | Canlı site |
+| Adım | İçerik                                                   | Çıktı                                 |
+| ---- | -------------------------------------------------------- | ------------------------------------- |
+| 0    | Plan, repo, başlangıç içeriği                            | Bu doküman + `content/`               |
+| 1    | Next.js iskeleti, Tailwind, tema token'ları, font, lint  | Boş ama çalışan site, Vercel önizleme |
+| 2    | Ana sayfa + hakkımızda + ekip sayfaları (JSON içerikle)  | Biz kimiz sorusu cevaplanır           |
+| 3    | Etkinlik listesi, arşiv zaman çizelgesi, etkinlik detayı | 67 etkinlik sitede                    |
+| 4    | Supabase şeması, RLS, seed, giriş, panel iskeleti        | `/giris`, `/panel`                    |
+| 5    | Etkinlik kaydı + QR bilet + yoklama                      | Google Forms yerine site              |
+| 6    | Core team başvuruları                                    | `/katil` + panelde takip              |
+| 7    | Projeler, kaynaklar, duyurular, ekip yönetimi            | İçerik panelden yönetilir             |
+| 8    | SEO, Open Graph görselleri, erişilebilirlik, performans  | Yayına hazır                          |
+| 9    | Alan adı, yayın                                          | Canlı site                            |
 
 Her özellik kendi commit'i olarak, her adım ayrı bir branch + PR olarak ilerler.
 
