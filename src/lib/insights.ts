@@ -3,6 +3,7 @@
 
 import type { Tone } from "@/components/ui/button";
 import { getEvents, getMembers, getSite, type Event } from "./content";
+import { focusAreas, inArea } from "./focus-areas";
 
 export type Stat = { value: number; label: string; tone: Tone };
 
@@ -25,57 +26,14 @@ export type FocusArea = {
   count: number;
 };
 
-const focusAreas: (Omit<FocusArea, "count"> & { tags: string[] })[] = [
-  {
-    id: "ai",
-    title: "Yapay zekâ ve Gemini",
-    description: "Build with AI atölyeleri, Gemini ve AI Studio ile uygulama geliştirme.",
-    tone: "blue",
-    tags: ["AI", "AI - Gemini", "Build with AI"],
-  },
-  {
-    id: "career",
-    title: "Kariyer",
-    description: "Staj, sektör ve kariyer buluşmaları; deneyimli isimlerle söyleşiler.",
-    tone: "green",
-    tags: ["Career Development"],
-  },
-  {
-    id: "workshop",
-    title: "Atölyeler",
-    description:
-      "Python, Arduino, Git gibi konularda elini klavyeye koyduğun uygulamalı oturumlar.",
-    tone: "yellow",
-    tags: ["Workshop / hands-on session"],
-  },
-  {
-    id: "build",
-    title: "Hackathon ve jam",
-    description: "Fikirden prototipe: takım kurup kısa sürede bir şey üretmek.",
-    tone: "red",
-    tags: ["Hackathon"],
-  },
-  {
-    id: "platforms",
-    title: "Mobil, web ve cloud",
-    description: "Flutter, Firebase, Android, web ve Google Cloud üzerine teknik içerikler.",
-    tone: "blue",
-    tags: ["Android", "Flutter", "Firebase", "Web", "Google Cloud"],
-  },
-  {
-    id: "community",
-    title: "Topluluk",
-    description: "Coffee Talk, oyun ve film geceleri, stantlar: tanışmak için bahaneler.",
-    tone: "green",
-    tags: ["Community Building", "Networking"],
-  },
-];
-
 export function getFocusAreas(): FocusArea[] {
   const events = getEvents();
-  return focusAreas.map(({ tags, ...area }) => ({
-    ...area,
-    count: events.filter((e) => e.tags.some((t) => tags.includes(t))).length,
+  return focusAreas.map((area) => ({
+    id: area.id,
+    title: area.title,
+    description: area.description,
+    tone: area.tone,
+    count: events.filter((e) => inArea(e.tags, area)).length,
   }));
 }
 
@@ -97,6 +55,11 @@ const seriesPatterns: { id: string; title: string; pattern: RegExp }[] = [
   { id: "stajin-sifreleri", title: "Stajın Şifreleri", pattern: /stajın şifreleri/i },
   { id: "coffee-talk", title: "Coffee Talk", pattern: /coffee talk/i },
 ];
+
+/** Etkinliğin ait olduğu seri, varsa. */
+export function getSeriesOf(event: Event): Series | undefined {
+  return getSeries().find((s) => s.events.some((e) => e.id === event.id));
+}
 
 /** Birden fazla oturumu olan etkinlik serileri, en kalabalıktan başlayarak. */
 export function getSeries(): Series[] {
