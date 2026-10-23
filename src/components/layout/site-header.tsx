@@ -1,4 +1,4 @@
-import { Brand } from "./brand";
+import { Brand } from "@/components/brand/logo";
 
 export function SiteHeader() {
   return (

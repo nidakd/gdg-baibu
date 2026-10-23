@@ -1,4 +1,4 @@
-import { Cursor, Prompt, Terminal } from "@/components/terminal";
+import { Cursor, Prompt, Terminal } from "@/components/ui/terminal";
 import { getEvents, getMembers, getSite, getTeams } from "@/lib/content";
 
 export default function Home() {

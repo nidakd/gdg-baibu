@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 import { getSite } from "@/lib/content";
-import { googleSans, googleSansCode } from "./fonts";
-import "./globals.css";
+import { googleSans, googleSansCode } from "@/styles/fonts";
+import "@/styles/globals.css";
 
 const site = getSite();
 
