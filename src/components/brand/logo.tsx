@@ -1,21 +1,33 @@
+import Image from "next/image";
 import Link from "next/link";
+import mark from "../../../public/brand/gdg-mark.png";
 
-const dots = ["bg-blue", "bg-red", "bg-yellow", "bg-green"];
+// Resmî yatay logo düzeni: simge + "Google Developer Group" + "On Campus • Üniversite".
+// Metin HTML olarak Google Sans ile çizilir; böylece açık ve koyu temada okunur.
+// Tam logo görseli (açık zemin için): public/brand/gdg-on-campus-aibu-lockup.png
 
-export function Brand() {
+type LogoProps = {
+  compact?: boolean;
+};
+
+export function Logo({ compact = false }: LogoProps) {
   return (
-    <Link href="/" className="group inline-flex items-center gap-2.5 font-medium">
-      <span aria-hidden className="flex gap-1">
-        {dots.map((color) => (
-          <span
-            key={color}
-            className={`size-2 rounded-full ${color} transition-transform group-hover:-translate-y-0.5`}
-          />
-        ))}
-      </span>
-      <span>
-        GDG on Campus <span className="text-fg-muted">AİBÜ</span>
-      </span>
+    <Link
+      href="/"
+      aria-label="GDG on Campus Abant İzzet Baysal University ana sayfa"
+      className="inline-flex items-center gap-3"
+    >
+      <Image src={mark} alt="" priority className="h-7 w-auto" />
+      {!compact && (
+        <span className="flex flex-col leading-tight">
+          <span className="text-[15px] font-medium tracking-tight">Google Developer Group</span>
+          <span className="text-xs">
+            <span className="text-blue-ink">On Campus</span>
+            <span className="text-blue-ink"> • </span>
+            <span>Abant İzzet Baysal University</span>
+          </span>
+        </span>
+      )}
     </Link>
   );
 }
