@@ -1,4 +1,4 @@
-import { Cursor, Prompt, Terminal } from "@/components/terminal";
+import { Cursor, Prompt, Terminal } from "@/components/ui/terminal";
 import { getEvents, getMembers, getSite, getTeams } from "@/lib/content";
 
 export default function Home() {
@@ -25,11 +25,11 @@ export default function Home() {
         <Prompt>gdg init --campus aibu</Prompt>
         {lines.map((line) => (
           <p key={line}>
-            <span className="text-green">✓</span> {line}
+            <span className="text-green-ink">✓</span> {line}
           </p>
         ))}
         <p>
-          <span className="text-blue">→</span> site derleniyor
+          <span className="text-blue-ink">→</span> site derleniyor
           <Cursor />
         </p>
       </Terminal>

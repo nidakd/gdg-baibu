@@ -13,7 +13,7 @@ $ gdg init --campus aibu
 - Duyurular
 - Core team için yönetici paneli
 
-Plan ve yol haritası: [docs/PLAN.md](docs/PLAN.md)
+Plan ve yol haritası: [docs/PLAN.md](docs/PLAN.md) · Marka kuralları: [docs/BRAND.md](docs/BRAND.md)
 
 ## Teknolojiler
 
@@ -38,7 +38,29 @@ Site http://localhost:3000 adresinde açılır.
 | `npm run format`      | Kodu Prettier ile biçimlendirir                      |
 | `npm run sync:events` | Etkinlikleri GDG Community sayfasından yeniden çeker |
 
-## İçerik
+## Klasör yapısı
 
-Başlangıç içeriği `content/` klasöründe: `site.json` (topluluk bilgileri), `team.json` (ekip),
-`events.json` (etkinlikler).
+```text
+content/              Başlangıç içeriği (JSON)
+  site.json           Topluluk adı, tanıtım, sosyal linkler
+  team.json           Ekipler ve core team üyeleri
+  events.json         Etkinlikler (npm run sync:events ile üretilir)
+docs/                 Plan ve marka kuralları
+public/brand/         Logo dosyaları
+scripts/              Yardımcı scriptler (içerik senkronu)
+src/
+  app/                Sayfalar ve route'lar; favicon ve ikonlar
+  components/
+    brand/            Logo
+    layout/           Header, footer gibi sayfa iskeleti parçaları
+    ui/               Tekrar kullanılan arayüz parçaları (terminal, kart, buton)
+  lib/                Veri okuma ve yardımcı fonksiyonlar
+  styles/             Global CSS, tema token'ları, fontlar
+```
+
+Kurallar:
+
+- `src/app/` içinde sadece route dosyaları (`page.tsx`, `layout.tsx`, ...) ve Next.js'in
+  beklediği özel dosyalar durur; bileşenler `src/components/` altına gider.
+- Bir bileşen tek bir sayfaya aitse o sayfanın klasöründe `_components/` altında durabilir.
+- Görseller `public/` altında konusuna göre klasörlenir (`brand/`, `events/`, `team/`).

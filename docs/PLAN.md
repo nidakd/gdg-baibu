@@ -1,7 +1,7 @@
 # GDG on Campus AİBÜ — Web Sitesi Planı
 
-> Tema: **Build & Deploy**. Site bir kod editörü / terminal gibi akar; Google'ın dört rengi
-> (mavi `#4285F4`, kırmızı `#EA4335`, sarı `#FBBC04`, yeşil `#34A853`) vurgu olarak kullanılır.
+> Tema: **Build & Deploy**. Site bir kod editörü / terminal gibi akar. Renkler, fontlar,
+> logolar ve isimlendirme GDG on Campus marka rehberine uyar: [BRAND.md](BRAND.md).
 
 ## 1. Amaç
 
