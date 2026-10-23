@@ -6,6 +6,7 @@ import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
+import { WaveBand } from "@/components/ui/wave-band";
 import { getMembersByTeam, getSite, getTeams } from "@/lib/content";
 import { formatMonth } from "@/lib/format";
 import { getEventsPerYear, getSeries } from "@/lib/insights";
@@ -53,8 +54,9 @@ export default function AboutPage() {
         <FocusAreas />
       </Section>
 
-      <div className="border-y-2 border-border-strong bg-yellow-soft">
+      <WaveBand tone="yellow">
         <Section
+          className="py-8 md:py-10"
           label="02 — seriler"
           title="Tekrar eden etkinliklerimiz"
           intro="Bir kere yapıp bırakmadığımız, birden fazla oturuma yayılan etkinlikler."
@@ -75,7 +77,7 @@ export default function AboutPage() {
             ))}
           </ul>
         </Section>
-      </div>
+      </WaveBand>
 
       <Section
         label="03 — ekipler"
