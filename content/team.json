@@ -1,0 +1,190 @@
+{
+  "teams": [
+    {
+      "id": "lead",
+      "name": "Yönetim",
+      "description": null
+    },
+    {
+      "id": "software",
+      "name": "Yazılım ve Teknik Ekip",
+      "description": null
+    },
+    {
+      "id": "design",
+      "name": "Tasarım Ekibi",
+      "description": null
+    },
+    {
+      "id": "events",
+      "name": "Etkinlik ve Organizasyon Ekibi",
+      "description": null
+    },
+    {
+      "id": "sponsorship",
+      "name": "Sponsorluk ve İletişim Ekibi",
+      "description": null
+    },
+    {
+      "id": "social",
+      "name": "Sosyal Medya Ekibi",
+      "description": null
+    }
+  ],
+  "members": [
+    {
+      "name": "Barış Ceylan",
+      "role": "Organizer",
+      "team": "lead",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/bar%C4%B1%C5%9F_ceylan_94c3a13a.jpg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/m95ysf/"
+      },
+      "order": 1
+    },
+    {
+      "name": "Eylül Ecem Kaçmaz",
+      "role": "Co-Organizer",
+      "team": "lead",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/eyl%C3%BCl_ecem_ka%C3%A7maz.jpg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/mckpb8/"
+      },
+      "order": 2
+    },
+    {
+      "name": "Nida Akdoğan",
+      "role": "Team Mentor",
+      "team": "lead",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/nida_akdo%C4%9Fan_9v30FiQ.jpeg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/mvjrdf/"
+      },
+      "order": 3
+    },
+    {
+      "name": "Kadir Kerem Yıldırım",
+      "role": "Koordinatör",
+      "team": "software",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/kadir_kerem_y%C4%B1ld%C4%B1r%C4%B1m_VOgHYto.jpg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/m8zma7/"
+      },
+      "order": 4
+    },
+    {
+      "name": "Ege Arda Koyuncu",
+      "role": "Koordinatör",
+      "team": "design",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/ege_koyuncu_vb6ZMTf.jpg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/mgyh66/"
+      },
+      "order": 5
+    },
+    {
+      "name": "Buğra Karayel",
+      "role": "Ekip Üyesi",
+      "team": "software",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/bu%C4%9Fra_karayel_8572c35a.jpeg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/m4y5u3/"
+      },
+      "order": 6
+    },
+    {
+      "name": "Nehir Dede",
+      "role": "Ekip Üyesi",
+      "team": "events",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/nehir_dede_6a7c18f6.jpeg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/my4334/"
+      },
+      "order": 7
+    },
+    {
+      "name": "İrem Genç",
+      "role": "Koordinatör",
+      "team": "events",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/irem_gen%C3%A7_b832467b.jpg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/m95b48/"
+      },
+      "order": 8
+    },
+    {
+      "name": "Rüya Durgun",
+      "role": "Ekip Üyesi",
+      "team": "design",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/r%C3%BCya_durgun_52b5a257.jpeg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/m4p5fq/"
+      },
+      "order": 9
+    },
+    {
+      "name": "Sude Nur Gedik",
+      "role": "Ekip Üyesi",
+      "team": "software",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/sudenur_gedik_e2f318ed.jpeg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/mr9ejm/"
+      },
+      "order": 10
+    },
+    {
+      "name": "Sudenaz Dadaş",
+      "role": "Ekip Üyesi",
+      "team": "sponsorship",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/sude_dada%C5%9F_a0f4c833.jpeg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/m6pekx/"
+      },
+      "order": 11
+    },
+    {
+      "name": "Şevval Aslan",
+      "role": "Koordinatör",
+      "team": "sponsorship",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/%C5%9Fevval_aslan_419ea418.jpeg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/mrp2zf/"
+      },
+      "order": 12
+    },
+    {
+      "name": "Berra Polat",
+      "role": "Ekip Üyesi",
+      "team": "sponsorship",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/berra_polat_6dfa2beb.jpg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/m5qy27/"
+      },
+      "order": 13
+    },
+    {
+      "name": "Gamze Hatipoğlu",
+      "role": "Koordinatör",
+      "team": "social",
+      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/gamze_hatipo%C4%9Flu_6e345d4f.jpeg",
+      "bio": null,
+      "links": {
+        "gdgCommunity": "https://gdg.community.dev/u/mcac6u/"
+      },
+      "order": 14
+    }
+  ]
+}
