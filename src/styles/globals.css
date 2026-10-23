@@ -64,6 +64,10 @@
   --red-soft: var(--brand-red-pastel);
 
   --selection: var(--brand-blue-pastel);
+
+  /* Zemin dokusu ve "çıkartma" kart gölgesi */
+  --dot: #cdcdcd;
+  --sticker-shadow: var(--brand-black);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -90,6 +94,9 @@
     --red-soft: #45252a;
 
     --selection: #1d3047;
+
+    --dot: #363636;
+    --sticker-shadow: #000000;
   }
 }
 
@@ -116,6 +123,9 @@
   --red-soft: #45252a;
 
   --selection: #1d3047;
+
+  --dot: #363636;
+  --sticker-shadow: #000000;
 }
 
 @theme inline {
@@ -141,6 +151,7 @@
   --color-yellow-pastel: var(--brand-yellow-pastel);
   --color-red-pastel: var(--brand-red-pastel);
   --color-off-white: var(--brand-off-white);
+  --color-sticker-shadow: var(--sticker-shadow);
   --color-ink-black: var(--brand-black);
 
   --color-blue-ink: var(--blue-ink);
@@ -165,6 +176,9 @@
 
 @theme {
   --radius-card: 1.25rem;
+  --shadow-sticker: 4px 4px 0 0 var(--sticker-shadow);
+  --shadow-sticker-sm: 2px 2px 0 0 var(--sticker-shadow);
+  --shadow-sticker-lg: 6px 6px 0 0 var(--sticker-shadow);
   --container-content: 72rem;
 
   --animate-blink: blink 1.1s steps(1) infinite;
@@ -184,7 +198,9 @@
   }
 
   body {
-    background: var(--bg);
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--dot) 1px, transparent 1.4px);
+    background-size: 22px 22px;
     font-family: var(--font-sans);
   }
 

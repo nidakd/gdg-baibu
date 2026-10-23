@@ -7,12 +7,12 @@ type TerminalProps = {
 
 export function Terminal({ title = "~/gdg-aibu", children }: TerminalProps) {
   return (
-    <div className="overflow-hidden rounded-card border border-border bg-surface shadow-sm">
-      <div className="flex items-center gap-3 border-b border-border bg-surface-2 px-4 py-2.5">
+    <div className="overflow-hidden rounded-card border-2 border-border-strong bg-surface shadow-sticker-lg">
+      <div className="flex items-center gap-3 border-b-2 border-border-strong bg-surface-2 px-4 py-2.5">
         <span aria-hidden className="flex gap-1.5">
-          <span className="size-2.5 rounded-full bg-red" />
-          <span className="size-2.5 rounded-full bg-yellow" />
-          <span className="size-2.5 rounded-full bg-green" />
+          <span className="size-3 rounded-full border border-ink-black bg-red" />
+          <span className="size-3 rounded-full border border-ink-black bg-yellow" />
+          <span className="size-3 rounded-full border border-ink-black bg-green" />
         </span>
         <span className="font-mono text-xs text-fg-subtle">{title}</span>
       </div>
