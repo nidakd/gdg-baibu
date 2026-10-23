@@ -19,10 +19,26 @@ Plan ve yol haritası: [docs/PLAN.md](docs/PLAN.md)
 
 Next.js · TypeScript · Tailwind CSS · GSAP / Framer Motion · Supabase · Vercel
 
-## İçerik
+## Geliştirme
 
-Başlangıç içeriği `content/` klasöründe. Etkinlikleri GDG Community sayfasından yenilemek için:
+Node.js 20.9 veya üzeri gerekir.
 
 ```bash
-node scripts/sync-gdg-community.mjs
+npm install
+npm run dev
 ```
+
+Site http://localhost:3000 adresinde açılır.
+
+| Komut                 | Ne yapar                                             |
+| --------------------- | ---------------------------------------------------- |
+| `npm run dev`         | Geliştirme sunucusu                                  |
+| `npm run build`       | Üretim derlemesi                                     |
+| `npm run check`       | Lint, tip kontrolü ve format kontrolü                |
+| `npm run format`      | Kodu Prettier ile biçimlendirir                      |
+| `npm run sync:events` | Etkinlikleri GDG Community sayfasından yeniden çeker |
+
+## İçerik
+
+Başlangıç içeriği `content/` klasöründe: `site.json` (topluluk bilgileri), `team.json` (ekip),
+`events.json` (etkinlikler).
