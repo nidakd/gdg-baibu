@@ -60,9 +60,7 @@ const members: Member[] = teamJson.members
   })
   .sort((a, b) => a.order - b.order);
 
-const events = (eventsJson as Event[])
-  .slice()
-  .sort((a, b) => b.startsAt.localeCompare(a.startsAt));
+const events = (eventsJson as Event[]).slice().sort((a, b) => b.startsAt.localeCompare(a.startsAt));
 
 export function getSite(): Site {
   return siteJson;

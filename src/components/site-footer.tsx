@@ -19,12 +19,7 @@ export function SiteFooter() {
         <ul className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-fg-muted md:justify-end">
           {links.map((link) => (
             <li key={link.label}>
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-fg"
-              >
+              <a href={link.href} target="_blank" rel="noreferrer" className="hover:text-fg">
                 {link.label} ↗
               </a>
             </li>

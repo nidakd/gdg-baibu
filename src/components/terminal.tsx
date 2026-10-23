@@ -30,5 +30,7 @@ export function Prompt({ children }: { children: ReactNode }) {
 }
 
 export function Cursor() {
-  return <span aria-hidden className="ml-0.5 inline-block h-4 w-2 animate-blink bg-fg align-middle" />;
+  return (
+    <span aria-hidden className="ml-0.5 inline-block h-4 w-2 animate-blink bg-fg align-middle" />
+  );
 }
