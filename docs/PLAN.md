@@ -108,18 +108,18 @@ posts           id, slug, title, excerpt, body, cover_url, published_at, status
 
 ## 7. Yol haritası
 
-| Adım | İçerik                                                   | Çıktı                                 |
-| ---- | -------------------------------------------------------- | ------------------------------------- |
-| 0    | Plan, repo, başlangıç içeriği                            | Bu doküman + `content/`               |
-| 1    | Next.js iskeleti, Tailwind, tema token'ları, font, lint  | Boş ama çalışan site, Vercel önizleme |
-| 2    | Ana sayfa + hakkımızda + ekip sayfaları (JSON içerikle)  | Biz kimiz sorusu cevaplanır           |
-| 3    | Etkinlik listesi, arşiv zaman çizelgesi, etkinlik detayı | 67 etkinlik sitede                    |
-| 4    | Supabase şeması, RLS, seed, giriş, panel iskeleti        | `/giris`, `/panel`                    |
-| 5    | Etkinlik kaydı + QR bilet + yoklama                      | Google Forms yerine site              |
-| 6    | Core team başvuruları                                    | `/katil` + panelde takip              |
-| 7    | Projeler, kaynaklar, duyurular, ekip yönetimi            | İçerik panelden yönetilir             |
-| 8    | SEO, Open Graph görselleri, erişilebilirlik, performans  | Yayına hazır                          |
-| 9    | Alan adı, yayın                                          | Canlı site                            |
+| Adım | İçerik                                                   | Çıktı                       | Durum |
+| ---- | -------------------------------------------------------- | --------------------------- | ----- |
+| 0    | Plan, repo, başlangıç içeriği                            | Bu doküman + `content/`     | ✓     |
+| 1    | Next.js iskeleti, Tailwind, tema token'ları, font, lint  | Boş ama çalışan site        | ✓     |
+| 2    | Ana sayfa + hakkımızda + ekip sayfaları (JSON içerikle)  | Biz kimiz sorusu cevaplanır | ✓     |
+| 3    | Etkinlik listesi, arşiv zaman çizelgesi, etkinlik detayı | 67 etkinlik sitede          | ✓     |
+| 4    | Supabase şeması, RLS, seed, giriş, panel iskeleti        | `/giris`, `/panel`          |       |
+| 5    | Etkinlik kaydı + QR bilet + yoklama                      | Google Forms yerine site    |       |
+| 6    | Core team başvuruları                                    | `/katil` + panelde takip    |       |
+| 7    | Projeler, kaynaklar, duyurular, ekip yönetimi            | İçerik panelden yönetilir   |       |
+| 8    | SEO, Open Graph görselleri, erişilebilirlik, performans  | Yayına hazır                |       |
+| 9    | Alan adı, yayın                                          | Canlı site                  |       |
 
 Her özellik kendi commit'i olarak, her adım ayrı bir branch + PR olarak ilerler.
 
