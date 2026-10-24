@@ -193,6 +193,9 @@
   --animate-float: float 7s ease-in-out infinite;
   --animate-nudge: nudge 1.6s ease-in-out infinite;
   --animate-spin-slow: spin-slow 14s linear infinite;
+  --animate-marquee-slow: marquee 90s linear infinite;
+  --animate-marquee-slow-reverse: marquee 90s linear infinite reverse;
+  --animate-roll: roll 0.55s ease-out;
 
   @keyframes marquee {
     to {
@@ -207,6 +210,11 @@
   @keyframes spin-slow {
     to {
       transform: rotate(360deg);
+    }
+  }
+  @keyframes roll {
+    to {
+      transform: rotate(720deg) scale(1.2);
     }
   }
   @keyframes nudge {
@@ -278,11 +286,21 @@
   opacity: 0;
   translate: 0 28px;
 }
+/* Belirirken zıplayarak gelen nokta (etkinlik zaman çizgisi) */
+.reveal-pop {
+  transition: scale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
+}
+[data-reveal="out"] .reveal-pop {
+  scale: 0;
+}
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal="out"] {
     opacity: 1;
     translate: none;
+  }
+  [data-reveal="out"] .reveal-pop {
+    scale: 1;
   }
 
   *,
