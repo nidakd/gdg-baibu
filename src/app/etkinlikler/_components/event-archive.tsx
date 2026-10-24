@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { Reveal } from "@/components/motion/reveal";
 import type { Tone } from "@/components/ui/button";
 import { focusAreas, inArea, primaryArea } from "@/lib/focus-areas";
 import { formatDate, releaseTag } from "@/lib/format";
@@ -111,46 +112,50 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
             <section key={year} aria-labelledby={`yil-${year}`}>
               <h3
                 id={`yil-${year}`}
-                className="mb-4 inline-flex items-center gap-2 rounded-full border-2 border-border-strong bg-surface px-4 py-1 font-mono text-sm font-bold shadow-sticker-sm"
+                className="sticky top-20 z-10 mb-4 flex items-baseline gap-3 bg-bg/80 py-2 backdrop-blur-sm"
               >
-                {year}
-                <span className="font-normal text-fg-subtle">· {items.length}</span>
+                <span className="text-5xl font-bold tracking-tight text-transparent [-webkit-text-stroke:2px_var(--fg)] sm:text-7xl">
+                  {year}
+                </span>
+                <span className="font-mono text-sm text-fg-subtle">{items.length} etkinlik</span>
               </h3>
               <ol className="relative ml-3 border-l-2 border-dashed border-border-strong">
-                {items.map((e) => {
+                {items.map((e, i) => {
                   const tone = primaryArea(e.tags)?.tone ?? "blue";
                   return (
-                    <li key={e.id} className="relative pl-7">
-                      <span
-                        aria-hidden
-                        className={`absolute top-6 -left-[9px] size-4 rounded-full border-2 border-ink-black ${dot[tone]}`}
-                      />
-                      <Link
-                        href={`/etkinlikler/${e.slug}`}
-                        className="group my-2 flex items-center gap-4 rounded-xl p-3 transition hover:bg-surface"
-                      >
-                        <span className="min-w-0 flex-1">
-                          <span className="block font-mono text-xs text-fg-subtle">
-                            <span className="text-syntax-number">{e.id}</span> ·{" "}
-                            {releaseTag(e.startsAt)} · {formatDate(e.startsAt)}
+                    <li key={e.id}>
+                      <Reveal delay={Math.min(i, 6) * 60} className="relative pl-7">
+                        <span
+                          aria-hidden
+                          className={`reveal-pop absolute top-6 -left-[9px] size-4 rounded-full border-2 border-ink-black ${dot[tone]}`}
+                        />
+                        <Link
+                          href={`/etkinlikler/${e.slug}`}
+                          className="group my-2 flex items-center gap-4 rounded-xl p-3 transition hover:bg-surface"
+                        >
+                          <span className="min-w-0 flex-1">
+                            <span className="block font-mono text-xs text-fg-subtle">
+                              <span className="text-syntax-number">{e.id}</span> ·{" "}
+                              {releaseTag(e.startsAt)} · {formatDate(e.startsAt)}
+                            </span>
+                            <span className="mt-0.5 block font-bold group-hover:underline">
+                              {e.title}
+                            </span>
+                            <span className="block truncate text-sm text-fg-muted">
+                              {e.format === "online" ? "Online" : (e.venue ?? "Yüz yüze")}
+                            </span>
                           </span>
-                          <span className="mt-0.5 block font-bold group-hover:underline">
-                            {e.title}
-                          </span>
-                          <span className="block truncate text-sm text-fg-muted">
-                            {e.format === "online" ? "Online" : (e.venue ?? "Yüz yüze")}
-                          </span>
-                        </span>
-                        {e.coverUrl && (
-                          <Image
-                            src={e.coverUrl}
-                            alt=""
-                            width={64}
-                            height={64}
-                            className="hidden size-16 shrink-0 rounded-lg border-2 border-border-strong object-cover sm:block"
-                          />
-                        )}
-                      </Link>
+                          {e.coverUrl && (
+                            <Image
+                              src={e.coverUrl}
+                              alt=""
+                              width={64}
+                              height={64}
+                              className="hidden size-16 shrink-0 rounded-lg border-2 border-border-strong object-cover transition duration-300 group-hover:scale-150 group-hover:rotate-6 group-hover:shadow-sticker sm:block"
+                            />
+                          )}
+                        </Link>
+                      </Reveal>
                     </li>
                   );
                 })}
