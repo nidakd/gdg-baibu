@@ -6,7 +6,7 @@ export function MarqueeRibbon({ className = "" }: { className?: string }) {
   const row = [...words, ...words, ...words];
   return (
     <div aria-hidden className={`relative z-10 -rotate-2 ${className}`}>
-      <div className="overflow-hidden border-y-[3px] border-ink-black bg-yellow py-3 text-ink-black shadow-sticker">
+      <div className="overflow-hidden border-y-[3px] border-ink-black bg-yellow-halftone py-3 text-ink-black shadow-sticker">
         <div className="flex w-max animate-marquee">
           {[0, 1].map((copy) => (
             <div key={copy} className="flex shrink-0">

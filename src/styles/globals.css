@@ -192,6 +192,7 @@
   --animate-marquee: marquee 28s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-nudge: nudge 1.6s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 14s linear infinite;
 
   @keyframes marquee {
     to {
@@ -201,6 +202,11 @@
   @keyframes float {
     50% {
       translate: 0 -14px;
+    }
+  }
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
     }
   }
   @keyframes nudge {

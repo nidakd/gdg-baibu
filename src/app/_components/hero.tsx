@@ -33,7 +33,7 @@ export function Hero() {
           <h1 className="text-[clamp(2.6rem,5.8vw,5.25rem)] leading-[1.02] font-bold tracking-tight">
             Birlikte <Sticker className="-rotate-2 bg-blue-pastel">öğreniyor,</Sticker>
             <br />
-            birlikte <Sticker className="rotate-1 bg-yellow">üretiyoruz.</Sticker>
+            birlikte <Sticker className="rotate-1 bg-yellow-halftone">üretiyoruz.</Sticker>
           </h1>
 
           <p className="max-w-xl text-lg text-fg-muted sm:text-xl">{site.about.intro}</p>

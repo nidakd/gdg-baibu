@@ -1,16 +1,44 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { Arc, Asterisk, Circles, Slashes } from "./brand-shapes";
 
-// Logodaki dört hap şeklinden türetilmiş dekoratif arka plan öğeleri.
+// Giriş bölümünün arka planı: logodaki hap şekilleri ve marka rehberinin çizgi şekilleri.
 // Logonun kendisi değildir; logo yerine kullanılmaz.
 // Havada süzülür ve fareyi hafifçe takip eder (derinlik: depth).
 
-const pills = [
-  { x: 58, y: 10, r: -35, fill: "var(--brand-red)", w: 170, depth: 18, delay: 0 },
-  { x: 50, y: 70, r: 35, fill: "var(--brand-blue)", w: 220, depth: 30, delay: -2 },
-  { x: 82, y: 4, r: 35, fill: "var(--brand-green)", w: 230, depth: 12, delay: -4 },
-  { x: 86, y: 76, r: -35, fill: "var(--brand-yellow)", w: 160, depth: 24, delay: -1 },
+type Item = {
+  x: number;
+  y: number;
+  depth: number;
+  delay: number;
+  rotate?: number;
+  spin?: boolean;
+  node: ReactNode;
+};
+
+const pill = (fill: string, w: number) => (
+  <span
+    className="block h-14 rounded-full border-[3px] border-ink-black shadow-sticker sm:h-20"
+    style={{ width: w, background: fill }}
+  />
+);
+
+const items: Item[] = [
+  { x: 58, y: 8, depth: 18, delay: 0, rotate: -35, node: pill("var(--brand-red)", 170) },
+  { x: 83, y: 3, depth: 12, delay: -4, rotate: 35, node: pill("var(--brand-green)", 220) },
+  { x: 50, y: 72, depth: 30, delay: -2, rotate: 35, node: pill("var(--brand-blue)", 200) },
+  { x: 92, y: 62, depth: 22, delay: -3, node: <Arc className="h-32 w-auto text-ink-black" /> },
+  { x: 78, y: 82, depth: 16, delay: -1, node: <Circles className="h-12 w-auto text-ink-black" /> },
+  { x: 51, y: 50, depth: 26, delay: -5, node: <Slashes className="h-20 w-auto text-ink-black" /> },
+  {
+    x: 47,
+    y: 30,
+    depth: 10,
+    delay: 0,
+    spin: true,
+    node: <Asterisk className="h-12 w-12 text-fg" />,
+  },
 ];
 
 export function PillShapes({ className = "" }: { className?: string }) {
@@ -40,24 +68,24 @@ export function PillShapes({ className = "" }: { className?: string }) {
       aria-hidden
       className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
     >
-      {pills.map((p) => (
+      {items.map((item, i) => (
         <span
-          key={p.fill}
+          key={i}
           className="absolute transition-transform duration-500 ease-out"
           style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            transform: `translate(calc(var(--px, 0) * ${p.depth}px * -1), calc(var(--py, 0) * ${p.depth}px * -1))`,
+            left: `${item.x}%`,
+            top: `${item.y}%`,
+            transform: `translate(calc(var(--px, 0) * ${item.depth}px * -1), calc(var(--py, 0) * ${item.depth}px * -1))`,
           }}
         >
           <span
-            className="block animate-float"
-            style={{ animationDelay: `${p.delay}s`, rotate: `${p.r}deg` }}
+            className={`block ${item.spin ? "animate-spin-slow" : "animate-float"}`}
+            style={{
+              animationDelay: `${item.delay}s`,
+              rotate: item.rotate ? `${item.rotate}deg` : undefined,
+            }}
           >
-            <span
-              className="block h-14 rounded-full border-[3px] border-ink-black shadow-sticker sm:h-20"
-              style={{ width: p.w, background: p.fill }}
-            />
+            {item.node}
           </span>
         </span>
       ))}
