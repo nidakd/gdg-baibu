@@ -193,8 +193,7 @@
   --animate-float: float 7s ease-in-out infinite;
   --animate-nudge: nudge 1.6s ease-in-out infinite;
   --animate-spin-slow: spin-slow 14s linear infinite;
-  --animate-marquee-slow: marquee 90s linear infinite;
-  --animate-marquee-slow-reverse: marquee 90s linear infinite reverse;
+  --animate-marquee-slow: marquee 120s linear infinite;
   --animate-roll: roll 0.55s ease-out;
 
   @keyframes marquee {
@@ -292,6 +291,37 @@
 }
 [data-reveal="out"] .reveal-pop {
   scale: 0;
+}
+
+/* Scroll'a bağlı çizimler: okuma çubuğu ve etkinlik zaman çizgisinin kendini çizmesi */
+.scroll-progress {
+  display: none;
+}
+@keyframes grow-x {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes grow-y {
+  from {
+    scale: 1 0;
+  }
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      display: block;
+      transform-origin: 0 50%;
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+    .timeline-line {
+      transform-origin: 50% 0;
+      animation: grow-y linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
