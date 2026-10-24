@@ -56,3 +56,13 @@ Logolar topluluğun Drive klasöründeki resmî çizimlerden alındı. Header'da
 (`src/components/brand/logo.tsx`) açık temada `light`, koyu temada `dark` sürümü gösterir.
 
 Yatay logo tercih edilir; yer darsa dikey (stacked) logo kullanılabilir.
+
+## Çizgi şekilleri
+
+Rehberin görsel dili: açık zeminde ince siyah konturlu geometrik şekiller, pastel ve halftone dolgular.
+Sitede `src/components/brand/brand-shapes.tsx` içinde: `Arrow`, `Slashes` (`//`), `Asterisk`,
+`Arc` (yarım halka), `Circles` (üçlü daire), `Globe` ve `Braces` (`{ On Campus }`).
+
+- Şekiller dekoratiftir (`aria-hidden`); içerik taşımaz.
+- Halftone tonlar (`bg-*-halftone`) rakam kartları, şerit ve vurgu çıkartmalarında; koyu yazıyla kullanılır.
+- Pencere kartlarının (terminal) üst çubuğu pastel, üç dairesi halftone renklerde; rehberdeki şablon kartlarından.
