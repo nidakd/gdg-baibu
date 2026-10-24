@@ -3,38 +3,50 @@
     {
       "id": "lead",
       "name": "Yönetim",
-      "description": "Topluluğun yönünü belirler, ekipleri koordine eder ve üniversiteyle iletişimi yürütür.",
-      "tone": "blue"
+      "nameEn": "Organizers",
+      "kind": "leadership",
+      "tone": "blue",
+      "description": "Topluluğun yönünü belirler, ekipleri koordine eder ve üniversiteyle iletişimi yürütür."
     },
     {
       "id": "software",
-      "name": "Yazılım ve Teknik Ekip",
-      "description": "Teknik etkinlikleri ve atölyeleri hazırlar, topluluğun yazılım projelerini yürütür.",
-      "tone": "green"
+      "name": "Yazılım ve Teknik Ekibi",
+      "nameEn": "Software and Technical Team",
+      "kind": "team",
+      "tone": "green",
+      "description": "Teknik etkinlikleri ve atölyeleri hazırlar, topluluğun yazılım projelerini yürütür."
     },
     {
       "id": "design",
       "name": "Tasarım Ekibi",
-      "description": "Afişlerden sosyal medya görsellerine topluluğun görsel kimliğini tasarlar.",
-      "tone": "red"
+      "nameEn": "Design Team",
+      "kind": "team",
+      "tone": "red",
+      "description": "Afişlerden sosyal medya görsellerine topluluğun görsel kimliğini tasarlar."
     },
     {
       "id": "events",
       "name": "Etkinlik ve Organizasyon Ekibi",
-      "description": "Etkinliklerin planlamasını, mekân ve konuşmacı organizasyonunu üstlenir.",
-      "tone": "yellow"
+      "nameEn": "Event and Organization Team",
+      "kind": "team",
+      "tone": "yellow",
+      "description": "Etkinliklerin planlamasını, mekân ve konuşmacı organizasyonunu üstlenir."
     },
     {
       "id": "sponsorship",
-      "name": "Sponsorluk ve İletişim Ekibi",
-      "description": "Sponsor ilişkilerini kurar, diğer topluluklar ve kurumlarla iş birliklerini yürütür.",
-      "tone": "blue"
+      "name": "Sponsorluk Ekibi",
+      "nameEn": "Sponsorship and Communication Team",
+      "kind": "team",
+      "tone": "blue",
+      "description": "Sponsor ilişkilerini kurar, diğer topluluklar ve kurumlarla iş birliklerini yürütür."
     },
     {
       "id": "social",
       "name": "Sosyal Medya Ekibi",
-      "description": "Instagram ve LinkedIn hesaplarını yönetir, duyuruları ve etkinlik içeriklerini paylaşır.",
-      "tone": "green"
+      "nameEn": "Social Media Team",
+      "kind": "team",
+      "tone": "green",
+      "description": "Instagram ve LinkedIn hesaplarını yönetir, duyuruları ve etkinlik içeriklerini paylaşır."
     }
   ],
   "members": [

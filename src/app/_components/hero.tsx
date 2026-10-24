@@ -2,14 +2,17 @@ import type { ReactNode } from "react";
 import { PillShapes } from "@/components/brand/pill-shapes";
 import { ButtonLink } from "@/components/ui/button";
 import { TypingTerminal, type TerminalLine } from "@/components/ui/typing-terminal";
-import { getEvents, getMembers, getSite, getTeams } from "@/lib/content";
+import { getEvents, getMembers, getSite, getWorkingTeams } from "@/lib/content";
 
 export function Hero() {
   const site = getSite();
   const events = getEvents();
   const lines: TerminalLine[] = [
     { kind: "command", text: "gdg init --campus aibu" },
-    { kind: "ok", text: `${getMembers().length} core team üyesi, ${getTeams().length} ekip` },
+    {
+      kind: "ok",
+      text: `${getMembers().length} core team üyesi, ${getWorkingTeams().length} ekip`,
+    },
     { kind: "ok", text: `${events.length} etkinlik arşivde` },
     { kind: "info", text: `son etkinlik: "${events[0]?.title}"` },
     { kind: "command", text: "gdg join --you" },

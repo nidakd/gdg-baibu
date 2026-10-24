@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { MemberCard } from "@/components/team/member-card";
 import { ButtonLink } from "@/components/ui/button";
-import { getMembers, getMembersByTeam, getSite, getTeams } from "@/lib/content";
+import { getMembers, getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Ekip",
@@ -18,8 +18,8 @@ export default function TeamPage() {
         <p className="font-mono text-sm text-fg-subtle">{"// contributors.json"}</p>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Ekibimiz</h1>
         <p className="text-lg text-fg-muted">
-          {getMembers().length} kişi, {teams.length} ekip. Etkinlikleri planlayan, afişleri
-          tasarlayan, atölyeleri hazırlayan ve sponsorları bulan insanlar.
+          {getMembers().length} kişi, {getWorkingTeams().length} ekip. Etkinlikleri planlayan,
+          afişleri tasarlayan, atölyeleri hazırlayan ve sponsorları bulan insanlar.
         </p>
       </header>
 
@@ -51,6 +51,7 @@ export default function TeamPage() {
             <section key={team.id} id={team.id} className="scroll-mt-24">
               <div className="mb-5 space-y-1">
                 <h2 className="text-2xl font-bold">{team.name}</h2>
+                <p className="font-mono text-xs text-fg-subtle">{team.nameEn}</p>
                 <p className="text-fg-muted">{team.description}</p>
               </div>
               <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

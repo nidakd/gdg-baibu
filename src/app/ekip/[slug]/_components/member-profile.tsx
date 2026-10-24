@@ -54,7 +54,7 @@ export async function MemberProfile({ params }: Pick<PageProps<"/ekip/[slug]">, 
               {"{\n"}
               <JsonLine name="name" value={member.name} />
               <JsonLine name="role" value={member.role} />
-              <JsonLine name="team" value={member.team.name} />
+              <JsonLine name="team" value={member.team.nameEn} />
               <JsonLine name="teammates" value={teammates.length} last />
               {"}"}
             </code>

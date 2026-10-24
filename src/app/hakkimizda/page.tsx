@@ -7,7 +7,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
 import { WaveBand } from "@/components/ui/wave-band";
-import { getMembersByTeam, getSite, getTeams } from "@/lib/content";
+import { getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
 import { formatMonth } from "@/lib/format";
 import { getEventsPerYear, getSeries } from "@/lib/insights";
 
@@ -81,7 +81,7 @@ export default function AboutPage() {
 
       <Section
         label="03 — ekipler"
-        title="Core team altı ekipten oluşuyor"
+        title={`Core team yönetim ve ${getWorkingTeams().length} ekipten oluşuyor`}
         action={
           <ButtonLink href="/ekip" tone="green">
             Ekibi tanı
@@ -98,6 +98,7 @@ export default function AboutPage() {
                     team/{team.id}/ · {members.length} kişi
                   </p>
                   <h3 className="text-xl font-bold">{team.name}</h3>
+                  <p className="-mt-2 font-mono text-xs text-fg-subtle">{team.nameEn}</p>
                   <p className="text-fg-muted">{team.description}</p>
                   <Link
                     href={`/ekip#${team.id}`}
