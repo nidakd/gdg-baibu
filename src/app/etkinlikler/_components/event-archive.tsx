@@ -119,7 +119,11 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
                 </span>
                 <span className="font-mono text-sm text-fg-subtle">{items.length} etkinlik</span>
               </h3>
-              <ol className="relative ml-3 border-l-2 border-dashed border-border-strong">
+              <ol className="relative ml-3 border-l-2 border-dashed border-border">
+                <span
+                  aria-hidden
+                  className="timeline-line absolute top-0 -left-[2px] h-full w-[2px] bg-fg"
+                />
                 {items.map((e, i) => {
                   const tone = primaryArea(e.tags)?.tone ?? "blue";
                   return (
