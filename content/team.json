@@ -55,8 +55,10 @@
       "role": "Organizer",
       "team": "lead",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/bar%C4%B1%C5%9F_ceylan_94c3a13a.jpg",
-      "bio": null,
+      "bio": "Elektrik-Elektronik Mühendisliği bölümünde öğrenim görüyorum. 2025'ten beri bu toplulukta önce Etkinlik ve Organizasyon Ekibi üyesi, sonrasında Sponsorluk ve İletişim Ekibi koordinatörü olarak bulundum; şimdi ise Organizatör olarak görev alıyorum. İnsanlarla birlikte etkinliklerde bulunmayı, network edinmeyi ve sektörün farklı yüzlerini görmeyi seviyorum. Sanatla ve sporla sürekli iç içe biri olarak ilgi alanlarımı birleştirmek ve çok yönlü olmak başlıca hedeflerim.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/bar%C4%B1%C5%9F-ceylan-05413b352",
+        "instagram": "https://www.instagram.com/baris_ceylan123",
         "gdgCommunity": "https://gdg.community.dev/u/m95ysf/"
       },
       "order": 1
@@ -66,8 +68,9 @@
       "role": "Co-Organizer",
       "team": "lead",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/eyl%C3%BCl_ecem_ka%C3%A7maz.jpg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Geçen dönem Etkinlik ve Organizasyon Ekibi üyesi, ardından koordinatörü oldum; bu dönem ise Co-Organizer olarak görev alıyorum. Özellikle donanımla ilgileniyorum. Kendimi geliştirmeyi ve yeni insanlarla tanışmayı seviyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/eyl%C3%BCl-ecem-ka%C3%A7maz-045022382",
         "gdgCommunity": "https://gdg.community.dev/u/mckpb8/"
       },
       "order": 2
@@ -91,8 +94,10 @@
       "role": "Koordinatör",
       "team": "software",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/kadir_kerem_y%C4%B1ld%C4%B1r%C4%B1m_VOgHYto.jpg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. GDG on Campus AİBÜ'deki 2. yılımda Yazılım ve Teknik Ekibi liderliğini üstleniyorum. Hızla gelişen teknolojiyi kullanmayı ve geliştirmeyi seviyorum. Programlama, 3D tasarım ve elektronik donanımlar ilgi alanımda. İnsanlarla yeni şeyler üretmek ve birlikte ilerlemek asıl hedefim.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/kadir-kerem-yildirim",
+        "github": "https://github.com/kadomanx",
         "gdgCommunity": "https://gdg.community.dev/u/m8zma7/"
       },
       "order": 4
@@ -102,8 +107,11 @@
       "role": "Koordinatör",
       "team": "design",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/ege_koyuncu_vb6ZMTf.jpg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. GDG on Campus AİBÜ'de Tasarım Ekibi koordinatörüyüm. Kendimi yeni fikirler üretmek ve bu fikirleri farklı insanlarla paylaşıp geliştirmek konusunda yetkin görüyorum. Web programlama, uygulama geliştirme ve tasarım konularıyla ilgiliyim ve kendimi bu alanlarda daha fazla geliştirmeye istekliyim. Bu dönem ekip arkadaşlarımla hem keyifli vakit geçirmeyi hem de sosyal ve teknik anlamda birbirimizi geliştirmeyi umuyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/ege-arda-koyuncu-489b3b2bb",
+        "github": "https://github.com/EAKoyuncu",
+        "instagram": "https://www.instagram.com/_sitinnoege",
         "gdgCommunity": "https://gdg.community.dev/u/mgyh66/"
       },
       "order": 5
@@ -113,8 +121,10 @@
       "role": "Ekip Üyesi",
       "team": "software",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/bu%C4%9Fra_karayel_8572c35a.jpeg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Bilgisayar Mühendisliği 1. sınıf öğrencisiyim. Fizik, bilgisayar ve uzay teknolojilerine ilgi duyuyorum; aynı zamanda kendimi bu alanlarda ve programlamada geliştirmeyi seviyorum. GDG on Campus AİBÜ'de Yazılım ve Teknik Ekibi'ndeyim.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/bu%C4%9Fra-karayel-b3b058437",
+        "github": "https://github.com/BugraKarayel",
         "gdgCommunity": "https://gdg.community.dev/u/m4y5u3/"
       },
       "order": 6
@@ -124,8 +134,9 @@
       "role": "Ekip Üyesi",
       "team": "events",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/nehir_dede_6a7c18f6.jpeg",
-      "bio": null,
+      "bio": "Elektrik-Elektronik Mühendisliği 1. sınıf öğrencisiyim. GDG on Campus AİBÜ'de Etkinlik ve Organizasyon Ekibi'ndeyim. Kendimi geliştirmeyi ve insanlarla iletişim kurmayı seviyorum. GDG on Campus AİBÜ'de farklı tecrübeler kazanıyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/nehir-dede-67219a436",
         "gdgCommunity": "https://gdg.community.dev/u/my4334/"
       },
       "order": 7
@@ -135,8 +146,10 @@
       "role": "Koordinatör",
       "team": "events",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/irem_gen%C3%A7_b832467b.jpg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Kimya Mühendisliği 4. sınıf öğrencisiyim. Etkinlik yönetimi ve organizasyon planlaması konularına ilgi duyuyor, kendimi farklı alanlarda geliştirmeyi seviyorum. GDG on Campus AİBÜ'de Etkinlik ve Organizasyon Koordinatörü olarak görev alıyor, ekip yönetimi ve süreç takibi alanlarında deneyim kazanıyorum. Yaratıcı fikirler üretmeyi, ekip çalışmalarında yer almayı ve öğrendiklerimi pratiğe dökerek kendimi geliştirmeyi önemsiyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/irem-gen%C3%A7",
+        "instagram": "https://www.instagram.com/ggenc_irem",
         "gdgCommunity": "https://gdg.community.dev/u/m95b48/"
       },
       "order": 8
@@ -146,8 +159,10 @@
       "role": "Ekip Üyesi",
       "team": "design",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/r%C3%BCya_durgun_52b5a257.jpeg",
-      "bio": null,
+      "bio": "Matematik (İngilizce) 2. sınıf öğrencisiyim. GDG on Campus AİBÜ'de Tasarım Ekibi üyesi olarak yer alıyorum. Tasarım yapmayı ve ortaya yeni şeyler çıkarmayı seviyorum. Farklı alanlarda insanlarla tanışmayı, birlikte üretmeyi ve yeni deneyimler kazanmayı önemsiyorum. Kendimi hem akademik hem de sosyal açıdan geliştirmeye değer veriyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/r%C3%BCya-durgun-ab3b22316",
+        "instagram": "https://www.instagram.com/hopensunshine",
         "gdgCommunity": "https://gdg.community.dev/u/m4p5fq/"
       },
       "order": 9
@@ -157,8 +172,9 @@
       "role": "Ekip Üyesi",
       "team": "software",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/sudenur_gedik_e2f318ed.jpeg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Makine Mühendisliği 2. sınıf öğrencisiyim. Eylül 2026'da GDG on Campus AİBÜ'de Yazılım ve Teknik Ekibi'ne katıldım. Mekanik parçaları incelemekten ve SolidWorks'te parça çizimleri yapmaktan keyif alıyorum; bu konuda kendimi aktif olarak geliştiriyorum. Aynı zamanda İngilizcemi geliştirmeye çalışıyorum. Akademik ve sosyal anlamda kendimi geliştirmekten hoşlanıyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/sude-nur-gedik-2b0303376",
         "gdgCommunity": "https://gdg.community.dev/u/mr9ejm/"
       },
       "order": 10
@@ -168,8 +184,9 @@
       "role": "Ekip Üyesi",
       "team": "sponsorship",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/sude_dada%C5%9F_a0f4c833.jpeg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi İngiliz Dili ve Edebiyatı 1. sınıf öğrencisiyim. Spor, yabancı diller ve müzik alanlarına ilgi duyuyor; dijital pazarlama, uluslararası ticaret ve satış alanlarında kendimi geliştirmeyi hedefliyorum. GDG on Campus AİBÜ'de İletişim ve Sponsorluk Ekibi'nde görev alarak farklı alanlardaki insanlarla bağlantı kuruyor, konuşma ve iletişim becerilerimi geliştiriyorum. Gelecek kariyerimde hedeflediğim bu yolda bir ekip çalışması içinde yer almaktan mutluluk duyuyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/sudenaz-dada%C5%9F-b6bb75441",
         "gdgCommunity": "https://gdg.community.dev/u/m6pekx/"
       },
       "order": 11
@@ -179,8 +196,9 @@
       "role": "Koordinatör",
       "team": "sponsorship",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/%C5%9Fevval_aslan_419ea418.jpeg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Kimya Mühendisliği 1. sınıf öğrencisiyim. Bu sene GDG on Campus AİBÜ'de Sponsorluk ve İletişim Koordinatörüyüm. Toplulukta ilk senem; katılma sebebim network edinmek, yapay zekâ ve yazılım hakkında bilgi sahibi olmak. Kendimi geliştirmeyi ve yeni şeyler öğrenmeyi seviyorum.",
       "links": {
+        "instagram": "https://www.instagram.com/sevvall_asln7",
         "gdgCommunity": "https://gdg.community.dev/u/mrp2zf/"
       },
       "order": 12
@@ -190,19 +208,22 @@
       "role": "Ekip Üyesi",
       "team": "sponsorship",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/berra_polat_6dfa2beb.jpg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi İngiliz Dili ve Edebiyatı 1. sınıf öğrencisiyim. Yabancı diller, edebiyat ve farklı kültürleri incelemeye ilgi duyuyor; lojistik, dış ticaret ve operasyon yönetimi alanlarında kendimi geliştirmeyi hedefliyorum. GDG on Campus AİBÜ'de İletişim ve Sponsorluk Ekibi'nde görev alarak farklı disiplinlerden insanlarla iletişim kuruyor, çok yönlü bir bakış açısı kazanıyorum. Gelecekte bu birikimimi daha büyük projelere taşımayı sabırsızlıkla bekliyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/berra-polat-01350a376",
         "gdgCommunity": "https://gdg.community.dev/u/m5qy27/"
       },
       "order": 13
     },
     {
-      "name": "Gamze Hatipoğlu",
+      "name": "Gamze Ayşe Hatipoğlu",
       "role": "Koordinatör",
       "team": "social",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/gamze_hatipo%C4%9Flu_6e345d4f.jpeg",
-      "bio": null,
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Endüstri Mühendisliği 2. sınıf öğrencisiyim. Analitik düşünme, problem çözme ve yeni şeyler öğrenme konularına ilgi duyuyor, kendimi farklı alanlarda geliştirmeyi seviyorum. GDG on Campus AİBÜ'de Sosyal Medya Koordinatörü olarak görev alıyor, içerik üretimi ve dijital iletişim alanlarında deneyim kazanıyorum. Yaratıcı fikirler üretmeyi, ekip çalışmalarında yer almayı ve öğrendiklerimi pratiğe dökerek kendimi geliştirmeyi önemsiyorum.",
       "links": {
+        "linkedin": "https://www.linkedin.com/in/gamze-hatipo%C4%9Flu-344789396",
+        "instagram": "https://www.instagram.com/gamzehaatipoglu",
         "gdgCommunity": "https://gdg.community.dev/u/mcac6u/"
       },
       "order": 14
