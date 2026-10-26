@@ -7,6 +7,8 @@ const tones: Record<Tone, string> = {
   green: "bg-green-halftone",
   yellow: "bg-yellow-halftone",
   red: "bg-red-halftone",
+  lilac: "bg-lilac-halftone",
+  silver: "bg-silver-halftone",
 };
 
 export function StatsGrid() {

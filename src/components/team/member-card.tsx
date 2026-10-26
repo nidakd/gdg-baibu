@@ -10,6 +10,8 @@ const tones: Record<Tone, { card: string; ring: string }> = {
   green: { card: "bg-green-soft", ring: "ring-offset-green-soft group-hover:ring-green" },
   yellow: { card: "bg-yellow-soft", ring: "ring-offset-yellow-soft group-hover:ring-yellow" },
   red: { card: "bg-red-soft", ring: "ring-offset-red-soft group-hover:ring-red" },
+  lilac: { card: "bg-lilac-soft", ring: "ring-offset-lilac-soft group-hover:ring-lilac" },
+  silver: { card: "bg-silver-soft", ring: "ring-offset-silver-soft group-hover:ring-silver" },
 };
 
 /** Tanıtım yazısının ilk cümlesi; kartta iki satırlık önizleme olarak görünür. */

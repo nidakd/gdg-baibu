@@ -9,6 +9,8 @@ const bars: Record<Tone, string> = {
   green: "bg-green-soft",
   yellow: "bg-yellow-soft",
   red: "bg-red-soft",
+  lilac: "bg-lilac-soft",
+  silver: "bg-silver-soft",
 };
 
 type WindowProps = {

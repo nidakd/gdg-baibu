@@ -10,6 +10,8 @@ const dot: Record<Tone, string> = {
   green: "bg-green",
   yellow: "bg-yellow",
   red: "bg-red",
+  lilac: "bg-lilac",
+  silver: "bg-silver",
 };
 
 /** `team/` klasör ağacı; kaydırırken ekranda olan ekibi işaretler. */

@@ -8,6 +8,8 @@ const fills: Record<Tone, string> = {
   green: "var(--green-soft)",
   yellow: "var(--yellow-soft)",
   red: "var(--red-soft)",
+  lilac: "var(--lilac-soft)",
+  silver: "var(--silver-soft)",
 };
 
 const wave =

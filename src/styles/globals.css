@@ -42,6 +42,13 @@
   --brand-red-pastel: #f8d8d8;
   --brand-off-white: #f0f0f0;
   --brand-black: #1e1e1e;
+  /* Rehberde olmayan ama ekip renkleri için eklenen tonlar: eflatun ve gümüş (docs/BRAND.md) */
+  --brand-lilac: #a58cf5;
+  --brand-lilac-halftone: #c4b1ff;
+  --brand-lilac-pastel: #e7defc;
+  --brand-silver: #9aa0a6;
+  --brand-silver-halftone: #bdc1c6;
+  --brand-silver-pastel: #e8eaed;
 
   /* Açık tema */
   --bg: var(--brand-off-white);
@@ -57,11 +64,15 @@
   --green-ink: #137333;
   --yellow-ink: #9a5000;
   --red-ink: #c5221f;
+  --lilac-ink: #6f4fc2;
+  --silver-ink: #5f6368;
 
   --blue-soft: var(--brand-blue-pastel);
   --green-soft: var(--brand-green-pastel);
   --yellow-soft: var(--brand-yellow-pastel);
   --red-soft: var(--brand-red-pastel);
+  --lilac-soft: var(--brand-lilac-pastel);
+  --silver-soft: var(--brand-silver-pastel);
 
   --selection: var(--brand-blue-pastel);
 
@@ -87,11 +98,15 @@
     --green-ink: var(--brand-green-halftone);
     --yellow-ink: var(--brand-yellow-halftone);
     --red-ink: var(--brand-red-halftone);
+    --lilac-ink: var(--brand-lilac-halftone);
+    --silver-ink: var(--brand-silver-halftone);
 
     --blue-soft: #1d3047;
     --green-soft: #1d3a24;
     --yellow-soft: #3d3216;
     --red-soft: #45252a;
+    --lilac-soft: #2c2540;
+    --silver-soft: #2e3033;
 
     --selection: #1d3047;
 
@@ -116,11 +131,15 @@
   --green-ink: var(--brand-green-halftone);
   --yellow-ink: var(--brand-yellow-halftone);
   --red-ink: var(--brand-red-halftone);
+  --lilac-ink: var(--brand-lilac-halftone);
+  --silver-ink: var(--brand-silver-halftone);
 
   --blue-soft: #1d3047;
   --green-soft: #1d3a24;
   --yellow-soft: #3d3216;
   --red-soft: #45252a;
+  --lilac-soft: #2c2540;
+  --silver-soft: #2e3033;
 
   --selection: #1d3047;
 
@@ -150,6 +169,12 @@
   --color-green-pastel: var(--brand-green-pastel);
   --color-yellow-pastel: var(--brand-yellow-pastel);
   --color-red-pastel: var(--brand-red-pastel);
+  --color-lilac: var(--brand-lilac);
+  --color-lilac-halftone: var(--brand-lilac-halftone);
+  --color-lilac-pastel: var(--brand-lilac-pastel);
+  --color-silver: var(--brand-silver);
+  --color-silver-halftone: var(--brand-silver-halftone);
+  --color-silver-pastel: var(--brand-silver-pastel);
   --color-off-white: var(--brand-off-white);
   --color-sticker-shadow: var(--sticker-shadow);
   --color-ink-black: var(--brand-black);
@@ -158,10 +183,14 @@
   --color-green-ink: var(--green-ink);
   --color-yellow-ink: var(--yellow-ink);
   --color-red-ink: var(--red-ink);
+  --color-lilac-ink: var(--lilac-ink);
+  --color-silver-ink: var(--silver-ink);
   --color-blue-soft: var(--blue-soft);
   --color-green-soft: var(--green-soft);
   --color-yellow-soft: var(--yellow-soft);
   --color-red-soft: var(--red-soft);
+  --color-lilac-soft: var(--lilac-soft);
+  --color-silver-soft: var(--silver-soft);
 
   /* Kod görünümleri için sözdizimi renkleri */
   --color-syntax-keyword: var(--blue-ink);
@@ -180,6 +209,8 @@
   --shadow-sticker-sm: 2px 2px 0 0 var(--sticker-shadow);
   --shadow-sticker-lg: 6px 6px 0 0 var(--sticker-shadow);
   --container-content: 72rem;
+  /* Kart yoğun sayfalar (ekip) için daha geniş içerik alanı */
+  --container-wide: 84rem;
 
   --animate-blink: blink 1.1s steps(1) infinite;
 

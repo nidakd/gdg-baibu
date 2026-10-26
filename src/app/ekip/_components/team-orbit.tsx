@@ -14,6 +14,8 @@ const ring: Record<Tone, string> = {
   green: "ring-green",
   yellow: "ring-yellow",
   red: "ring-red",
+  lilac: "ring-lilac",
+  silver: "ring-silver",
 };
 
 type Orbit = {
