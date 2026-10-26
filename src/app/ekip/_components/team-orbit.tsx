@@ -34,20 +34,20 @@ export function TeamOrbit({ members }: { members: Member[] }) {
   const rest = members.filter((m) => !leaders.includes(m) && !coordinators.includes(m));
 
   const orbits: Orbit[] = [
-    { members: leaders, diameter: 40, avatar: 14, duration: "50s", offset: -90 },
+    { members: leaders, diameter: 38, avatar: 11.5, duration: "50s", offset: -90 },
     {
       members: coordinators,
-      diameter: 63,
-      avatar: 12,
+      diameter: 66,
+      avatar: 10,
       duration: "70s",
       reverse: true,
       offset: -54,
     },
-    { members: rest, diameter: 84, avatar: 10.5, duration: "95s", offset: -60 },
+    { members: rest, diameter: 92, avatar: 9, duration: "95s", offset: -60 },
   ];
 
   return (
-    <div className="orbit @container relative mx-auto aspect-square w-full max-w-[30rem]">
+    <div className="orbit @container relative mx-auto aspect-square w-full max-w-[34rem]">
       {orbits.map((o) => (
         <div
           key={o.diameter}
@@ -57,7 +57,7 @@ export function TeamOrbit({ members }: { members: Member[] }) {
         />
       ))}
 
-      <span className="absolute top-1/2 left-1/2 grid size-[20cqw] -translate-1/2 place-items-center rounded-full border-2 border-border-strong bg-surface shadow-sticker">
+      <span className="absolute top-1/2 left-1/2 grid size-[16cqw] -translate-1/2 place-items-center rounded-full border-2 border-border-strong bg-surface shadow-sticker">
         <Image src={mark} alt="" className="w-[62%]" />
       </span>
 
