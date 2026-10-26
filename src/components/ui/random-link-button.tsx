@@ -3,8 +3,14 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-/** Arşivden rastgele bir etkinliğe götüren zar butonu. */
-export function RandomEventButton({ slugs }: { slugs: string[] }) {
+type RandomLinkButtonProps = {
+  /** Aralarından rastgele birine gidilecek adresler */
+  hrefs: string[];
+  label: string;
+};
+
+/** Zar atıp listeden rastgele bir sayfaya götüren buton (rastgele etkinlik, rastgele üye). */
+export function RandomLinkButton({ hrefs, label }: RandomLinkButtonProps) {
   const router = useRouter();
   // rolling: zar animasyonu, isPending: sayfa geçişi sürüyor.
   // Geçiş bitince isPending kendiliğinden false olur; geri gelindiğinde buton takılı kalmaz.
@@ -13,11 +19,11 @@ export function RandomEventButton({ slugs }: { slugs: string[] }) {
   const busy = rolling || isPending;
 
   function roll() {
-    if (busy || slugs.length === 0) return;
+    if (busy || hrefs.length === 0) return;
     setRolling(true);
-    const slug = slugs[Math.floor(Math.random() * slugs.length)];
+    const href = hrefs[Math.floor(Math.random() * hrefs.length)];
     setTimeout(() => {
-      startTransition(() => router.push(`/etkinlikler/${slug}`));
+      startTransition(() => router.push(href));
       setRolling(false);
     }, 550);
   }
@@ -32,7 +38,7 @@ export function RandomEventButton({ slugs }: { slugs: string[] }) {
       <span aria-hidden className={`inline-block text-lg ${rolling ? "animate-roll" : ""}`}>
         🎲
       </span>
-      {busy ? "Zar atılıyor…" : "Rastgele bir etkinlik"}
+      {busy ? "Zar atılıyor…" : label}
     </button>
   );
 }

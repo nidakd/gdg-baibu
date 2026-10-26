@@ -5,6 +5,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { RandomLinkButton } from "@/components/ui/random-link-button";
 import { Section } from "@/components/ui/section";
 import { TypingTerminal } from "@/components/ui/typing-terminal";
 import { WaveBand } from "@/components/ui/wave-band";
@@ -13,7 +14,6 @@ import { getEventTimeline } from "@/lib/events";
 import { EventArchive, type ArchiveEvent } from "./_components/event-archive";
 import { FeaturedRelease } from "./_components/featured-release";
 import { PosterWall } from "./_components/poster-wall";
-import { RandomEventButton } from "./_components/random-event-button";
 
 export const metadata: Metadata = {
   title: "Etkinlikler",
@@ -78,7 +78,10 @@ export default async function EventsPage() {
             <ButtonLink href="#arsiv" tone="blue">
               Arşive göz at
             </ButtonLink>
-            <RandomEventButton slugs={past.map((e) => e.slug)} />
+            <RandomLinkButton
+              hrefs={past.map((e) => `/etkinlikler/${e.slug}`)}
+              label="Rastgele bir etkinlik"
+            />
           </div>
         </div>
         {past[0] && <FeaturedRelease event={past[0]} />}
