@@ -1,12 +1,32 @@
 // Bölüm geçişi: eğik duran, sonsuz kayan bir şerit.
 
-const words = ["BUILD", "LEARN", "SHIP", "#GDGOnCampus", "AİBÜ"];
+const defaultWords = ["BUILD", "LEARN", "SHIP", "#GDGOnCampus", "AİBÜ"];
 
-export function MarqueeRibbon({ className = "" }: { className?: string }) {
-  const row = [...words, ...words, ...words];
+type MarqueeRibbonProps = {
+  words?: string[];
+  /** Şeridin zemin rengi (halftone tonlar önerilir) */
+  colorClass?: string;
+  /** Eğim yönü */
+  tilt?: "left" | "right";
+  className?: string;
+};
+
+export function MarqueeRibbon({
+  words = defaultWords,
+  colorClass = "bg-yellow-halftone",
+  tilt = "left",
+  className = "",
+}: MarqueeRibbonProps) {
+  // Kısa listeler de ekranı doldursun diye kelimeler en az ~15 olana kadar tekrarlanır
+  const row = Array.from({ length: Math.ceil(15 / words.length) }, () => words).flat();
   return (
-    <div aria-hidden className={`relative z-10 -rotate-2 ${className}`}>
-      <div className="overflow-hidden border-y-[3px] border-ink-black bg-yellow-halftone py-3 text-ink-black shadow-sticker">
+    <div
+      aria-hidden
+      className={`relative z-10 ${tilt === "left" ? "-rotate-2" : "rotate-2"} ${className}`}
+    >
+      <div
+        className={`overflow-hidden border-y-[3px] border-ink-black py-3 text-ink-black shadow-sticker ${colorClass}`}
+      >
         <div className="flex w-max animate-marquee">
           {[0, 1].map((copy) => (
             <div key={copy} className="flex shrink-0">
