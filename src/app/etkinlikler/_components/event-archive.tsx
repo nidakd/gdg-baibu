@@ -107,40 +107,53 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
           <span className="text-red-ink">0 sonuç.</span> Filtreleri gevşetmeyi dene.
         </p>
       ) : (
-        <div className="mt-10 space-y-12">
+        <div className="mt-10 space-y-10">
           {years.map(([year, items]) => (
-            <section key={year} aria-labelledby={`yil-${year}`}>
+            <section
+              key={year}
+              aria-labelledby={`yil-${year}`}
+              className="overflow-clip rounded-card border-2 border-border-strong bg-surface shadow-sticker"
+            >
               <h3
                 id={`yil-${year}`}
-                className="sticky top-20 z-10 mb-4 flex items-baseline gap-3 bg-bg/80 py-2 backdrop-blur-sm"
+                className="sticky top-16 z-10 flex items-center justify-between gap-3 border-b-2 border-border-strong bg-blue-soft px-4 py-2.5 font-mono text-sm"
               >
-                <span className="text-5xl font-bold tracking-tight text-transparent [-webkit-text-stroke:2px_var(--fg)] sm:text-7xl">
-                  {year}
+                <span className="flex items-center gap-3">
+                  <span aria-hidden className="flex gap-1.5">
+                    <span className="size-3 rounded-full border-[1.5px] border-ink-black bg-red-halftone" />
+                    <span className="size-3 rounded-full border-[1.5px] border-ink-black bg-yellow-halftone" />
+                    <span className="size-3 rounded-full border-[1.5px] border-ink-black bg-green-halftone" />
+                  </span>
+                  <span className="font-bold">~/etkinlikler/{year}</span>
                 </span>
-                <span className="font-mono text-sm text-fg-subtle">{items.length} etkinlik</span>
+                <span className="text-fg-subtle">{items.length} etkinlik</span>
               </h3>
-              <ol className="relative ml-3 border-l-2 border-dashed border-border">
+              <ol className="relative py-2">
                 <span
                   aria-hidden
-                  className="timeline-line absolute top-0 -left-[2px] h-full w-[2px] bg-fg"
+                  className="absolute top-0 bottom-0 left-[1.6rem] w-0.5 bg-border"
+                />
+                <span
+                  aria-hidden
+                  className="timeline-line absolute top-0 bottom-0 left-[1.6rem] w-0.5 bg-fg"
                 />
                 {items.map((e, i) => {
                   const tone = primaryArea(e.tags)?.tone ?? "blue";
                   return (
                     <li key={e.id}>
-                      <Reveal delay={Math.min(i, 6) * 60} className="relative pl-7">
-                        <span
-                          aria-hidden
-                          className={`reveal-pop absolute top-6 -left-[9px] size-4 rounded-full border-2 border-ink-black ${dot[tone]}`}
-                        />
+                      <Reveal delay={Math.min(i, 6) * 50}>
                         <Link
                           href={`/etkinlikler/${e.slug}`}
-                          className="group my-2 flex items-center gap-4 rounded-xl p-3 transition hover:bg-surface"
+                          className="group relative flex items-center gap-4 py-3 pr-4 pl-14 transition hover:bg-surface-2"
                         >
+                          <span
+                            aria-hidden
+                            className={`reveal-pop absolute left-[1.15rem] size-4 rounded-full border-2 border-ink-black ${dot[tone]}`}
+                          />
                           <span className="min-w-0 flex-1">
                             <span className="block font-mono text-xs text-fg-subtle">
-                              <span className="text-syntax-number">{e.id}</span> ·{" "}
-                              {releaseTag(e.startsAt)} · {formatDate(e.startsAt)}
+                              <span className="text-green-ink">{releaseTag(e.startsAt)}</span> ·{" "}
+                              {formatDate(e.startsAt)}
                             </span>
                             <span className="mt-0.5 block font-bold group-hover:underline">
                               {e.title}
@@ -153,9 +166,9 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
                             <Image
                               src={e.coverUrl}
                               alt=""
-                              width={64}
-                              height={64}
-                              className="hidden size-16 shrink-0 rounded-lg border-2 border-border-strong object-cover transition duration-300 group-hover:scale-150 group-hover:rotate-6 group-hover:shadow-sticker sm:block"
+                              width={56}
+                              height={56}
+                              className="hidden size-14 shrink-0 rounded-lg border-2 border-border-strong object-cover transition duration-300 group-hover:scale-110 sm:block"
                             />
                           )}
                         </Link>
