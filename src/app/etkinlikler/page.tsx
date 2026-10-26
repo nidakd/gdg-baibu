@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ReleaseCard } from "@/components/events/release-card";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
-import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { RandomLinkButton } from "@/components/ui/random-link-button";
@@ -51,8 +50,6 @@ export default async function EventsPage() {
 
   return (
     <>
-      <ScrollProgress />
-
       <section className="mx-auto grid max-w-content gap-14 px-4 pt-12 pb-10 sm:px-6 md:pt-20 lg:grid-cols-[1.15fr_1fr] lg:items-center">
         <div className="space-y-7">
           <p className="font-mono text-sm text-fg-subtle">{"// releases"}</p>

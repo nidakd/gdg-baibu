@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { getSite } from "@/lib/content";
 import { googleSans, googleSansCode } from "@/styles/fonts";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           İçeriğe geç
         </a>
         <SiteHeader />
+        <ScrollProgress />
         <main id="icerik" className="flex-1">
           {children}
         </main>
