@@ -2,7 +2,7 @@
 // Elle sayı yazmak yerine hepsi content/events.json'dan hesaplanır.
 
 import type { Tone } from "@/components/ui/button";
-import { getEvents, getMembers, getSite, type Event } from "./content";
+import { getEvents, getMembers, getSite, type Event, type Member } from "./content";
 import { focusAreas, inArea } from "./focus-areas";
 
 export type Stat = { value: number; label: string; tone: Tone };
@@ -84,4 +84,18 @@ export function getEventsPerYear(): { year: string; count: number }[] {
   return [...counts.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([year, count]) => ({ year, count }));
+}
+
+export type Department = { name: string; members: Member[] };
+
+/** Core team'in bölümlere göre dağılımı, en kalabalık bölümden başlayarak. */
+export function getDepartments(): Department[] {
+  const groups = new Map<string, Member[]>();
+  for (const m of getMembers()) {
+    if (!m.department) continue;
+    groups.set(m.department, [...(groups.get(m.department) ?? []), m]);
+  }
+  return [...groups.entries()]
+    .map(([name, members]) => ({ name, members }))
+    .sort((a, b) => b.members.length - a.members.length || a.name.localeCompare(b.name, "tr"));
 }

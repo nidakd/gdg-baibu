@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import type { Tone } from "@/components/ui/button";
+import { Window } from "@/components/ui/window";
 import { focusAreas, inArea, primaryArea } from "@/lib/focus-areas";
 import { formatDate, releaseTag } from "@/lib/format";
 
@@ -24,15 +25,36 @@ const dot: Record<Tone, string> = {
   green: "bg-green",
   yellow: "bg-yellow",
   red: "bg-red",
+  lilac: "bg-lilac",
+  silver: "bg-silver",
 };
 
 type Format = "all" | "in-person" | "online";
 
+// Sayfa uzayıp ağırlaşmasın: önce birkaç kayıt, gerisi "Devamını gör" ile parça parça
+const INITIAL = 8;
+const STEP = 10;
+
 /** Filtrelenebilir, yıllara bölünmüş "git log --graph" görünümlü etkinlik arşivi. */
 export function EventArchive({ events }: { events: ArchiveEvent[] }) {
-  const [area, setArea] = useState<string>("all");
-  const [format, setFormat] = useState<Format>("all");
-  const [query, setQuery] = useState("");
+  const [area, setAreaState] = useState<string>("all");
+  const [format, setFormatState] = useState<Format>("all");
+  const [query, setQueryState] = useState("");
+  const [limit, setLimit] = useState(INITIAL);
+
+  // Filtre değişince liste yeniden kısa başlar
+  function setArea(value: string) {
+    setAreaState(value);
+    setLimit(INITIAL);
+  }
+  function setFormat(value: Format) {
+    setFormatState(value);
+    setLimit(INITIAL);
+  }
+  function setQuery(value: string) {
+    setQueryState(value);
+    setLimit(INITIAL);
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLocaleLowerCase("tr");
@@ -47,13 +69,25 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
     );
   }, [events, area, format, query]);
 
+  const remaining = Math.max(filtered.length - limit, 0);
+
   const years = useMemo(() => {
     const groups = new Map<string, ArchiveEvent[]>();
-    for (const e of filtered) {
+    for (const e of filtered.slice(0, limit)) {
       const year = e.startsAt.slice(0, 4);
       groups.set(year, [...(groups.get(year) ?? []), e]);
     }
     return [...groups.entries()];
+  }, [filtered, limit]);
+
+  // Yıl penceresindeki sayı, kısaltılmış listede değil o yılın tüm kayıtlarında
+  const yearTotals = useMemo(() => {
+    const totals = new Map<string, number>();
+    for (const e of filtered) {
+      const year = e.startsAt.slice(0, 4);
+      totals.set(year, (totals.get(year) ?? 0) + 1);
+    }
+    return totals;
   }, [filtered]);
 
   return (
@@ -109,76 +143,81 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
       ) : (
         <div className="mt-10 space-y-10">
           {years.map(([year, items]) => (
-            <section
-              key={year}
-              aria-labelledby={`yil-${year}`}
-              className="overflow-clip rounded-card border-2 border-border-strong bg-surface shadow-sticker"
-            >
-              <h3
-                id={`yil-${year}`}
-                className="sticky top-16 z-10 flex items-center justify-between gap-3 border-b-2 border-border-strong bg-blue-soft px-4 py-2.5 font-mono text-sm"
+            <section key={year} aria-labelledby={`yil-${year}`}>
+              <Window
+                title={`~/etkinlikler/${year}`}
+                titleId={`yil-${year}`}
+                titleAs="h3"
+                meta={`${yearTotals.get(year) ?? items.length} etkinlik`}
+                sticky
               >
-                <span className="flex items-center gap-3">
-                  <span aria-hidden className="flex gap-1.5">
-                    <span className="size-3 rounded-full border-[1.5px] border-ink-black bg-red-halftone" />
-                    <span className="size-3 rounded-full border-[1.5px] border-ink-black bg-yellow-halftone" />
-                    <span className="size-3 rounded-full border-[1.5px] border-ink-black bg-green-halftone" />
-                  </span>
-                  <span className="font-bold">~/etkinlikler/{year}</span>
-                </span>
-                <span className="text-fg-subtle">{items.length} etkinlik</span>
-              </h3>
-              <ol className="relative py-2">
-                <span
-                  aria-hidden
-                  className="absolute top-0 bottom-0 left-[1.6rem] w-0.5 bg-border"
-                />
-                <span
-                  aria-hidden
-                  className="timeline-line absolute top-0 bottom-0 left-[1.6rem] w-0.5 bg-fg"
-                />
-                {items.map((e, i) => {
-                  const tone = primaryArea(e.tags)?.tone ?? "blue";
-                  return (
-                    <li key={e.id}>
-                      <Reveal delay={Math.min(i, 6) * 50}>
-                        <Link
-                          href={`/etkinlikler/${e.slug}`}
-                          className="group relative flex items-center gap-4 py-3 pr-4 pl-14 transition hover:bg-surface-2"
-                        >
-                          <span
-                            aria-hidden
-                            className={`reveal-pop absolute left-[1.15rem] size-4 rounded-full border-2 border-ink-black ${dot[tone]}`}
-                          />
-                          <span className="min-w-0 flex-1">
-                            <span className="block font-mono text-xs text-fg-subtle">
-                              <span className="text-green-ink">{releaseTag(e.startsAt)}</span> ·{" "}
-                              {formatDate(e.startsAt)}
-                            </span>
-                            <span className="mt-0.5 block font-bold group-hover:underline">
-                              {e.title}
-                            </span>
-                            <span className="block truncate text-sm text-fg-muted">
-                              {e.format === "online" ? "Online" : (e.venue ?? "Yüz yüze")}
-                            </span>
-                          </span>
-                          {e.coverUrl && (
-                            <Image
-                              src={e.coverUrl}
-                              alt=""
-                              width={56}
-                              height={56}
-                              className="hidden size-14 shrink-0 rounded-lg border-2 border-border-strong object-cover transition duration-300 group-hover:scale-110 sm:block"
+                <ol className="relative py-2">
+                  <span
+                    aria-hidden
+                    className="absolute top-0 bottom-0 left-[1.6rem] w-0.5 bg-border"
+                  />
+                  <span
+                    aria-hidden
+                    className="timeline-line absolute top-0 bottom-0 left-[1.6rem] w-0.5 bg-fg"
+                  />
+                  {items.map((e, i) => {
+                    const tone = primaryArea(e.tags)?.tone ?? "blue";
+                    return (
+                      <li key={e.id}>
+                        <Reveal delay={Math.min(i, 6) * 50}>
+                          <Link
+                            href={`/etkinlikler/${e.slug}`}
+                            className="group relative flex items-center gap-4 py-3 pr-4 pl-14 transition hover:bg-surface-2"
+                          >
+                            <span
+                              aria-hidden
+                              className={`reveal-pop absolute left-[1.15rem] size-4 rounded-full border-2 border-ink-black ${dot[tone]}`}
                             />
-                          )}
-                        </Link>
-                      </Reveal>
-                    </li>
-                  );
-                })}
-              </ol>
+                            <span className="min-w-0 flex-1">
+                              <span className="block font-mono text-xs text-fg-subtle">
+                                <span className="text-green-ink">{releaseTag(e.startsAt)}</span> ·{" "}
+                                {formatDate(e.startsAt)}
+                              </span>
+                              <span className="mt-0.5 block font-bold group-hover:underline">
+                                {e.title}
+                              </span>
+                              <span className="block truncate text-sm text-fg-muted">
+                                {e.format === "online" ? "Online" : (e.venue ?? "Yüz yüze")}
+                              </span>
+                            </span>
+                            {e.coverUrl && (
+                              <Image
+                                src={e.coverUrl}
+                                alt=""
+                                width={56}
+                                height={56}
+                                className="hidden size-14 shrink-0 rounded-lg border-2 border-border-strong object-cover transition duration-300 group-hover:scale-110 sm:block"
+                              />
+                            )}
+                          </Link>
+                        </Reveal>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </Window>
             </section>
           ))}
+          {remaining > 0 && (
+            <div className="flex flex-col items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setLimit((n) => n + STEP)}
+                className="inline-flex items-center gap-2 rounded-full border-2 border-border-strong bg-surface px-5 py-2.5 text-sm font-medium shadow-sticker-sm transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-sticker active:translate-x-0 active:translate-y-0 active:shadow-none"
+              >
+                Devamını gör
+                <span className="font-mono text-xs text-fg-subtle">
+                  +{Math.min(STEP, remaining)}
+                </span>
+              </button>
+              <p className="font-mono text-xs text-fg-subtle">{`// ${remaining} kayıt daha`}</p>
+            </div>
+          )}
         </div>
       )}
     </div>

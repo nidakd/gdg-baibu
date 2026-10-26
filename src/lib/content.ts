@@ -25,6 +25,10 @@ export type Member = {
   name: string;
   role: string;
   team: Team;
+  /** Tanıtım yazısından alınan bölüm adı */
+  department: string | null;
+  /** Sınıf (1–4); mezun ya da bilinmiyorsa null */
+  year: number | null;
   photoUrl: string | null;
   bio: string | null;
   links: Partial<Record<"gdgCommunity" | "linkedin" | "github" | "instagram" | "website", string>>;

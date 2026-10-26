@@ -4,13 +4,16 @@ import type { ReactNode } from "react";
 // Logodaki hap şekillerinden: siyah çerçeveli, sert gölgeli, renkli dolgu.
 // Renkli zeminde yazı her zaman koyu (#1e1e1e); beyaz yazı çekirdek renklerde okunmaz.
 
-export type Tone = "blue" | "green" | "yellow" | "red";
+// Marka rehberinin dört rengi + ekip renkleri için eklenen eflatun ve gümüş
+export type Tone = "blue" | "green" | "yellow" | "red" | "lilac" | "silver";
 
 const tones: Record<Tone | "plain", string> = {
   blue: "bg-blue text-ink-black",
   green: "bg-green text-ink-black",
   yellow: "bg-yellow text-ink-black",
   red: "bg-red text-ink-black",
+  lilac: "bg-lilac text-ink-black",
+  silver: "bg-silver text-ink-black",
   plain: "bg-surface text-fg",
 };
 
