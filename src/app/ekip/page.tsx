@@ -31,7 +31,7 @@ export default function TeamPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-wide px-4 py-12 sm:px-6 md:py-20 xl:px-8">
+    <div className="mx-auto max-w-content px-4 py-12 sm:px-6 md:py-20">
       <header className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
         <div className="space-y-6">
           <p className="font-mono text-sm text-fg-subtle">{"// contributors.json"}</p>
@@ -61,7 +61,7 @@ export default function TeamPage() {
         <TeamOrbit members={members} />
       </header>
 
-      <div className="mt-16 grid gap-10 lg:grid-cols-[13rem_1fr] xl:gap-12">
+      <div className="mt-16 grid gap-10 lg:grid-cols-[14rem_1fr]">
         <TeamNav
           teams={teams.map((t) => ({
             id: t.id,
@@ -87,7 +87,7 @@ export default function TeamPage() {
                     tone={team.tone}
                     sticky
                   >
-                    <div className="space-y-5 p-5 sm:p-7">
+                    <div className="space-y-5 p-5 sm:p-6">
                       <div className="space-y-1">
                         <h2 id={`${team.id}-baslik`} className="text-2xl font-bold">
                           {team.name}
@@ -95,7 +95,7 @@ export default function TeamPage() {
                         <p className="font-mono text-xs text-fg-subtle">{team.nameEn}</p>
                         <p className="text-fg-muted">{team.description}</p>
                       </div>
-                      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                         {teamMembers.map((member, i) => (
                           <li key={member.slug}>
                             <Reveal delay={i * 80} className="h-full">

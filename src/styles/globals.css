@@ -209,8 +209,6 @@
   --shadow-sticker-sm: 2px 2px 0 0 var(--sticker-shadow);
   --shadow-sticker-lg: 6px 6px 0 0 var(--sticker-shadow);
   --container-content: 72rem;
-  /* Kart yoğun sayfalar (ekip) için daha geniş içerik alanı */
-  --container-wide: 84rem;
 
   --animate-blink: blink 1.1s steps(1) infinite;
 
