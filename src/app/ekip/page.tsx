@@ -58,7 +58,17 @@ export default function TeamPage() {
             label="Rastgele biriyle tanış"
           />
         </div>
-        <TeamOrbit members={members} />
+        <TeamOrbit
+          teams={teams.map((t) => ({
+            id: t.id,
+            tone: t.tone,
+            members: getMembersByTeam(t.id).map(({ slug, name, photoUrl }) => ({
+              slug,
+              name,
+              photoUrl,
+            })),
+          }))}
+        />
       </header>
 
       <div className="mt-16 grid gap-10 lg:grid-cols-[14rem_1fr]">
