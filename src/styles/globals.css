@@ -275,6 +275,29 @@
   text-underline-offset: 3px;
 }
 
+/* Ekip yörüngesi (src/app/ekip/_components/team-orbit.tsx): halka döner, avatar dik kalır */
+@keyframes orbit {
+  to {
+    rotate: 360deg;
+  }
+}
+.orbit-ring {
+  animation: orbit var(--orbit-dur, 60s) linear infinite;
+}
+.orbit-upright {
+  animation: orbit var(--orbit-dur, 60s) linear infinite reverse;
+}
+.orbit-ring[data-reverse] {
+  animation-direction: reverse;
+}
+.orbit-ring[data-reverse] .orbit-upright {
+  animation-direction: normal;
+}
+.orbit:hover :is(.orbit-ring, .orbit-upright),
+.orbit:focus-within :is(.orbit-ring, .orbit-upright) {
+  animation-play-state: paused;
+}
+
 /* Kaydırınca belirme (src/components/motion/reveal.tsx) */
 [data-reveal] {
   transition:

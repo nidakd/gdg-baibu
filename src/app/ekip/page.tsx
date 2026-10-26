@@ -7,7 +7,7 @@ import { RandomLinkButton } from "@/components/ui/random-link-button";
 import { Cursor } from "@/components/ui/terminal";
 import { Window } from "@/components/ui/window";
 import { getMembers, getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
-import { AvatarCloud } from "./_components/avatar-cloud";
+import { TeamOrbit } from "./_components/team-orbit";
 import { TeamNav } from "./_components/team-nav";
 
 export const metadata: Metadata = {
@@ -58,7 +58,7 @@ export default function TeamPage() {
             label="Rastgele biriyle tanış"
           />
         </div>
-        <AvatarCloud members={members} />
+        <TeamOrbit members={members} />
       </header>
 
       <div className="mt-16 grid gap-10 lg:grid-cols-[14rem_1fr]">

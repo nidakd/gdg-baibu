@@ -7,17 +7,20 @@ type AvatarProps = {
   size: number;
   /** Ekranın üst kısmında görünen avatarlar için hemen yükle */
   priority?: boolean;
+  /** Genişliği kapsayıcıdan alır (size sadece görsel çözünürlüğü belirler) */
+  fluid?: boolean;
   className?: string;
 };
 
-export function Avatar({ name, photoUrl, size, priority, className = "" }: AvatarProps) {
+export function Avatar({ name, photoUrl, size, priority, fluid, className = "" }: AvatarProps) {
   const base = `shrink-0 overflow-hidden rounded-full border-2 border-border-strong bg-surface-2 ${className}`;
+  const box = fluid ? { width: "100%", height: "100%" } : { width: size, height: size };
   if (!photoUrl) {
     return (
       <span
         aria-hidden
         className={`${base} flex items-center justify-center font-mono font-medium`}
-        style={{ width: size, height: size, fontSize: size / 3 }}
+        style={{ ...box, fontSize: size / 3 }}
       >
         {initials(name)}
       </span>
@@ -31,7 +34,7 @@ export function Avatar({ name, photoUrl, size, priority, className = "" }: Avata
       height={size}
       priority={priority}
       className={`${base} object-cover`}
-      style={{ width: size, height: size }}
+      style={box}
     />
   );
 }
