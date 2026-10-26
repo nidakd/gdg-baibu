@@ -8,6 +8,7 @@ import { Cursor } from "@/components/ui/terminal";
 import { Window } from "@/components/ui/window";
 import { getMembers, getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
 import { TeamOrbit } from "./_components/team-orbit";
+import { Departments } from "./_components/departments";
 import { TeamNav } from "./_components/team-nav";
 
 export const metadata: Metadata = {
@@ -88,12 +89,19 @@ export default function TeamPage() {
                     sticky
                   >
                     <div className="space-y-5 p-5 sm:p-6">
-                      <div className="space-y-1">
-                        <h2 id={`${team.id}-baslik`} className="text-2xl font-bold">
-                          {team.name}
-                        </h2>
-                        <p className="font-mono text-xs text-fg-subtle">{team.nameEn}</p>
-                        <p className="text-fg-muted">{team.description}</p>
+                      <div className="flex flex-wrap items-end justify-between gap-4">
+                        <div className="space-y-1">
+                          <h2 id={`${team.id}-baslik`} className="text-2xl font-bold">
+                            {team.name}
+                          </h2>
+                          <p className="font-mono text-xs text-fg-subtle">{team.nameEn}</p>
+                          <p className="text-fg-muted">{team.description}</p>
+                        </div>
+                        {team.kind === "team" && (
+                          <ButtonLink href={site.links.coreTeamForm} tone={team.tone}>
+                            Bu ekibe katıl
+                          </ButtonLink>
+                        )}
                       </div>
                       <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                         {teamMembers.map((member, i) => (
@@ -110,6 +118,12 @@ export default function TeamPage() {
               </section>
             );
           })}
+
+          <Reveal>
+            <section aria-label="Bölümler">
+              <Departments />
+            </section>
+          </Reveal>
 
           <Reveal>
             <section className="flex flex-col gap-6 rounded-card border-2 border-dashed border-border-strong p-6 sm:flex-row sm:items-center md:p-8">
