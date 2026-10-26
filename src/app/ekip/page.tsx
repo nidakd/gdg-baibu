@@ -8,6 +8,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { RandomLinkButton } from "@/components/ui/random-link-button";
 import { Cursor } from "@/components/ui/terminal";
 import { Section } from "@/components/ui/section";
+import { WaveBand } from "@/components/ui/wave-band";
 import { Window } from "@/components/ui/window";
 import { getMembers, getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
 import { getDepartments } from "@/lib/insights";
@@ -129,17 +130,19 @@ export default function TeamPage() {
         </div>
       </div>
 
-      <MarqueeRibbon
-        items={teams.map((t) => (
-          <span key={t.id} className="flex items-center gap-3">
-            <GdgMark tone={t.tone} className="h-7 w-auto sm:h-8" />
-            <span className="font-mono text-sm font-bold">{t.id}/</span>
-          </span>
-        ))}
-        colorClass="bg-ink-black text-off-white"
-        tilt="right"
-        duration={60}
-      />
+      <WaveBand tone="silver">
+        <MarqueeRibbon
+          items={teams.map((t) => (
+            <span key={t.id} className="flex items-center gap-3">
+              <GdgMark tone={t.tone} className="h-8 w-auto sm:h-9" />
+              <span className="font-mono text-sm font-bold">{t.id}/</span>
+            </span>
+          ))}
+          variant="band"
+          colorClass="text-fg"
+          duration={60}
+        />
+      </WaveBand>
 
       <Section
         id="bolumler"
