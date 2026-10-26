@@ -4,11 +4,12 @@ import type { Tone } from "@/components/ui/button";
 import type { Member } from "@/lib/content";
 import { Avatar } from "./avatar";
 
-const ring: Record<Tone, string> = {
-  blue: "group-hover:ring-blue",
-  green: "group-hover:ring-green",
-  yellow: "group-hover:ring-yellow",
-  red: "group-hover:ring-red",
+// Kart, kişinin ekibinin renginde: pastel zemin, üstüne gelince çekirdek renkte halka
+const tones: Record<Tone, { card: string; ring: string }> = {
+  blue: { card: "bg-blue-soft", ring: "ring-offset-blue-soft group-hover:ring-blue" },
+  green: { card: "bg-green-soft", ring: "ring-offset-green-soft group-hover:ring-green" },
+  yellow: { card: "bg-yellow-soft", ring: "ring-offset-yellow-soft group-hover:ring-yellow" },
+  red: { card: "bg-red-soft", ring: "ring-offset-red-soft group-hover:ring-red" },
 };
 
 /** Tanıtım yazısının ilk cümlesi; kartta iki satırlık önizleme olarak görünür. */
@@ -25,16 +26,17 @@ function firstSentence(bio: string | null): string | null {
 /** showTeam: ekip penceresinin içindeyken ekip adı tekrar yazılmaz */
 export function MemberCard({ member, showTeam = true }: { member: Member; showTeam?: boolean }) {
   const preview = firstSentence(member.bio);
+  const tone = tones[member.team.tone];
 
   return (
     <Tilt>
       <Link
         href={`/ekip/${member.slug}`}
-        className="group flex h-full flex-col rounded-card border-2 border-border-strong bg-surface p-4 shadow-sticker-sm transition-shadow hover:shadow-sticker"
+        className={`group flex h-full flex-col rounded-card border-2 border-border-strong p-4 shadow-sticker-sm transition-shadow hover:shadow-sticker ${tone.card}`}
       >
         <span className="flex items-center gap-4">
           <span
-            className={`shrink-0 rounded-full ring-0 ring-offset-2 ring-offset-surface transition-all duration-300 group-hover:rotate-6 group-hover:ring-4 ${ring[member.team.tone]}`}
+            className={`shrink-0 rounded-full ring-0 ring-offset-2 transition-all duration-300 group-hover:rotate-6 group-hover:ring-4 ${tone.ring}`}
           >
             <Avatar name={member.name} photoUrl={member.photoUrl} size={64} />
           </span>
@@ -49,7 +51,7 @@ export function MemberCard({ member, showTeam = true }: { member: Member; showTe
           </span>
         </span>
         {preview && (
-          <span className="mt-3 line-clamp-2 border-t border-dashed border-border pt-3 text-sm text-fg-muted">
+          <span className="mt-3 line-clamp-2 border-t border-dashed border-border-strong/30 pt-3 text-sm text-fg-muted">
             {preview}
           </span>
         )}
