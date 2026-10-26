@@ -7,11 +7,39 @@ const dateFmt = new Intl.DateTimeFormat("tr-TR", {
   timeZone: TZ,
 });
 
+const longDateFmt = new Intl.DateTimeFormat("tr-TR", {
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: TZ,
+});
+
+const timeFmt = new Intl.DateTimeFormat("tr-TR", {
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZone: TZ,
+});
+
 const monthFmt = new Intl.DateTimeFormat("tr-TR", { month: "long", year: "numeric", timeZone: TZ });
 
 /** "17 Ekim 2026" */
 export function formatDate(iso: string): string {
   return dateFmt.format(new Date(iso));
+}
+
+/** "17 Ekim 2026 Cumartesi" */
+export function formatDateLong(iso: string): string {
+  return longDateFmt.format(new Date(iso));
+}
+
+/** "12:00–16:00"; farklı günlere yayılıyorsa bitiş tarihini de yazar. */
+export function formatTimeRange(startIso: string, endIso: string): string {
+  const start = timeFmt.format(new Date(startIso));
+  const end = timeFmt.format(new Date(endIso));
+  return startIso.slice(0, 10) === endIso.slice(0, 10)
+    ? `${start}–${end}`
+    : `${start} – ${formatDate(endIso)} ${end}`;
 }
 
 /** "Ekim 2026" */

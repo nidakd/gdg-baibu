@@ -1,11 +1,14 @@
 import type { Tone } from "@/components/ui/button";
 import { getStats } from "@/lib/insights";
 
+// Marka rehberinin halftone tonları: koyu yazıyla en canlı ve okunur kombinasyon
 const tones: Record<Tone, string> = {
-  blue: "bg-blue",
-  green: "bg-green",
-  yellow: "bg-yellow",
-  red: "bg-red",
+  blue: "bg-blue-halftone",
+  green: "bg-green-halftone",
+  yellow: "bg-yellow-halftone",
+  red: "bg-red-halftone",
+  lilac: "bg-lilac-halftone",
+  silver: "bg-silver-halftone",
 };
 
 export function StatsGrid() {

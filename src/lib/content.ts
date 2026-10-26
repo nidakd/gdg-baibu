@@ -12,6 +12,10 @@ export type Site = typeof siteJson;
 export type Team = {
   id: string;
   name: string;
+  /** GDG Community'deki İngilizce adı */
+  nameEn: string;
+  /** Yönetim (organizatörler, mentor) ekip sayısına dahil edilmez */
+  kind: "leadership" | "team";
   description: string | null;
   tone: Tone;
 };
@@ -21,6 +25,10 @@ export type Member = {
   name: string;
   role: string;
   team: Team;
+  /** Tanıtım yazısından alınan bölüm adı */
+  department: string | null;
+  /** Sınıf (1–4); mezun ya da bilinmiyorsa null */
+  year: number | null;
   photoUrl: string | null;
   bio: string | null;
   links: Partial<Record<"gdgCommunity" | "linkedin" | "github" | "instagram" | "website", string>>;
@@ -68,8 +76,14 @@ export function getSite(): Site {
   return siteJson;
 }
 
+/** Yönetim dahil tüm gruplar, gösterim sırasıyla. */
 export function getTeams(): Team[] {
   return teams;
+}
+
+/** Sadece çalışma ekipleri (yönetim hariç). */
+export function getWorkingTeams(): Team[] {
+  return teams.filter((t) => t.kind === "team");
 }
 
 export function getMembers(): Member[] {

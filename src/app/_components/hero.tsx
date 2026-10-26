@@ -2,14 +2,17 @@ import type { ReactNode } from "react";
 import { PillShapes } from "@/components/brand/pill-shapes";
 import { ButtonLink } from "@/components/ui/button";
 import { TypingTerminal, type TerminalLine } from "@/components/ui/typing-terminal";
-import { getEvents, getMembers, getSite, getTeams } from "@/lib/content";
+import { getEvents, getMembers, getSite, getWorkingTeams } from "@/lib/content";
 
 export function Hero() {
   const site = getSite();
   const events = getEvents();
   const lines: TerminalLine[] = [
     { kind: "command", text: "gdg init --campus aibu" },
-    { kind: "ok", text: `${getMembers().length} core team üyesi, ${getTeams().length} ekip` },
+    {
+      kind: "ok",
+      text: `${getMembers().length} core team üyesi, ${getWorkingTeams().length} ekip`,
+    },
     { kind: "ok", text: `${events.length} etkinlik arşivde` },
     { kind: "info", text: `son etkinlik: "${events[0]?.title}"` },
     { kind: "command", text: "gdg join --you" },
@@ -30,7 +33,7 @@ export function Hero() {
           <h1 className="text-[clamp(2.6rem,5.8vw,5.25rem)] leading-[1.02] font-bold tracking-tight">
             Birlikte <Sticker className="-rotate-2 bg-blue-pastel">öğreniyor,</Sticker>
             <br />
-            birlikte <Sticker className="rotate-1 bg-yellow">üretiyoruz.</Sticker>
+            birlikte <Sticker className="rotate-1 bg-yellow-halftone">üretiyoruz.</Sticker>
           </h1>
 
           <p className="max-w-xl text-lg text-fg-muted sm:text-xl">{site.about.intro}</p>

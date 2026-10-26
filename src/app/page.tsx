@@ -51,7 +51,7 @@ export default function Home() {
           title="Son etkinlikler"
           className="py-8 md:py-10"
           action={
-            <ButtonLink href={site.links.gdgCommunity} tone="plain">
+            <ButtonLink href="/etkinlikler" tone="plain">
               Tüm etkinlikler
             </ButtonLink>
           }

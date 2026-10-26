@@ -42,6 +42,13 @@
   --brand-red-pastel: #f8d8d8;
   --brand-off-white: #f0f0f0;
   --brand-black: #1e1e1e;
+  /* Rehberde olmayan ama ekip renkleri için eklenen tonlar: eflatun ve gümüş (docs/BRAND.md) */
+  --brand-lilac: #a58cf5;
+  --brand-lilac-halftone: #c4b1ff;
+  --brand-lilac-pastel: #e7defc;
+  --brand-silver: #9aa0a6;
+  --brand-silver-halftone: #bdc1c6;
+  --brand-silver-pastel: #e8eaed;
 
   /* Açık tema */
   --bg: var(--brand-off-white);
@@ -57,11 +64,15 @@
   --green-ink: #137333;
   --yellow-ink: #9a5000;
   --red-ink: #c5221f;
+  --lilac-ink: #6f4fc2;
+  --silver-ink: #5f6368;
 
   --blue-soft: var(--brand-blue-pastel);
   --green-soft: var(--brand-green-pastel);
   --yellow-soft: var(--brand-yellow-pastel);
   --red-soft: var(--brand-red-pastel);
+  --lilac-soft: var(--brand-lilac-pastel);
+  --silver-soft: var(--brand-silver-pastel);
 
   --selection: var(--brand-blue-pastel);
 
@@ -87,11 +98,15 @@
     --green-ink: var(--brand-green-halftone);
     --yellow-ink: var(--brand-yellow-halftone);
     --red-ink: var(--brand-red-halftone);
+    --lilac-ink: var(--brand-lilac-halftone);
+    --silver-ink: var(--brand-silver-halftone);
 
     --blue-soft: #1d3047;
     --green-soft: #1d3a24;
     --yellow-soft: #3d3216;
     --red-soft: #45252a;
+    --lilac-soft: #2c2540;
+    --silver-soft: #2e3033;
 
     --selection: #1d3047;
 
@@ -116,11 +131,15 @@
   --green-ink: var(--brand-green-halftone);
   --yellow-ink: var(--brand-yellow-halftone);
   --red-ink: var(--brand-red-halftone);
+  --lilac-ink: var(--brand-lilac-halftone);
+  --silver-ink: var(--brand-silver-halftone);
 
   --blue-soft: #1d3047;
   --green-soft: #1d3a24;
   --yellow-soft: #3d3216;
   --red-soft: #45252a;
+  --lilac-soft: #2c2540;
+  --silver-soft: #2e3033;
 
   --selection: #1d3047;
 
@@ -150,6 +169,12 @@
   --color-green-pastel: var(--brand-green-pastel);
   --color-yellow-pastel: var(--brand-yellow-pastel);
   --color-red-pastel: var(--brand-red-pastel);
+  --color-lilac: var(--brand-lilac);
+  --color-lilac-halftone: var(--brand-lilac-halftone);
+  --color-lilac-pastel: var(--brand-lilac-pastel);
+  --color-silver: var(--brand-silver);
+  --color-silver-halftone: var(--brand-silver-halftone);
+  --color-silver-pastel: var(--brand-silver-pastel);
   --color-off-white: var(--brand-off-white);
   --color-sticker-shadow: var(--sticker-shadow);
   --color-ink-black: var(--brand-black);
@@ -158,10 +183,14 @@
   --color-green-ink: var(--green-ink);
   --color-yellow-ink: var(--yellow-ink);
   --color-red-ink: var(--red-ink);
+  --color-lilac-ink: var(--lilac-ink);
+  --color-silver-ink: var(--silver-ink);
   --color-blue-soft: var(--blue-soft);
   --color-green-soft: var(--green-soft);
   --color-yellow-soft: var(--yellow-soft);
   --color-red-soft: var(--red-soft);
+  --color-lilac-soft: var(--lilac-soft);
+  --color-silver-soft: var(--silver-soft);
 
   /* Kod görünümleri için sözdizimi renkleri */
   --color-syntax-keyword: var(--blue-ink);
@@ -192,6 +221,9 @@
   --animate-marquee: marquee 28s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-nudge: nudge 1.6s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 14s linear infinite;
+  --animate-marquee-slow: marquee 120s linear infinite;
+  --animate-roll: roll 0.55s ease-out;
 
   @keyframes marquee {
     to {
@@ -201,6 +233,16 @@
   @keyframes float {
     50% {
       translate: 0 -14px;
+    }
+  }
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes roll {
+    to {
+      transform: rotate(720deg) scale(1.2);
     }
   }
   @keyframes nudge {
@@ -236,6 +278,55 @@
   }
 }
 
+/* Dışarıdan gelen zengin metin (etkinlik açıklamaları) */
+.prose-gdg {
+  color: var(--fg-muted);
+  line-height: 1.75;
+}
+.prose-gdg > * + * {
+  margin-top: 0.9em;
+}
+.prose-gdg :where(h3, h4, strong, b) {
+  color: var(--fg);
+  font-weight: 700;
+}
+.prose-gdg :where(ul) {
+  list-style: disc;
+  padding-left: 1.25em;
+}
+.prose-gdg :where(ol) {
+  list-style: decimal;
+  padding-left: 1.25em;
+}
+.prose-gdg a {
+  color: var(--blue-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Ekip yörüngesi (src/app/ekip/_components/team-orbit.tsx): halka döner, avatar dik kalır */
+@keyframes orbit {
+  to {
+    rotate: 360deg;
+  }
+}
+.orbit-ring {
+  animation: orbit var(--orbit-dur, 60s) linear infinite;
+}
+.orbit-upright {
+  animation: orbit var(--orbit-dur, 60s) linear infinite reverse;
+}
+.orbit-ring[data-reverse] {
+  animation-direction: reverse;
+}
+.orbit-ring[data-reverse] .orbit-upright {
+  animation-direction: normal;
+}
+.orbit:hover :is(.orbit-ring, .orbit-upright),
+.orbit:focus-within :is(.orbit-ring, .orbit-upright) {
+  animation-play-state: paused;
+}
+
 /* Kaydırınca belirme (src/components/motion/reveal.tsx) */
 [data-reveal] {
   transition:
@@ -246,11 +337,52 @@
   opacity: 0;
   translate: 0 28px;
 }
+/* Belirirken zıplayarak gelen nokta (etkinlik zaman çizgisi) */
+.reveal-pop {
+  transition: scale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
+}
+[data-reveal="out"] .reveal-pop {
+  scale: 0;
+}
+
+/* Scroll'a bağlı çizimler: okuma çubuğu ve etkinlik zaman çizgisinin kendini çizmesi */
+.scroll-progress {
+  display: none;
+}
+@keyframes grow-x {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes grow-y {
+  from {
+    scale: 1 0;
+  }
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      display: block;
+      transform-origin: 0 50%;
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+    .timeline-line {
+      transform-origin: 50% 0;
+      animation: grow-y linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal="out"] {
     opacity: 1;
     translate: none;
+  }
+  [data-reveal="out"] .reveal-pop {
+    scale: 1;
   }
 
   *,

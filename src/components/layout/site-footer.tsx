@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Braces } from "@/components/brand/brand-shapes";
 import { Logo } from "@/components/brand/logo";
 import { WaveEdge } from "@/components/ui/wave-band";
 import { getSite } from "@/lib/content";
@@ -14,6 +15,7 @@ export function SiteFooter() {
   const pages = [
     { label: "Hakkımızda", href: "/hakkimizda" },
     { label: "Ekip", href: "/ekip" },
+    { label: "Etkinlikler", href: "/etkinlikler" },
   ];
 
   return (
@@ -24,6 +26,9 @@ export function SiteFooter() {
           <div className="space-y-4">
             <Logo className="h-7" />
             <p className="max-w-md text-fg-muted">{site.disclaimer}</p>
+            <p className="text-2xl">
+              <Braces>On Campus</Braces>
+            </p>
             <p className="font-mono text-xs text-fg-subtle">{site.hashtag}</p>
           </div>
           <FooterList title="sayfalar" items={pages} />

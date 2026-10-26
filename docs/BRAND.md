@@ -56,3 +56,34 @@ Logolar topluluğun Drive klasöründeki resmî çizimlerden alındı. Header'da
 (`src/components/brand/logo.tsx`) açık temada `light`, koyu temada `dark` sürümü gösterir.
 
 Yatay logo tercih edilir; yer darsa dikey (stacked) logo kullanılabilir.
+
+## Çizgi şekilleri
+
+Rehberin görsel dili: açık zeminde ince siyah konturlu geometrik şekiller, pastel ve halftone dolgular.
+Sitede `src/components/brand/brand-shapes.tsx` içinde: `Arrow`, `Slashes` (`//`), `Asterisk`,
+`Arc` (yarım halka), `Circles` (üçlü daire), `Globe` ve `Braces` (`{ On Campus }`).
+
+- Şekiller dekoratiftir (`aria-hidden`); içerik taşımaz.
+- Halftone tonlar (`bg-*-halftone`) rakam kartları, şerit ve vurgu çıkartmalarında; koyu yazıyla kullanılır.
+- Pencere kartlarının (terminal) üst çubuğu pastel, üç dairesi halftone renklerde; rehberdeki şablon kartlarından.
+
+## Ekip renkleri
+
+Rehberin dört rengine ek olarak, ekipleri ayırt edebilmek için iki ton eklendi (rehberde yok,
+diğer tonların canlılığına göre seçildi):
+
+| Ton               | Çekirdek  | Halftone  | Pastel    | Küçük metin (açık tema) |
+| ----------------- | --------- | --------- | --------- | ----------------------- |
+| Eflatun (`lilac`) | `#a58cf5` | `#c4b1ff` | `#e7defc` | `#6f4fc2`               |
+| Gümüş (`silver`)  | `#9aa0a6` | `#bdc1c6` | `#e8eaed` | `#5f6368`               |
+
+Ekiplerin renkleri (`content/team.json` → `tone`):
+
+| Ekip                           | Renk          |
+| ------------------------------ | ------------- |
+| Yazılım ve Teknik Ekibi        | kırmızı/pembe |
+| Tasarım Ekibi                  | eflatun       |
+| Etkinlik ve Organizasyon Ekibi | mavi          |
+| Sponsorluk Ekibi               | sarı          |
+| Sosyal Medya Ekibi             | yeşil         |
+| Yönetim                        | gümüş (nötr)  |
