@@ -13,7 +13,7 @@
       "name": "Yazılım ve Teknik Ekibi",
       "nameEn": "Software and Technical Team",
       "kind": "team",
-      "tone": "green",
+      "tone": "red",
       "description": "Teknik etkinlikleri ve atölyeleri hazırlar, topluluğun yazılım projelerini yürütür."
     },
     {
@@ -21,7 +21,7 @@
       "name": "Tasarım Ekibi",
       "nameEn": "Design Team",
       "kind": "team",
-      "tone": "red",
+      "tone": "yellow",
       "description": "Afişlerden sosyal medya görsellerine topluluğun görsel kimliğini tasarlar."
     },
     {
@@ -29,7 +29,7 @@
       "name": "Etkinlik ve Organizasyon Ekibi",
       "nameEn": "Event and Organization Team",
       "kind": "team",
-      "tone": "yellow",
+      "tone": "green",
       "description": "Etkinliklerin planlamasını, mekân ve konuşmacı organizasyonunu üstlenir."
     },
     {
@@ -45,7 +45,7 @@
       "name": "Sosyal Medya Ekibi",
       "nameEn": "Social Media Team",
       "kind": "team",
-      "tone": "green",
+      "tone": "yellow",
       "description": "Instagram ve LinkedIn hesaplarını yönetir, duyuruları ve etkinlik içeriklerini paylaşır."
     }
   ],
