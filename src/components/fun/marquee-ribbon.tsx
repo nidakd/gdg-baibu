@@ -12,6 +12,11 @@ type MarqueeRibbonProps = {
   colorClass?: string;
   /** Eğim yönü */
   tilt?: "left" | "right";
+  /**
+   * "ribbon": eğik, çerçeveli, gölgeli şerit (bölüm geçişi).
+   * "band": eğimsiz, çerçevesiz; kenarları silinerek kaybolur (ör. dalgalı bant içinde).
+   */
+  variant?: "ribbon" | "band";
   /** Bir turun süresi (saniye); büyük sayı = yavaş */
   duration?: number;
   className?: string;
@@ -22,6 +27,7 @@ export function MarqueeRibbon({
   items,
   colorClass = "bg-yellow-halftone text-ink-black",
   tilt = "left",
+  variant = "ribbon",
   duration = 28,
   className = "",
 }: MarqueeRibbonProps) {
@@ -38,10 +44,21 @@ export function MarqueeRibbon({
   return (
     <div
       aria-hidden
-      className={`relative z-10 ${tilt === "left" ? "-rotate-2" : "rotate-2"} ${className}`}
+      className={`relative z-10 ${variant === "ribbon" ? (tilt === "left" ? "-rotate-2" : "rotate-2") : ""} ${className}`}
     >
       <div
-        className={`overflow-hidden border-y-[3px] border-ink-black py-3 shadow-sticker ${colorClass}`}
+        className={
+          variant === "ribbon"
+            ? `overflow-hidden border-y-[3px] border-ink-black py-3 shadow-sticker ${colorClass}`
+            : `overflow-hidden py-3 ${colorClass}`
+        }
+        style={
+          variant === "band"
+            ? {
+                maskImage: "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
+              }
+            : undefined
+        }
       >
         <div className="flex w-max animate-marquee" style={{ animationDuration: `${duration}s` }}>
           {[0, 1].map((copy) => (
