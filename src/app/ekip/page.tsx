@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GdgMark } from "@/components/brand/gdg-mark";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
@@ -128,7 +129,17 @@ export default function TeamPage() {
         </div>
       </div>
 
-      <MarqueeRibbon logos colorClass="bg-off-white" tilt="right" duration={60} />
+      <MarqueeRibbon
+        items={teams.map((t) => (
+          <span key={t.id} className="flex items-center gap-3">
+            <GdgMark tone={t.tone} className="h-7 w-auto sm:h-8" />
+            <span className="font-mono text-sm font-bold">{t.id}/</span>
+          </span>
+        ))}
+        colorClass="bg-ink-black text-off-white"
+        tilt="right"
+        duration={60}
+      />
 
       <Section
         id="bolumler"
