@@ -31,11 +31,30 @@ const dot: Record<Tone, string> = {
 
 type Format = "all" | "in-person" | "online";
 
+// Sayfa uzayıp ağırlaşmasın: önce birkaç kayıt, gerisi "Devamını gör" ile parça parça
+const INITIAL = 8;
+const STEP = 10;
+
 /** Filtrelenebilir, yıllara bölünmüş "git log --graph" görünümlü etkinlik arşivi. */
 export function EventArchive({ events }: { events: ArchiveEvent[] }) {
-  const [area, setArea] = useState<string>("all");
-  const [format, setFormat] = useState<Format>("all");
-  const [query, setQuery] = useState("");
+  const [area, setAreaState] = useState<string>("all");
+  const [format, setFormatState] = useState<Format>("all");
+  const [query, setQueryState] = useState("");
+  const [limit, setLimit] = useState(INITIAL);
+
+  // Filtre değişince liste yeniden kısa başlar
+  function setArea(value: string) {
+    setAreaState(value);
+    setLimit(INITIAL);
+  }
+  function setFormat(value: Format) {
+    setFormatState(value);
+    setLimit(INITIAL);
+  }
+  function setQuery(value: string) {
+    setQueryState(value);
+    setLimit(INITIAL);
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLocaleLowerCase("tr");
@@ -50,13 +69,25 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
     );
   }, [events, area, format, query]);
 
+  const remaining = Math.max(filtered.length - limit, 0);
+
   const years = useMemo(() => {
     const groups = new Map<string, ArchiveEvent[]>();
-    for (const e of filtered) {
+    for (const e of filtered.slice(0, limit)) {
       const year = e.startsAt.slice(0, 4);
       groups.set(year, [...(groups.get(year) ?? []), e]);
     }
     return [...groups.entries()];
+  }, [filtered, limit]);
+
+  // Yıl penceresindeki sayı, kısaltılmış listede değil o yılın tüm kayıtlarında
+  const yearTotals = useMemo(() => {
+    const totals = new Map<string, number>();
+    for (const e of filtered) {
+      const year = e.startsAt.slice(0, 4);
+      totals.set(year, (totals.get(year) ?? 0) + 1);
+    }
+    return totals;
   }, [filtered]);
 
   return (
@@ -117,7 +148,7 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
                 title={`~/etkinlikler/${year}`}
                 titleId={`yil-${year}`}
                 titleAs="h3"
-                meta={`${items.length} etkinlik`}
+                meta={`${yearTotals.get(year) ?? items.length} etkinlik`}
                 sticky
               >
                 <ol className="relative py-2">
@@ -172,6 +203,21 @@ export function EventArchive({ events }: { events: ArchiveEvent[] }) {
               </Window>
             </section>
           ))}
+          {remaining > 0 && (
+            <div className="flex flex-col items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setLimit((n) => n + STEP)}
+                className="inline-flex items-center gap-2 rounded-full border-2 border-border-strong bg-surface px-5 py-2.5 text-sm font-medium shadow-sticker-sm transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-sticker active:translate-x-0 active:translate-y-0 active:shadow-none"
+              >
+                Devamını gör
+                <span className="font-mono text-xs text-fg-subtle">
+                  +{Math.min(STEP, remaining)}
+                </span>
+              </button>
+              <p className="font-mono text-xs text-fg-subtle">{`// ${remaining} kayıt daha`}</p>
+            </div>
+          )}
         </div>
       )}
     </div>
