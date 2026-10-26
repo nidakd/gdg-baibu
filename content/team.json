@@ -5,7 +5,7 @@
       "name": "Yönetim",
       "nameEn": "Organizers",
       "kind": "leadership",
-      "tone": "blue",
+      "tone": "silver",
       "description": "Topluluğun yönünü belirler, ekipleri koordine eder ve üniversiteyle iletişimi yürütür."
     },
     {
@@ -21,7 +21,7 @@
       "name": "Tasarım Ekibi",
       "nameEn": "Design Team",
       "kind": "team",
-      "tone": "yellow",
+      "tone": "lilac",
       "description": "Afişlerden sosyal medya görsellerine topluluğun görsel kimliğini tasarlar."
     },
     {
@@ -29,7 +29,7 @@
       "name": "Etkinlik ve Organizasyon Ekibi",
       "nameEn": "Event and Organization Team",
       "kind": "team",
-      "tone": "green",
+      "tone": "blue",
       "description": "Etkinliklerin planlamasını, mekân ve konuşmacı organizasyonunu üstlenir."
     },
     {
@@ -37,7 +37,7 @@
       "name": "Sponsorluk Ekibi",
       "nameEn": "Sponsorship and Communication Team",
       "kind": "team",
-      "tone": "blue",
+      "tone": "yellow",
       "description": "Sponsor ilişkilerini kurar, diğer topluluklar ve kurumlarla iş birliklerini yürütür."
     },
     {
@@ -45,7 +45,7 @@
       "name": "Sosyal Medya Ekibi",
       "nameEn": "Social Media Team",
       "kind": "team",
-      "tone": "yellow",
+      "tone": "green",
       "description": "Instagram ve LinkedIn hesaplarını yönetir, duyuruları ve etkinlik içeriklerini paylaşır."
     }
   ],
