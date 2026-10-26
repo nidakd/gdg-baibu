@@ -128,11 +128,7 @@ export default function TeamPage() {
         </div>
       </div>
 
-      <MarqueeRibbon
-        words={departments.map((d) => d.name.toLocaleUpperCase("tr"))}
-        colorClass="bg-lilac-halftone"
-        tilt="right"
-      />
+      <MarqueeRibbon logos colorClass="bg-off-white" tilt="right" duration={60} />
 
       <Section
         id="bolumler"
