@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Asterisk, Braces, Circles } from "@/components/brand/brand-shapes";
 import { ReleaseCard } from "@/components/events/release-card";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
@@ -8,10 +7,11 @@ import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
 import { TypingTerminal } from "@/components/ui/typing-terminal";
+import { WaveBand } from "@/components/ui/wave-band";
 import { getSite } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
 import { EventArchive, type ArchiveEvent } from "./_components/event-archive";
-import { PosterDeck } from "./_components/poster-deck";
+import { FeaturedRelease } from "./_components/featured-release";
 import { PosterWall } from "./_components/poster-wall";
 import { RandomEventButton } from "./_components/random-event-button";
 
@@ -35,46 +35,60 @@ export default async function EventsPage() {
     coverUrl: e.coverUrl,
   }));
 
+  const stats = [
+    { value: past.length, label: "etkinlik", className: "bg-green-halftone" },
+    {
+      value: past.filter((e) => e.tags.includes("Workshop / hands-on session")).length,
+      label: "atölye",
+      className: "bg-yellow-halftone",
+    },
+    {
+      value: new Set(past.map((e) => e.startsAt.slice(0, 4))).size,
+      label: "yıl",
+      className: "bg-blue-halftone",
+    },
+  ];
+
   return (
     <>
       <ScrollProgress />
 
-      <section className="relative overflow-hidden">
-        <Asterisk
-          aria-hidden
-          className="absolute top-16 left-[46%] hidden h-10 w-10 animate-spin-slow text-fg lg:block"
-        />
-        <Circles
-          aria-hidden
-          className="absolute bottom-6 left-[40%] hidden h-9 w-auto animate-float text-ink-black lg:block"
-        />
-
-        <div className="relative mx-auto grid max-w-content gap-12 px-4 pt-12 pb-4 sm:px-6 md:pt-20 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-          <div className="space-y-6">
-            <p className="font-mono text-sm text-fg-subtle">
-              <Braces>releases</Braces>
-            </p>
-            <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">Etkinlikler</h1>
-            <p className="max-w-xl text-lg text-fg-muted">
-              <span className="inline-block rounded-lg border-2 border-border-strong bg-blue-soft px-2 font-mono font-bold text-fg">
-                <CountUp to={past.length} />
-              </span>{" "}
-              etkinlik arşivde. Her biri bir sürüm notu gibi: ne zaman, nerede, ne konuştuk.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <ButtonLink href="#arsiv" tone="blue">
-                Arşive göz at
-              </ButtonLink>
-              <RandomEventButton slugs={past.map((e) => e.slug)} />
-            </div>
+      <section className="mx-auto grid max-w-content gap-14 px-4 pt-12 pb-10 sm:px-6 md:pt-20 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+        <div className="space-y-7">
+          <p className="font-mono text-sm text-fg-subtle">{"// releases"}</p>
+          <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">Etkinlikler</h1>
+          <p className="max-w-xl text-lg text-fg-muted">
+            Atölyeler, kariyer buluşmaları, hackathon&apos;lar ve kahve sohbetleri. Her etkinlik bir
+            sürüm notu gibi: ne zaman, nerede, ne konuştuk.
+          </p>
+          <dl className="grid max-w-md grid-cols-3 gap-3">
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className={`rounded-xl border-2 border-ink-black px-3 py-2.5 text-ink-black shadow-sticker-sm ${s.className}`}
+              >
+                <dt className="font-mono text-[11px]">{s.label}</dt>
+                <dd className="text-3xl font-bold tracking-tight">
+                  <CountUp to={s.value} />
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href="#arsiv" tone="blue">
+              Arşive göz at
+            </ButtonLink>
+            <RandomEventButton slugs={past.map((e) => e.slug)} />
           </div>
-          <PosterDeck events={past} />
         </div>
+        {past[0] && <FeaturedRelease event={past[0]} />}
       </section>
 
-      <PosterWall events={past} />
+      <WaveBand tone="blue">
+        <PosterWall events={past.slice(1)} />
+      </WaveBand>
 
-      <Section id="yaklasan" label="01 — yaklaşan" title="Sıradaki sürüm" className="pt-8 md:pt-10">
+      <Section label="01 — yaklaşan" title="Sıradaki sürüm">
         {upcoming.length > 0 ? (
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {upcoming.map((event) => (
