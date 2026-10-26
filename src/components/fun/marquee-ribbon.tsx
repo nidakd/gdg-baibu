@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { WaveRide } from "@/components/motion/wave-ride";
 
 // Bölüm geçişi: eğik duran, sonsuz kayan bir şerit. Kelimelerle ya da hazır öğelerle (ör. logolar).
 
@@ -17,6 +18,8 @@ type MarqueeRibbonProps = {
    * "band": eğimsiz, çerçevesiz; kenarları silinerek kaybolur (ör. dalgalı bant içinde).
    */
   variant?: "ribbon" | "band";
+  /** Öğeler kayarken bir dalganın üstünde yukarı aşağı oynar (bant modunda önerilir) */
+  wave?: boolean;
   /** Bir turun süresi (saniye); büyük sayı = yavaş */
   duration?: number;
   className?: string;
@@ -28,6 +31,7 @@ export function MarqueeRibbon({
   colorClass = "bg-yellow-halftone text-ink-black",
   tilt = "left",
   variant = "ribbon",
+  wave = false,
   duration = 28,
   className = "",
 }: MarqueeRibbonProps) {
@@ -50,7 +54,7 @@ export function MarqueeRibbon({
         className={
           variant === "ribbon"
             ? `overflow-hidden border-y-[3px] border-ink-black py-3 shadow-sticker ${colorClass}`
-            : `overflow-hidden py-3 ${colorClass}`
+            : `overflow-hidden ${wave ? "py-8" : "py-3"} ${colorClass}`
         }
         style={
           variant === "band"
@@ -60,19 +64,29 @@ export function MarqueeRibbon({
             : undefined
         }
       >
-        <div className="flex w-max animate-marquee" style={{ animationDuration: `${duration}s` }}>
-          {[0, 1].map((copy) => (
-            <div key={copy} className="flex shrink-0">
-              {row.map((node, i) => (
-                <span key={`${copy}-${i}`} className="flex items-center gap-6 pr-6">
-                  {node}
-                  <span className="font-mono text-lg font-bold opacity-60">✦</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
+        <Track wave={wave}>
+          <div className="flex w-max animate-marquee" style={{ animationDuration: `${duration}s` }}>
+            {[0, 1].map((copy) => (
+              <div key={copy} className="flex shrink-0 items-center">
+                {row.map((node, i) => (
+                  <span key={`${copy}-${i}`} className="flex items-center gap-6 pr-6">
+                    <span data-wave-item className="block">
+                      {node}
+                    </span>
+                    <span data-wave-item className="block font-mono text-lg font-bold opacity-60">
+                      ✦
+                    </span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </Track>
       </div>
     </div>
   );
+}
+
+function Track({ wave, children }: { wave: boolean; children: ReactNode }) {
+  return wave ? <WaveRide>{children}</WaveRide> : <>{children}</>;
 }
