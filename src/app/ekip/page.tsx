@@ -139,6 +139,7 @@ export default function TeamPage() {
             </span>
           ))}
           variant="band"
+          wave
           colorClass="text-fg"
           duration={60}
         />
