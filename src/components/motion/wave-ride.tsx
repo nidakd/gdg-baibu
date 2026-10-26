@@ -1,44 +1,49 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
-
-type WaveRideProps = {
-  children: ReactNode;
-  /** Dalga yüksekliği (px) */
-  amplitude?: number;
-  /** Dalga boyu (px) */
-  wavelength?: number;
-  className?: string;
-};
+import { WAVE_HEIGHT, WAVE_WIDTH, waveY } from "@/lib/wave";
 
 /**
- * İçindeki [data-wave-item] öğelerini, ekrandaki yatay konumlarına göre bir sinüs dalgası
- * üzerinde yukarı aşağı oynatır; kayan bir şeritte öğeler dalganın üstünde ilerliyormuş gibi görünür.
- * Eğim yönünde hafifçe de döner. Ekranda değilken ve "hareketi azalt" açıkken çalışmaz.
+ * İçindeki [data-wave-item] öğelerini, içinde bulunduğu dalgalı bandın (WaveBand) orta çizgisini
+ * izleyecek şekilde yukarı aşağı oynatır ve eğime göre döndürür. Bandın üst ve alt kenarı aynı
+ * eğriden çizildiği için öğeler bandın kıvrımlarıyla birebir uyuşur.
+ * Ekranda değilken ve "hareketi azalt" açıkken çalışmaz.
  */
 export function WaveRide({
   children,
-  amplitude = 14,
-  wavelength = 640,
   className = "",
-}: WaveRideProps) {
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const root = ref.current;
-    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const band = root?.closest<HTMLElement>("[data-wave-band]");
+    const edge = band?.querySelector("svg");
+    if (!root || !band || !edge) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const items = [...root.querySelectorAll<HTMLElement>("[data-wave-item]")];
-    const k = (2 * Math.PI) / wavelength;
     let raf = 0;
-    let visible = false;
+
+    // Bandın orta çizgisinin, düz duruma göre kayması (px). x: bandın solundan uzaklık.
+    // Üst kenar eğrinin kendisi, alt kenar 180° döndürülmüş hali: orta = iki kenarın ortalaması.
+    const offsetAt = (x: number, width: number, scale: number) => {
+      const xv = (x / width) * WAVE_WIDTH;
+      return (scale * (waveY(xv) - waveY(WAVE_WIDTH - xv))) / 2;
+    };
 
     const frame = () => {
-      const left = root.getBoundingClientRect().left;
+      const box = band.getBoundingClientRect();
+      const scale = edge.getBoundingClientRect().height / WAVE_HEIGHT;
       for (const el of items) {
         const r = el.getBoundingClientRect();
-        const x = r.left - left + r.width / 2;
-        const y = amplitude * Math.sin(k * x);
-        const slope = amplitude * k * Math.cos(k * x);
+        // öğe sadece dikeyde kaydırıldığı için yatay merkezi güvenle ölçülebilir
+        const x = r.left - box.left + r.width / 2;
+        const y = offsetAt(x, box.width, scale);
+        const slope = (offsetAt(x + 4, box.width, scale) - offsetAt(x - 4, box.width, scale)) / 8;
         el.style.translate = `0 ${y.toFixed(1)}px`;
         el.style.rotate = `${((Math.atan(slope) * 180) / Math.PI).toFixed(1)}deg`;
       }
@@ -46,16 +51,15 @@ export function WaveRide({
     };
 
     const io = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
       cancelAnimationFrame(raf);
-      if (visible) raf = requestAnimationFrame(frame);
+      if (entry.isIntersecting) raf = requestAnimationFrame(frame);
     });
     io.observe(root);
     return () => {
       io.disconnect();
       cancelAnimationFrame(raf);
     };
-  }, [amplitude, wavelength]);
+  }, []);
 
   return (
     <div ref={ref} className={className}>

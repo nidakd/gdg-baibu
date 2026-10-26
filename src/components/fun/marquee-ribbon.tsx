@@ -18,7 +18,7 @@ type MarqueeRibbonProps = {
    * "band": eğimsiz, çerçevesiz; kenarları silinerek kaybolur (ör. dalgalı bant içinde).
    */
   variant?: "ribbon" | "band";
-  /** Öğeler kayarken bir dalganın üstünde yukarı aşağı oynar (bant modunda önerilir) */
+  /** Öğeler, içinde bulunduğu dalgalı bandın (WaveBand) kıvrımlarını izleyerek akar */
   wave?: boolean;
   /** Bir turun süresi (saniye); büyük sayı = yavaş */
   duration?: number;
