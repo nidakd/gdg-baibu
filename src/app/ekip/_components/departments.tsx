@@ -1,11 +1,13 @@
 import Link from "next/link";
+import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
 import { Avatar } from "@/components/team/avatar";
 import type { Tone } from "@/components/ui/button";
-import { Window } from "@/components/ui/window";
-import { getDepartments } from "@/lib/insights";
+import { Card } from "@/components/ui/card";
+import type { Department } from "@/lib/insights";
 
-// Core team'in hangi bölümlerden geldiği: her bölüm bir satır, üyeleri ekip renginde halkalı avatarlar.
+// Core team'in hangi bölümlerden geldiği: solda sayılar, sağda her bölüm bir satır;
+// satırdaki çubuk kişi sayısına göre uzar, içinde üyeler ekip renginde halkalı avatarlar.
 
 const ring: Record<Tone, string> = {
   blue: "ring-blue",
@@ -16,27 +18,44 @@ const ring: Record<Tone, string> = {
   silver: "ring-silver",
 };
 
-export function Departments() {
-  const departments = getDepartments();
+export function Departments({ departments }: { departments: Department[] }) {
   const people = departments.reduce((n, d) => n + d.members.length, 0);
   const max = Math.max(...departments.map((d) => d.members.length));
+  const engineering = departments.filter((d) => d.name.includes("Mühendisliği")).length;
+
+  const stats = [
+    { value: departments.length, label: "bölüm", className: "bg-lilac-halftone" },
+    { value: people, label: "kişi", className: "bg-blue-halftone" },
+    {
+      value: departments.length - engineering,
+      label: "mühendislik dışı",
+      className: "bg-yellow-halftone",
+    },
+  ];
 
   return (
-    <Window title="~/team/bolumler" meta={`${departments.length} bölüm`} tone="silver">
-      <div className="space-y-6 p-5 sm:p-6">
-        <div className="space-y-1">
-          <h2 className="text-2xl font-bold">Farklı bölümlerden geliyoruz</h2>
-          <p className="text-fg-muted">
-            {people} kişi, {departments.length} bölüm. Mühendislikten edebiyata: hangi bölümde
-            okuduğun fark etmez.
-          </p>
-        </div>
+    <div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
+      <dl className="grid grid-cols-3 gap-3 lg:grid-cols-1">
+        {stats.map((s) => (
+          <div
+            key={s.label}
+            className={`rounded-xl border-2 border-ink-black px-4 py-3 text-ink-black shadow-sticker-sm ${s.className}`}
+          >
+            <dt className="font-mono text-[11px] sm:text-xs">{s.label}</dt>
+            <dd className="text-3xl font-bold tracking-tight sm:text-4xl">
+              <CountUp to={s.value} />
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <Card className="p-5 sm:p-6">
         <ul className="space-y-3">
           {departments.map((d, i) => (
             <li key={d.name}>
               <Reveal
                 delay={i * 70}
-                className="grid items-center gap-x-4 gap-y-2 sm:grid-cols-[15rem_1fr]"
+                className="grid items-center gap-x-4 gap-y-2 sm:grid-cols-[14rem_1fr]"
               >
                 <span className="flex items-baseline justify-between gap-3 text-sm font-medium">
                   {d.name}
@@ -68,7 +87,7 @@ export function Departments() {
             </li>
           ))}
         </ul>
-      </div>
-    </Window>
+      </Card>
+    </div>
   );
 }
