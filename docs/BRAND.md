@@ -84,6 +84,6 @@ Ekiplerin renkleri (`content/team.json` → `tone`):
 | Yazılım ve Teknik Ekibi        | kırmızı/pembe |
 | Tasarım Ekibi                  | eflatun       |
 | Etkinlik ve Organizasyon Ekibi | mavi          |
-| Sponsorluk Ekibi               | sarı          |
+| Sponsorluk ve İletişim Ekibi   | sarı          |
 | Sosyal Medya Ekibi             | yeşil         |
 | Yönetim                        | gümüş (nötr)  |
