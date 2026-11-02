@@ -55,7 +55,7 @@
       "role": "Organizer",
       "team": "lead",
       "department": "Elektrik-Elektronik Mühendisliği",
-      "year": null,
+      "year": 2,
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/bar%C4%B1%C5%9F_ceylan_94c3a13a.jpg",
       "bio": "Elektrik-Elektronik Mühendisliği bölümünde öğrenim görüyorum. 2025'ten beri bu toplulukta önce Etkinlik ve Organizasyon Ekibi üyesi, sonrasında Sponsorluk ve İletişim Ekibi koordinatörü olarak bulundum; şimdi ise Organizatör olarak görev alıyorum. İnsanlarla birlikte etkinliklerde bulunmayı, network edinmeyi ve sektörün farklı yüzlerini görmeyi seviyorum. Sanatla ve sporla sürekli iç içe biri olarak ilgi alanlarımı birleştirmek ve çok yönlü olmak başlıca hedeflerim.",
       "links": {
@@ -84,7 +84,7 @@
       "role": "Team Mentor",
       "team": "lead",
       "department": "Matematik (İngilizce)",
-      "year": null,
+      "year": "mezun",
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/nida_akdo%C4%9Fan_9v30FiQ.jpeg",
       "bio": "Matematik (İngilizce) mezunuyum, Anadolu Üniversitesi'nde bilgisayar programcılığı okudum. Python ve SQL ile veri odaklı uygulamalar geliştiriyorum. Eylül 2025'ten beri bu toplulukta önce Yazılım ve Teknik Ekip lideri, şimdi mentor olarak yer alıyorum; Python 101 atölyesinde eğitmenlik yaptım. Matematiksel düşünmeyi yazılımla birleştirmeyi seviyorum.",
       "links": {
