@@ -13,7 +13,7 @@
 }
 
 /*
- * Tema token'ları — GDG on Campus marka rehberine göre (docs/BRAND.md).
+ * Tema token'ları — GDG on Campus marka rehberine göre.
  *
  * Renk rolleri:
  *   blue/red/yellow/green          çekirdek renkler: dolgu, şekil, buton, büyük başlık
@@ -42,7 +42,7 @@
   --brand-red-pastel: #f8d8d8;
   --brand-off-white: #f0f0f0;
   --brand-black: #1e1e1e;
-  /* Rehberde olmayan ama ekip renkleri için eklenen tonlar: eflatun ve gümüş (docs/BRAND.md) */
+  /* Rehberde olmayan ama ekip renkleri için eklenen tonlar: eflatun ve gümüş */
   --brand-lilac: #a58cf5;
   --brand-lilac-halftone: #c4b1ff;
   --brand-lilac-pastel: #e7defc;

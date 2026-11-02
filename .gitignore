@@ -23,5 +23,6 @@ next-env.d.ts
 *.pem
 npm-debug.log*
 
-# yerel devir notları (git dışı)
+# yerel notlar, plan ve marka rehberi (git dışı)
 /doc
+/docs
