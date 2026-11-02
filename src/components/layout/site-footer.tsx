@@ -26,6 +26,11 @@ export function SiteFooter() {
           <div className="space-y-4">
             <Logo className="h-7" />
             <p className="max-w-md text-fg-muted">{site.disclaimer}</p>
+            <p>
+              <a href={`mailto:${site.email}`} className="font-mono hover:underline">
+                {site.email}
+              </a>
+            </p>
             <p className="text-2xl">
               <Braces>On Campus</Braces>
             </p>

@@ -137,6 +137,21 @@ export default function AboutPage() {
           ))}
         </ul>
       </Section>
+
+      <Section label="05 — iletişim" title="Bizimle iletişime geç" className="pt-0">
+        <Card className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between md:p-8">
+          <div className="space-y-2">
+            <p className="max-w-xl text-lg text-fg-muted">
+              Sponsorluk, iş birliği, konuşmacı önerisi ya da aklına takılan herhangi bir şey için
+              bize e-posta at.
+            </p>
+            <p className="font-mono text-sm">{site.email}</p>
+          </div>
+          <ButtonLink href={`mailto:${site.email}`} tone="green">
+            E-posta gönder
+          </ButtonLink>
+        </Card>
+      </Section>
     </>
   );
 }
