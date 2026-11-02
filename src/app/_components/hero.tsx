@@ -52,16 +52,6 @@ export function Hero() {
           <TypingTerminal lines={lines} />
         </div>
       </div>
-
-      <a
-        href="#rakamlar"
-        className="relative mx-auto mb-6 flex flex-col items-center gap-1 font-mono text-xs text-fg-subtle hover:text-fg"
-      >
-        kaydır
-        <span aria-hidden className="animate-nudge text-lg">
-          ↓
-        </span>
-      </a>
     </section>
   );
 }

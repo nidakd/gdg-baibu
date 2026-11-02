@@ -220,7 +220,6 @@
 
   --animate-marquee: marquee 28s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
-  --animate-nudge: nudge 1.6s ease-in-out infinite;
   --animate-spin-slow: spin-slow 14s linear infinite;
   --animate-marquee-slow: marquee 120s linear infinite;
   --animate-roll: roll 0.55s ease-out;
@@ -243,11 +242,6 @@
   @keyframes roll {
     to {
       transform: rotate(720deg) scale(1.2);
-    }
-  }
-  @keyframes nudge {
-    50% {
-      transform: translateY(6px);
     }
   }
 }
