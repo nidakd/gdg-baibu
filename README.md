@@ -13,8 +13,6 @@ $ gdg init --campus aibu
 - Duyurular
 - Core team için yönetici paneli
 
-Plan ve yol haritası: [docs/PLAN.md](docs/PLAN.md) · Marka kuralları: [docs/BRAND.md](docs/BRAND.md)
-
 ## Teknolojiler
 
 Next.js · TypeScript · Tailwind CSS · GSAP / Framer Motion · Supabase · Vercel
@@ -45,7 +43,6 @@ content/              Başlangıç içeriği (JSON)
   site.json           Topluluk adı, tanıtım, sosyal linkler
   team.json           Ekipler ve core team üyeleri
   events.json         Etkinlikler (npm run sync:events ile üretilir)
-docs/                 Plan ve marka kuralları
 public/brand/         Logo dosyaları
 scripts/              Yardımcı scriptler (içerik senkronu)
 src/
