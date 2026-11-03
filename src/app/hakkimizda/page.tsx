@@ -35,8 +35,9 @@ export default function AboutPage() {
           <div className="space-y-5 p-6 md:p-10">
             <p className="font-mono text-sm text-fg-subtle"># biz kimiz?</p>
             <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">
-              {site.about.intro}
+              {site.about.title}
             </h1>
+            <p className="max-w-3xl text-xl">{site.about.intro}</p>
             {site.about.paragraphs.map((p) => (
               <p key={p} className="max-w-3xl text-lg text-fg-muted">
                 {p}
@@ -81,7 +82,7 @@ export default function AboutPage() {
 
       <Section
         label="03 — ekipler"
-        title={`Core team yönetim ve ${getWorkingTeams().length} ekipten oluşuyor`}
+        title={`Core team'imiz ${getWorkingTeams().length} ekipten oluşuyor`}
         action={
           <ButtonLink href="/ekip" tone="green">
             Ekibi tanı

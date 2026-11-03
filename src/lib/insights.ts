@@ -1,9 +1,8 @@
-// Etkinlik arşivinden türetilen özetler: rakamlar, odak alanları, etkinlik serileri.
+// Etkinlik arşivinden türetilen özetler: rakamlar ve etkinlik serileri.
 // Elle sayı yazmak yerine hepsi content/events.json'dan hesaplanır.
 
 import type { Tone } from "@/components/ui/button";
 import { getEvents, getMembers, getSite, type Event, type Member } from "./content";
-import { focusAreas, inArea } from "./focus-areas";
 
 export type Stat = { value: number; label: string; tone: Tone };
 
@@ -16,25 +15,6 @@ export function getStats(): Stat[] {
     { value: workshops.length, label: "uygulamalı atölye", tone: "yellow" },
     { value: getMembers().length, label: "core team üyesi", tone: "red" },
   ];
-}
-
-export type FocusArea = {
-  id: string;
-  title: string;
-  description: string;
-  tone: Tone;
-  count: number;
-};
-
-export function getFocusAreas(): FocusArea[] {
-  const events = getEvents();
-  return focusAreas.map((area) => ({
-    id: area.id,
-    title: area.title,
-    description: area.description,
-    tone: area.tone,
-    count: events.filter((e) => inArea(e.tags, area)).length,
-  }));
 }
 
 export type Series = {
