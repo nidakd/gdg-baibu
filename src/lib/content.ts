@@ -62,13 +62,15 @@ export type Event = {
 const teams = teamJson.teams as Team[];
 const teamById = new Map(teams.map((t) => [t.id, t]));
 
-const isYear = (y: unknown): y is Member["year"] => y === null || y === "mezun" || typeof y === "number";
+const isYear = (y: unknown): y is Member["year"] =>
+  y === null || y === "mezun" || typeof y === "number";
 
 const members: Member[] = teamJson.members
   .map((m) => {
     const team = teamById.get(m.team);
     if (!team) throw new Error(`team.json: "${m.name}" bilinmeyen ekipte (${m.team})`);
-    if (!isYear(m.year)) throw new Error(`team.json: "${m.name}" için year sayı, "mezun" ya da null olmalı`);
+    if (!isYear(m.year))
+      throw new Error(`team.json: "${m.name}" için year sayı, "mezun" ya da null olmalı`);
     return { ...m, year: m.year, slug: slugify(m.name), team };
   })
   .sort((a, b) => a.order - b.order);
