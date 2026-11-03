@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactSection } from "@/components/sections/contact-section";
 import { FocusAreas } from "@/components/sections/focus-areas";
+import { AboutHero } from "./_components/about-hero";
 import { Milestones } from "@/components/sections/milestones";
 import { StatsGrid } from "@/components/sections/stats-grid";
 import { Avatar } from "@/components/team/avatar";
@@ -9,7 +10,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
 import { WaveBand } from "@/components/ui/wave-band";
-import { getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
+import { getMembersByTeam, getTeams, getWorkingTeams } from "@/lib/content";
 import { getEventsPerYear } from "@/lib/insights";
 
 export const metadata: Metadata = {
@@ -19,36 +20,16 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const site = getSite();
   const years = getEventsPerYear();
   const maxYear = Math.max(...years.map((y) => y.count));
 
   return (
     <>
       <div className="mx-auto max-w-content px-4 pt-12 sm:px-6 md:pt-20">
-        <Card className="overflow-hidden">
-          <div className="flex items-center gap-2 border-b-2 border-border-strong bg-surface-2 px-5 py-3 font-mono text-sm">
-            <span aria-hidden className="text-fg-subtle">
-              ▤
-            </span>
-            README.md
-          </div>
-          <div className="space-y-5 p-6 md:p-10">
-            <p className="font-mono text-sm text-fg-subtle"># biz kimiz?</p>
-            <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">
-              {site.about.title}
-            </h1>
-            <p className="max-w-3xl text-xl">{site.about.intro}</p>
-            {site.about.paragraphs.map((p) => (
-              <p key={p} className="max-w-3xl text-lg text-fg-muted">
-                {p}
-              </p>
-            ))}
-          </div>
-        </Card>
+        <AboutHero />
       </div>
 
-      <div className="mx-auto max-w-content px-4 pt-12 sm:px-6">
+      <div className="mx-auto max-w-content px-4 pt-16 sm:px-6">
         <StatsGrid />
       </div>
 
@@ -57,15 +38,8 @@ export default function AboutPage() {
       </Section>
 
       <WaveBand tone="yellow">
-        <Section
-          className="py-8 md:py-10"
-          label="02 — git log"
-          title="Kilometre taşlarımız"
-          intro="Kurulduğumuz günden bugüne, commit commit."
-        >
-          <div className="max-w-3xl">
-            <Milestones />
-          </div>
+        <Section className="py-8 md:py-10" label="02 — yolculuk" title="Kilometre taşlarımız">
+          <Milestones />
         </Section>
       </WaveBand>
 
