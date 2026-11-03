@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactSection } from "@/components/sections/contact-section";
 import { FocusAreas } from "@/components/sections/focus-areas";
+import { Milestones } from "@/components/sections/milestones";
 import { StatsGrid } from "@/components/sections/stats-grid";
 import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
@@ -9,8 +10,7 @@ import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
 import { WaveBand } from "@/components/ui/wave-band";
 import { getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
-import { formatMonth } from "@/lib/format";
-import { getEventsPerYear, getSeries } from "@/lib/insights";
+import { getEventsPerYear } from "@/lib/insights";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
@@ -59,25 +59,13 @@ export default function AboutPage() {
       <WaveBand tone="yellow">
         <Section
           className="py-8 md:py-10"
-          label="02 — seriler"
-          title="Tekrar eden etkinliklerimiz"
-          intro="Bir kere yapıp bırakmadığımız, birden fazla oturuma yayılan etkinlikler."
+          label="02 — git log"
+          title="Kilometre taşlarımız"
+          intro="Kurulduğumuz günden bugüne, commit commit."
         >
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {getSeries().map((series) => (
-              <li key={series.id}>
-                <Card className="flex h-full flex-col gap-2 p-5">
-                  <p className="font-mono text-xs text-fg-subtle">{series.events.length} oturum</p>
-                  <h3 className="text-xl font-bold">{series.title}</h3>
-                  <p className="mt-auto text-sm text-fg-muted">
-                    {formatMonth(series.first) === formatMonth(series.last)
-                      ? formatMonth(series.first)
-                      : `${formatMonth(series.first)} – ${formatMonth(series.last)}`}
-                  </p>
-                </Card>
-              </li>
-            ))}
-          </ul>
+          <div className="max-w-3xl">
+            <Milestones />
+          </div>
         </Section>
       </WaveBand>
 

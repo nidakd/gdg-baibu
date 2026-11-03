@@ -1,7 +1,8 @@
-// Etkinlik arşivinden türetilen özetler: rakamlar ve etkinlik serileri.
+// Etkinlik arşivinden türetilen özetler: rakamlar, etkinlik serileri ve kilometre taşları.
 // Elle sayı yazmak yerine hepsi content/events.json'dan hesaplanır.
 
 import type { Tone } from "@/components/ui/button";
+import milestonesJson from "../../content/milestones.json";
 import { getEvents, getMembers, getSite, type Event, type Member } from "./content";
 
 export type Stat = { value: number; label: string; tone: Tone };
@@ -78,4 +79,33 @@ export function getDepartments(): Department[] {
   return [...groups.entries()]
     .map(([name, members]) => ({ name, members }))
     .sort((a, b) => b.members.length - a.members.length || a.name.localeCompare(b.name, "tr"));
+}
+
+export type Milestone = {
+  date: string;
+  type: "init" | "feat" | "release";
+  title: string;
+  detail: string;
+  /** Bağlı etkinliğin adresi (/etkinlikler/<slug>) */
+  href: string | null;
+};
+
+/** content/milestones.json, en yeniden eskiye; etkinlik bağlantısı kırıksa derleme hata verir. */
+export function getMilestones(): Milestone[] {
+  const slugs = new Set(getEvents().map((e) => e.slug));
+  return milestonesJson
+    .map((m) => {
+      const event = "event" in m ? m.event : undefined;
+      if (event && !slugs.has(event)) {
+        throw new Error(`milestones.json: "${m.title}" için etkinlik bulunamadı (${event})`);
+      }
+      return {
+        date: m.date,
+        type: m.type as Milestone["type"],
+        title: m.title,
+        detail: m.detail,
+        href: event ? `/etkinlikler/${event}` : null,
+      };
+    })
+    .sort((a, b) => b.date.localeCompare(a.date));
 }
