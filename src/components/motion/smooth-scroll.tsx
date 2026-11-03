@@ -10,6 +10,7 @@ import { useEffect, useRef } from "react";
  * Yeni bir sayfaya geçince en üstten başlatır: Next.js yeni sayfa ekranda göründüğü sürece
  * kaydırma konumunu korur, bu yüzden ekip listesinin altından açılan profil aşağıdan başlıyordu.
  * Geri/ileri gidişte tarayıcının hatırladığı konuma dokunulmaz.
+ * Adres bir bölüme işaret ediyorsa (ör. /etkinlikler#arsiv) en üst yerine o bölüme gidilir.
  */
 export function SmoothScroll() {
   const pathname = usePathname();
@@ -39,12 +40,19 @@ export function SmoothScroll() {
 
   const firstRender = useRef(true);
   useEffect(() => {
+    const target = hashTarget();
     if (firstRender.current) {
       firstRender.current = false;
+      // İlk yüklemede tarayıcı zaten konumu ayarlar; sadece bölüme işaret eden adreste yardım et
+      if (!target) return;
+    } else if (historyNav.current) {
+      historyNav.current = false;
       return;
     }
-    if (historyNav.current) {
-      historyNav.current = false;
+    if (target) {
+      if (lenis.current)
+        lenis.current.scrollTo(target, { immediate: true, force: true, offset: -80 });
+      else target.scrollIntoView();
       return;
     }
     if (lenis.current) lenis.current.scrollTo(0, { immediate: true, force: true });
@@ -52,4 +60,15 @@ export function SmoothScroll() {
   }, [pathname]);
 
   return null;
+}
+
+/** Adresteki #bölüm; bozuk kodlanmış adreste (ör. "#%E0") hata vermesin. */
+function hashTarget(): HTMLElement | null {
+  const hash = window.location.hash.slice(1);
+  if (!hash) return null;
+  try {
+    return document.getElementById(decodeURIComponent(hash));
+  } catch {
+    return null;
+  }
 }

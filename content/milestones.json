@@ -1,0 +1,57 @@
+[
+  {
+    "date": "2024-09-17",
+    "type": "init",
+    "title": "Topluluk kuruldu",
+    "detail": "GDG on Campus AİBÜ, GDG Community'de açıldı."
+  },
+  {
+    "date": "2024-10-22",
+    "type": "feat",
+    "title": "İlk etkinlik: Info Session",
+    "detail": "Topluluğu ve ekipleri kampüse tanıttık.",
+    "event": "2024-10-22-info-session"
+  },
+  {
+    "date": "2024-11-13",
+    "type": "feat",
+    "title": "AIFest",
+    "detail": "Yapay zekâyı konuştuğumuz ilk festival.",
+    "event": "2024-11-13-aifest"
+  },
+  {
+    "date": "2025-02-15",
+    "type": "feat",
+    "title": "AI-BU serisi",
+    "detail": "4 oturumluk yapay zekâ eğitimi.",
+    "event": "2025-02-15-ai-bu-day-1"
+  },
+  {
+    "date": "2025-05-13",
+    "type": "release",
+    "title": "CampusFest",
+    "detail": "Yapay zekâ, veri bilimi, bulut ve oyun geliştirme iki günde.",
+    "event": "2025-05-13-campusfest"
+  },
+  {
+    "date": "2026-02-16",
+    "type": "feat",
+    "title": "EXPERT'IZ",
+    "detail": "Flutter, Firebase ve Google Cloud üzerine uzman oturumları.",
+    "event": "2026-02-16-expert-iz-flutter-dart"
+  },
+  {
+    "date": "2026-03-02",
+    "type": "feat",
+    "title": "Sahur Jam",
+    "detail": "Ramazan boyunca 9 oturum: oyun sektörü, game jam ve söyleşiler.",
+    "event": "2026-03-02-sahur-jam-oyun-sektorune-nasil-girilir-w-senem-aksakal"
+  },
+  {
+    "date": "2026-05-15",
+    "type": "feat",
+    "title": "CYBERFIRST",
+    "detail": "3 günlük siber güvenlik festivali.",
+    "event": "2026-05-15-cyberfirst-day-1"
+  }
+]
