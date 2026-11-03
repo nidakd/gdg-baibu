@@ -8,6 +8,7 @@ import { StatsGrid } from "@/components/sections/stats-grid";
 import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
+import { ContactSection } from "@/components/sections/contact-section";
 import { WaveBand } from "@/components/ui/wave-band";
 import { getEvents, getMembers, getSite } from "@/lib/content";
 import { Hero } from "./_components/hero";
@@ -130,6 +131,8 @@ export default function Home() {
           </div>
         </Reveal>
       </div>
+
+      <ContactSection label="05 — iletişim" className="pt-0" />
     </>
   );
 }
