@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ReleaseCard } from "@/components/events/release-card";
 import { DinoRunner } from "@/components/fun/dino-runner";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
@@ -13,7 +12,7 @@ import { WaveBand } from "@/components/ui/wave-band";
 import { getMembers, getSite } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
 import { Hero } from "./_components/hero";
-import { NextRelease } from "./_components/next-release";
+import { LatestEvents } from "./_components/latest-events";
 
 export default async function Home() {
   const site = getSite();
@@ -21,7 +20,6 @@ export default async function Home() {
   // Yaklaşan etkinlik ayrı kartta; listede sadece geçmişler
   const { upcoming, past } = await getEventTimeline();
   const next = upcoming[0];
-  const latest = past.slice(0, 3);
 
   return (
     <>
@@ -45,20 +43,7 @@ export default async function Home() {
             </ButtonLink>
           }
         >
-          {next && (
-            <Reveal className="mb-8">
-              <NextRelease event={next} />
-            </Reveal>
-          )}
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {latest.map((event, i) => (
-              <li key={event.id}>
-                <Reveal delay={i * 120} className="h-full">
-                  <ReleaseCard event={event} />
-                </Reveal>
-              </li>
-            ))}
-          </ul>
+          <LatestEvents next={next} past={past} />
         </Section>
       </WaveBand>
 
