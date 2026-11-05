@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Circles, Slashes } from "@/components/brand/brand-shapes";
+import { Poster } from "@/components/events/poster";
 import { Tag } from "@/components/ui/tag";
 import type { Event } from "@/lib/content";
 import { formatDate, releaseTag } from "@/lib/format";
@@ -33,14 +33,15 @@ export function FeaturedRelease({ event }: { event: Event }) {
           <span className="text-green-ink">{releaseTag(event.startsAt)}</span>
         </div>
         {event.coverUrl && (
-          <div className="relative aspect-[4/3] bg-surface-2">
-            <Image
+          <div className="relative aspect-[4/3] overflow-hidden bg-surface-2">
+            <Poster
               src={event.coverUrl}
+              aspect={event.coverAspect}
+              box={4 / 3}
               alt={`${event.title} afişi`}
-              fill
               priority
               sizes="24rem"
-              className="object-cover transition duration-500 group-hover:scale-105"
+              className="transition duration-500 group-hover:scale-105"
             />
           </div>
         )}

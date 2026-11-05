@@ -53,6 +53,8 @@ export type Event = {
   summary: string | null;
   descriptionHtml: string | null;
   coverUrl: string | null;
+  /** Afişin en/boy oranı (kenar boşluğu kırpıldıktan sonra); bilinmiyorsa null */
+  coverAspect: number | null;
   tags: string[];
   speakers: Speaker[];
   photos: string[];

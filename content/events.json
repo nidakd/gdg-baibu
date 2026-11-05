@@ -1,5 +1,26 @@
 [
   {
+    "id": "135129",
+    "slug": "2026-11-12-zcash",
+    "title": "Zcash",
+    "startsAt": "2026-11-12T11:30:00+03:00",
+    "endsAt": "2026-11-12T13:30:00+03:00",
+    "format": "in-person",
+    "venue": "Abant İzzet Baysal Üniversitesi Sağlık Kültür ve Spor Daire Başkanlığı Mavi Salon",
+    "summary": "Join the conference hosted with ZCash, exploring blockchain transparency and privacy. Gain insights from industry experts and network with fellow enthusiasts. Expand your knowledge in the evolving fintech landscape. Don't miss it!",
+    "descriptionHtml": "Join us for an engaging conference hosted in collaboration with ZCash, focusing on the ecosystem of blockchain transparency and privacy. Discover project development insights from industry experts. Don't miss the opportunity to expand your knowledge and network with fellow enthusiasts. We look forward to seeing you there!",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_UVp6Wfg",
+    "tags": [
+      "Conference",
+      "Networking",
+      "Tech Talk / Meetup"
+    ],
+    "speakers": [],
+    "photos": [],
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-zcash/",
+    "coverAspect": 0.8
+  },
+  {
     "id": "133572",
     "slug": "2026-10-17-coffee-talk",
     "title": "Coffee Talk",
@@ -9,11 +30,12 @@
     "venue": "Standart Coffee / BOLU",
     "summary": "Join the inaugural 'Coffee Talk' event to connect with tech enthusiasts, enjoy games, and discuss Google technologies in a relaxed setting. Ideal for those looking to build connections and become part of the GDG community. Bring a friend and a smile!",
     "descriptionHtml": "Join us for our very first 'Coffee Talk' event! This is the perfect opportunity to meet fellow tech enthusiasts, play some fun games, and engage in enlightening discussions about Google technologies. It's a relaxed setting where you can build connections and be part of the growing GDG community. Don't miss out—bring a friend and a smile!",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_KVxVlzN",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_KVxVlzN",
     "tags": [],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-coffee-talk-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-coffee-talk-2/",
+    "coverAspect": 0.713
   },
   {
     "id": "133571",
@@ -33,7 +55,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stand-day-3/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stand-day-3/",
+    "coverAspect": 1
   },
   {
     "id": "133948",
@@ -45,11 +68,12 @@
     "venue": "English Time Bolu",
     "summary": "Explore the impact of AI on music with special guest Yiğit Arslan from Suno AI. Discover transformative technologies and engage in a hands-on workshop to create music. Ideal for music enthusiasts and tech innovators eager to learn and connect. Secure your spot today!",
     "descriptionHtml": "Join us for an exciting exploration of AI in music with our special guest, Yiğit Arslan, at the helm of Suno AI! Discover how artificial intelligence is transforming the music industry and participate in a hands-on workshop session. Don't miss this chance to connect, learn, and create music like never before. Secure your spot today!",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_kkxCc9s",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_kkxCc9s",
     "tags": [],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-music/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-music/",
+    "coverAspect": 0.754
   },
   {
     "id": "133568",
@@ -61,11 +85,12 @@
     "venue": "Konferans salonu",
     "summary": "GDG onCampus at Abant İzzet Baysal University offers students an exciting opportunity to dive into Google technologies through workshops, seminars, and networking. This vibrant community helps students explore tech, enhance skills, and connect with peers. Join to discover upcoming events and unlock new opportunities.",
     "descriptionHtml": "<p>GDG onCampus: Abant İzzet Baysal University is part of the Google Developer Group (GDG) network, bringing Google technologies closer to university students while empowering them to grow their skills.</p><p>This year, we're stepping into a new chapter with fresh energy-hosting hands-on workshops, inspiring seminars, and powerful networking opportunities</p><p>Our mission is to create a vibrant community where students can explore technology, unlock their potential, and connect with like-minded peers.Join us to discover the events we're planning, the skills you'll gain, and the opportunities waiting for you.</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_y1qIBSc",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_y1qIBSc",
     "tags": [],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-info-session-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-info-session-2/",
+    "coverAspect": 0.708
   },
   {
     "id": "131507",
@@ -85,7 +110,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stand-day-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stand-day-2/",
+    "coverAspect": 1
   },
   {
     "id": "126713",
@@ -109,7 +135,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-entrepreneurship-camp/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-entrepreneurship-camp/",
+    "coverAspect": 1
   },
   {
     "id": "125280",
@@ -132,7 +159,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-muhendislik-kariyer-gunu/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-muhendislik-kariyer-gunu/",
+    "coverAspect": 1
   },
   {
     "id": "124335",
@@ -156,7 +184,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-give-your-agent-hands-building-tool-enabled-ai-with-google-adk-amp-mcp/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-give-your-agent-hands-building-tool-enabled-ai-with-google-adk-amp-mcp/",
+    "coverAspect": 1
   },
   {
     "id": "123746",
@@ -180,7 +209,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-muzik-atolyesi/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-muzik-atolyesi/",
+    "coverAspect": 1
   },
   {
     "id": "124268",
@@ -192,7 +222,7 @@
     "venue": "Abant İzzet Baysal Üniversitesi Mühendislik Fakültesi",
     "summary": "We invite you to an exciting cybersecurity festival at Bolu Abant İzzet Baysal University! Hosted by BAIBUSEC, the 'CYBE...",
     "descriptionHtml": "<p>We invite you to an exciting cybersecurity festival at Bolu Abant İzzet Baysal University! Hosted by BAIBUSEC, the 'CYBERFIRST' is proudly supported by GDG on Campus. We welcome everyone interested in the cyber realm to join our event. Not only will you gain insight into modern cyber threats, but you'll also have the opportunity to network and meet experts in the field. This fantastic day allows you to expand your knowledge and make significant strides in your career. </p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_0XRI8fp",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_0XRI8fp",
     "tags": [
       "AI - Gemini",
       "Build with AI",
@@ -201,7 +231,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-cyberfirst-day-3/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-cyberfirst-day-3/",
+    "coverAspect": 1.036
   },
   {
     "id": "124267",
@@ -213,7 +244,7 @@
     "venue": "Abant İzzet Baysal Üniversitesi Mühendislik Fakültesi",
     "summary": "We invite you to an exciting cybersecurity festival at Bolu Abant İzzet Baysal University! Hosted by BAIBUSEC, the 'CYBE...",
     "descriptionHtml": "<p>We invite you to an exciting cybersecurity festival at Bolu Abant İzzet Baysal University! Hosted by BAIBUSEC, the 'CYBERFIRST' is proudly supported by GDG on Campus. We welcome everyone interested in the cyber realm to join our event. Not only will you gain insight into modern cyber threats, but you'll also have the opportunity to network and meet experts in the field. This fantastic day allows you to expand your knowledge and make significant strides in your career. </p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_qJZIPcg",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_qJZIPcg",
     "tags": [
       "AI",
       "AI - Gemini",
@@ -224,7 +255,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-cyberfirst-day-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-cyberfirst-day-2/",
+    "coverAspect": 1.036
   },
   {
     "id": "124167",
@@ -236,7 +268,7 @@
     "venue": "Aibü Kongre Mer.",
     "summary": "We invite you to an exciting cybersecurity festival at Bolu Abant İzzet Baysal University! Hosted by BAIBUSEC, the 'CYBE...",
     "descriptionHtml": "<p>We invite you to an exciting cybersecurity festival at Bolu Abant İzzet Baysal University! Hosted by BAIBUSEC, the 'CYBERFIRST' is proudly supported by GDG on Campus. We welcome everyone interested in the cyber realm to join our event. Not only will you gain insight into modern cyber threats, but you'll also have the opportunity to network and meet experts in the field. This fantastic day allows you to expand your knowledge and make significant strides in your career. </p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_Ob7UN2a",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_Ob7UN2a",
     "tags": [
       "Career Development",
       "Community Building",
@@ -245,7 +277,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-cyberfirst-day-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-cyberfirst-day-1/",
+    "coverAspect": 1.036
   },
   {
     "id": "123744",
@@ -257,7 +290,7 @@
     "venue": "Abant İzzet Baysal Üniversitesi Mühendislik Fakültesi",
     "summary": "Dive into the future of app development with our exclusive workshop: \"App Development with AI Studio and Gemini.\" Led by...",
     "descriptionHtml": "Dive into the future of app development with our exclusive workshop: \"App Development with AI Studio and Gemini.\" Led by Nurettin Selim Özyılmaz, a seasoned full-stack developer and organizer at GDG İstanbul, this session will guide you through the innovative tools and techniques transforming the app development landscape.\n\nJoin us to explore how AI Studio and Gemini can revolutionize your approach to app development, enabling you to build smarter and more efficient applications. This hands-on workshop is designed for developers eager to integrate artificial intelligence into their projects and gain insights from a leader in the field.\n\nDon't miss this opportunity to enhance your skills and connect with fellow tech enthusiasts at Bolu Abant Izzet Baysal University. Confirm your spot today and be part of our growing community!",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_QZ9UJqk",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_QZ9UJqk",
     "tags": [
       "AI",
       "AI - Gemini",
@@ -268,7 +301,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-app-development-with-ai-studio-and-gemini/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-app-development-with-ai-studio-and-gemini/",
+    "coverAspect": 0.883
   },
   {
     "id": "123743",
@@ -289,7 +323,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-arduino-101-day-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-arduino-101-day-2/",
+    "coverAspect": 1
   },
   {
     "id": "122897",
@@ -313,7 +348,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-arduino-101/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-arduino-101/",
+    "coverAspect": 1
   },
   {
     "id": "123520",
@@ -325,7 +361,7 @@
     "venue": "Aibü Kongre Mer.",
     "summary": "Bolu Abant İzzet Baysal Üniversitesi'nde düzenlenen 'Kamuda Kariyer Buluşmaları' etkinliğine sen de katıl ve geleceğini ...",
     "descriptionHtml": "<p>Bolu Abant İzzet Baysal Üniversitesi'nde \"Ortak Zemin Topluluğu\"nun düzenlediği 'Kamuda Kariyer Buluşmaları' etkinliğine sen de katıl ve geleceğini şekillendirmede bir adım önde ol!</p><p>Konuşmacılarımız Doç. Dr. İskender Karakaya, Doç. Dr. Levent Ersin Orallı ve Cengizhan Gökben ile kamuda kariyer fırsatlarını, kişisel gelişim yollarını ve daha fazlasını öğrenme fırsatını kaçırma. </p><p>Katılım belgelerini alabileceğin, sürpriz kitap ve hediyeler kazanabileceğin etkinlikte, ayrıca Build with AI kapsamında 5 dolarlık Google Cloud kredisi de seni bekliyor!   Bizimle öğrenmek, gelişmek ve başarılı bir kariyer için adım atmak için GDG on Campus AİBÜ olarak etkinliğe destek veriyoruz.</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_BBy1j0i",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_BBy1j0i",
     "tags": [
       "Career Development",
       "Community Building",
@@ -333,7 +369,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-kamuda-kariyer-bulusmalari/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-kamuda-kariyer-bulusmalari/",
+    "coverAspect": 1.04
   },
   {
     "id": "123290",
@@ -357,7 +394,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stajin-sifreleri-hyundai-electric-with-zeynep-alkoc/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stajin-sifreleri-hyundai-electric-with-zeynep-alkoc/",
+    "coverAspect": 1
   },
   {
     "id": "123052",
@@ -369,7 +407,7 @@
     "venue": "Aibü Kongre Mer.",
     "summary": "It is the second day of our psychology journey! We are taking our place in this 2-day journey organized by Psikoloji Öğr...",
     "descriptionHtml": "<p>It is the second day of our psychology journey! We are taking our place in this 2-day journey organized by <strong>Psikoloji Öğrencileri Topluluğu</strong>! 🚀</p><p>As the <strong>GDG on Campus AIBU</strong> team, we are the system coordinators of the event. We are working behind the scenes to ensure every technical process, from the attendance system to the coordination of the raffles, runs perfectly. 😎</p><h3>🗓️ What Awaits You?</h3><ul><li><p>A full 2-day program where you can gain in-depth knowledge of psychology.</p></li><li><p>Expert insights on integration processes.</p></li><li><p>The chance to meet and network with both <strong>Psikoloji Öğrencileri Topluluğu</strong> and <strong>GDG on Campus AIBU</strong> teams! 🤝</p></li></ul><p>We look forward to seeing you there to be a part of this professional organization and to meet us. See you soon! 🍬✨</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_NvkFNym",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_NvkFNym",
     "tags": [
       "AI",
       "AI - Gemini",
@@ -380,7 +418,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-xi-psikoloji-gunleri-entegrasyon-parcalardan-butune-ruhsal-ve-toplumsal-uyum-icin-entegrasyon-surecleri-gun-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-xi-psikoloji-gunleri-entegrasyon-parcalardan-butune-ruhsal-ve-toplumsal-uyum-icin-entegrasyon-surecleri-gun-2/",
+    "coverAspect": 1.08
   },
   {
     "id": "123047",
@@ -392,7 +431,7 @@
     "venue": "Aibü Kongre Mer.",
     "summary": "Are you ready to explore the keys to mental and social harmony together? We are taking our place in this 2-day journey o...",
     "descriptionHtml": "<p>Are you ready to explore the keys to mental and social harmony together? We are taking our place in this 2-day journey organized by <strong>Psikoloji Öğrencileri Topluluğu</strong>! 🚀</p><p>As the <strong>GDG on Campus AIBU</strong> team, we are the system coordinators of the event. We are working behind the scenes to ensure every technical process, from the attendance system to the coordination of the raffles, runs perfectly. 😎</p><h3>🗓️ What Awaits You?</h3><ul><li><p>A full 2-day program where you can gain in-depth knowledge of psychology.</p></li><li><p>Expert insights on integration processes.</p></li><li><p>The chance to meet and network with both <strong>Psikoloji Öğrencileri Topluluğu</strong> and <strong>GDG on Campus AIBU</strong> teams! 🤝</p></li></ul><p>We look forward to seeing you there to be a part of this professional organization and to meet us. See you soon! 🍬✨</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_IZmzWQw",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_IZmzWQw",
     "tags": [
       "AI",
       "Career Development",
@@ -402,7 +441,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-xi-psikoloji-gunleri-entegrasyon-parcalardan-butune-ruhsal-ve-toplumsal-uyum-icin-entegrasyon-surecleri/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-xi-psikoloji-gunleri-entegrasyon-parcalardan-butune-ruhsal-ve-toplumsal-uyum-icin-entegrasyon-surecleri/",
+    "coverAspect": 1.08
   },
   {
     "id": "122591",
@@ -425,7 +465,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-gdg-on-campus-all-around-the-world-jordan-x-turkiye-edition/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-gdg-on-campus-all-around-the-world-jordan-x-turkiye-edition/",
+    "coverAspect": 1
   },
   {
     "id": "122478",
@@ -448,7 +489,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-zirvex/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-zirvex/",
+    "coverAspect": 1
   },
   {
     "id": "121957",
@@ -460,7 +502,7 @@
     "venue": "Aibü Kongre Mer.",
     "summary": "Join us for an enlightening event where we delve into the intriguing intersection of psychology and software development...",
     "descriptionHtml": "<p>Join us for an enlightening event where we delve into the intriguing intersection of psychology and software development. In collaboration with the Psychology Student Society at our university, we're opening a stand to explore whether psychology and software can seamlessly integrate. Discover how we've developed an application to manage event attendees and issue participation certificates during this fascinating session titled \"Forensic Psychology and Law: Cognitive and Normative Analysis of Crime\". Don't miss this opportunity to be at the forefront of innovation at the crossroads of technology and psychology. Come, explore, and connect with peers to build a vibrant community. </p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_VOaPnqQ",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_VOaPnqQ",
     "tags": [
       "AI",
       "Career Development",
@@ -470,7 +512,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-forensic-psychology-and-law-cognitive-and-normative-analysis-of-crime/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-forensic-psychology-and-law-cognitive-and-normative-analysis-of-crime/",
+    "coverAspect": 0.967
   },
   {
     "id": "120543",
@@ -482,7 +525,7 @@
     "venue": "Bolu Abant İzzet Baysal Üniversitesi",
     "summary": "Join us for the 'Zirve Festivali', a unique blend of technology and entertainment that promises to be a day filled with ...",
     "descriptionHtml": "Join us for the 'Zirve Festivali', a unique blend of technology and entertainment that promises to be a day filled with inspiration and fun! We are thrilled to welcome four distinguished speakers who will share their insights on cutting-edge technology trends and innovation. Following the talks, enjoy a vibrant live concert, bringing you a festival atmosphere right here on campus. \n\nThis is not just an event, but a celebration that fosters learning, networking, and enjoyment among tech enthusiasts and students alike. Don't miss this chance to be part of a transformative experience that could propel your interest and involvement in the tech community. \n\nSeats are limited, so act fast! Register now and secure your spot for a day of learning, laughter, and music at the Zirve Festivali.",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_NeLXSYK",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_NeLXSYK",
     "tags": [
       "Career Development",
       "Community Building",
@@ -491,7 +534,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-zirve/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-zirve/",
+    "coverAspect": 0.755
   },
   {
     "id": "119935",
@@ -503,7 +547,7 @@
     "venue": "14 Burda AVM",
     "summary": "Join us for \"Doodle Talk,\" an exciting journey where technology and creativity collide! In this interactive session, we'...",
     "descriptionHtml": "<p>Join us for \"Doodle Talk,\" an exciting journey where technology and creativity collide! In this interactive session, we'll explore the fascinating world of AI-generated images and transform them into playful doodles. Discover how AI can enhance artistic expression and spark your creativity in unexpected ways. Our event will include hands-on activities, lively discussions, and a chance to connect with fellow art and tech enthusiasts. Don't miss out on this unique opportunity to see how AI can elevate art and inspire innovation. Reserve your spot today and be part of a creative revolution!</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_2GN5Sgp",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_2GN5Sgp",
     "tags": [
       "AI",
       "Community Building",
@@ -512,7 +556,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-doodle-talk/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-doodle-talk/",
+    "coverAspect": 1.046
   },
   {
     "id": "119719",
@@ -533,7 +578,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stand-day-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stand-day-1/",
+    "coverAspect": 1
   },
   {
     "id": "119717",
@@ -553,7 +599,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stand-day/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stand-day/",
+    "coverAspect": 1
   },
   {
     "id": "119891",
@@ -573,7 +620,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-baibu-topluluklari-sahne-senin/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-baibu-topluluklari-sahne-senin/",
+    "coverAspect": 1
   },
   {
     "id": "117475",
@@ -599,7 +647,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-day-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-day-2/",
+    "coverAspect": 1
   },
   {
     "id": "117477",
@@ -623,7 +672,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-day-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-day-1/",
+    "coverAspect": 1
   },
   {
     "id": "117466",
@@ -644,7 +694,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-bir-gelistiricinin-yol-haritasi-w-tayfun-yilmaz/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-bir-gelistiricinin-yol-haritasi-w-tayfun-yilmaz/",
+    "coverAspect": 1
   },
   {
     "id": "117465",
@@ -665,7 +716,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-oyun-ve-yapay-zeka-w-ecem-safak/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-oyun-ve-yapay-zeka-w-ecem-safak/",
+    "coverAspect": 1
   },
   {
     "id": "117463",
@@ -686,7 +738,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-game-jamden-studyoya-w-akin-artun-yuceege/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-game-jamden-studyoya-w-akin-artun-yuceege/",
+    "coverAspect": 1
   },
   {
     "id": "117462",
@@ -705,7 +758,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-oyun-sektoru-uzerine-soylesi-w-cagan-deniz-yapici/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-oyun-sektoru-uzerine-soylesi-w-cagan-deniz-yapici/",
+    "coverAspect": 1
   },
   {
     "id": "117456",
@@ -724,7 +778,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-oyun-sektorune-hazirlanma-ve-game-testerlik-w-efe-can-karaoglu/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-oyun-sektorune-hazirlanma-ve-game-testerlik-w-efe-can-karaoglu/",
+    "coverAspect": 1
   },
   {
     "id": "117452",
@@ -745,7 +800,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-soru-cevap-w-habip-sana/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-soru-cevap-w-habip-sana/",
+    "coverAspect": 1
   },
   {
     "id": "117450",
@@ -766,7 +822,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-oyun-sektorune-nasil-girilir-w-senem-aksakal/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-sahur-jam-oyun-sektorune-nasil-girilir-w-senem-aksakal/",
+    "coverAspect": 1
   },
   {
     "id": "115702",
@@ -793,7 +850,8 @@
       }
     ],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-expertiz-firebase/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-expertiz-firebase/",
+    "coverAspect": 1
   },
   {
     "id": "115466",
@@ -819,7 +877,8 @@
       }
     ],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-expertiz-google-cloud/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-expertiz-google-cloud/",
+    "coverAspect": 1
   },
   {
     "id": "115325",
@@ -842,7 +901,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-expertiz-flutterdart/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-expertiz-flutterdart/",
+    "coverAspect": 1
   },
   {
     "id": "114635",
@@ -863,7 +923,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stajin-sifreleri-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stajin-sifreleri-1/",
+    "coverAspect": 1
   },
   {
     "id": "111491",
@@ -875,7 +936,7 @@
     "venue": "English Time Bolu",
     "summary": "Join us for an exciting Interactive English Speaking Game Night! We will leverage the innovative \"Antigravity IDE\" to co...",
     "descriptionHtml": "Join us for an exciting Interactive English Speaking Game Night! We will leverage the innovative \"Antigravity IDE\" to conduct fun and engaging language games, designed to improve your speaking skills. In collaboration with our friends at \"SpeakEasy\", this event is a fantastic opportunity to practice English in an enjoyable and supportive environment. Participate in team activities, challenge yourself with new vocabulary, and gain confidence in speaking English. Don't miss out on this chance to learn, play, and network with fellow students. Sign up now and be part of an unforgettable evening!",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_UjiYdpx",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_UjiYdpx",
     "tags": [
       "AI - Gemini",
       "Build with AI",
@@ -884,7 +945,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-speaking-club-with-speakeasy/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-speaking-club-with-speakeasy/",
+    "coverAspect": 1.121
   },
   {
     "id": "110171",
@@ -904,7 +966,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-bolu-girisimcilik-kampi-teknoloji-ve-inovasyon/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-bolu-girisimcilik-kampi-teknoloji-ve-inovasyon/",
+    "coverAspect": null
   },
   {
     "id": "109641",
@@ -916,7 +979,7 @@
     "venue": "Abant İzzet Baysal Üniversitesi Mühendislik Fakültesi",
     "summary": "Join us for an enlightening event that explores the intersection of law and artificial intelligence. Our first speaker, ...",
     "descriptionHtml": "Join us for an enlightening event that explores the intersection of law and artificial intelligence. Our first speaker, Seyfettin Çağrı Yıldırım, a visually impaired attorney specializing in IT and technology law, will share insights from his unique professional perspective. Gain valuable knowledge on how technology is shaping the legal industry.\n\nFollowing this, our guest speakers Ayşe Arslan and Mehmet Demir will deep dive into what it means to be a lawyer in the era of artificial intelligence. They will discuss emerging challenges, the skills required, and the future landscape of the legal profession in the AI-driven world.\n\nDon't miss this opportunity to learn from experts in the field and network with like-minded individuals. This event is a must-attend for students and professionals eager to understand the evolving dynamic between law and technology. Secure your spot now and be part of this engaging community discussion! Call to Action: Register today to reserve your seat!",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_GopOlFd",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_GopOlFd",
     "tags": [
       "AI",
       "AI - Gemini",
@@ -926,7 +989,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-law-amp-ai/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-law-amp-ai/",
+    "coverAspect": 0.9
   },
   {
     "id": "107493",
@@ -947,7 +1011,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-game-night/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-game-night/",
+    "coverAspect": 1
   },
   {
     "id": "107502",
@@ -959,14 +1024,15 @@
     "venue": "English Time Bolu",
     "summary": "Join us for an engaging and fun-filled evening as GDG on Campus Bolu Abant Izzet Baysal University collaborates with the...",
     "descriptionHtml": "<p>Join us for an engaging and fun-filled evening as GDG on Campus Bolu Abant Izzet Baysal University collaborates with the \"Sinema ve Dijital Medya Topluluğu\" for our very first Movie Night Meetup! \n\nThis event is a perfect opportunity to relax and enjoy a movie that beautifully intertwines technology and storytelling. Come experience the magic of cinema with fellow tech enthusiasts and film lovers alike. It's not just a movie night, it's a chance to network, share your interests, and be part of a vibrant community that celebrates both the tech world and creative media.\n\nDon't miss out on this exciting event that promises to be both entertaining and inspiring. Snacks and refreshments will be provided! Grab your spot today and let’s make this movie night a memorable one.\n\nLet's come together for a night of laughter, learning, and new friendships. See you there!\n</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_o16oUTi",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_o16oUTi",
     "tags": [
       "Networking",
       "Tech Talk / Meetup"
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-movie-night/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-movie-night/",
+    "coverAspect": 1.005
   },
   {
     "id": "107025",
@@ -986,7 +1052,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-python-101/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-python-101/",
+    "coverAspect": 1
   },
   {
     "id": "107005",
@@ -1008,7 +1075,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-technical-tour-to-arcelik-cooking-appliances-plant/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-technical-tour-to-arcelik-cooking-appliances-plant/",
+    "coverAspect": null
   },
   {
     "id": "105654",
@@ -1020,7 +1088,7 @@
     "venue": "Mikel Coffee",
     "summary": "Join us for \"Coffee Talks,\" a unique event where tech meets art! Kick off the evening with a casual coffee talk designed...",
     "descriptionHtml": "<p>Join us for \"Coffee Talks,\" a unique event where tech meets art! Kick off the evening with a casual coffee talk designed to get everyone chatting. We've prepared fun and engaging ice-breaker questions to spark conversations. Once everyone's warmed up, we dive into the highlight of the night: the Gemini Image Generation Game!  Unleash your creativity by combining three random words into your own unique image using the Gemini platform. Teams will collaborate to create stunning and hilarious visuals. The twist? You'll be judging each other's creations, ensuring a fair and fun competition. At the end of the night, we'll crown the ultimate image champion!  All participants will also receive access to Gemini Pro Student Edition, so the creativity doesn't have to stop. Come for the coffee, stay for the creativity, and leave with new skills and connections!  Don't miss out—sign up now and let's get creative together!</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_L8bp660",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_L8bp660",
     "tags": [
       "Networking",
       "Tech Talk / Meetup"
@@ -1039,7 +1107,8 @@
       "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/IMG_8061_pec3hoM.jpg",
       "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/SAM_2700_1aFSL63.JPG"
     ],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-coffee-talk-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-coffee-talk-1/",
+    "coverAspect": 0.831
   },
   {
     "id": "105206",
@@ -1058,7 +1127,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-gdg-on-campus-bolu-aibu-stand-at-clubs-fair-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-gdg-on-campus-bolu-aibu-stand-at-clubs-fair-1/",
+    "coverAspect": 1
   },
   {
     "id": "105205",
@@ -1077,7 +1147,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-gdg-on-campus-bolu-aibu-stand-at-clubs-fair/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-gdg-on-campus-bolu-aibu-stand-at-clubs-fair/",
+    "coverAspect": 1
   },
   {
     "id": "104674",
@@ -1101,7 +1172,8 @@
       "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/IMG-20251103-WA0029_F4dlLDi.jpg",
       "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/IMG-20251103-WA0030_7XQJk1Q.jpg"
     ],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-info-session-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-info-session-1/",
+    "coverAspect": 1
   },
   {
     "id": "95505",
@@ -1160,7 +1232,8 @@
       }
     ],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-campusfest-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-campusfest-1/",
+    "coverAspect": null
   },
   {
     "id": "95430",
@@ -1219,7 +1292,8 @@
       }
     ],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-campusfest/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-campusfest/",
+    "coverAspect": null
   },
   {
     "id": "96217",
@@ -1238,7 +1312,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-zirve25/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-zirve25/",
+    "coverAspect": 1.009
   },
   {
     "id": "91708",
@@ -1250,14 +1325,15 @@
     "venue": "Bolu Abant İzzet Baysal Üniversitesi",
     "summary": "🚀 On March 21, 2025, we organized a booth event as the GDG on Campus team! 🌟 We introduced our community, connected with our members, and shared details about the hackathons, coding workshops, and networking events we planned. 💬 By gathering feedback, we strengthened our community spirit and shaped future projects! 🎯",
     "descriptionHtml": "<p>As the GDG on Campus team, we organized an exciting booth event! 🌟 Our goal was to introduce our community more closely and establish effective communication with our members to learn about the events they wish to participate in this term. 💬  </p><p>At the booth, we shared our community’s mission, vision, and goals while providing detailed information about the events we planned, including hackathons, coding workshops, networking sessions, and motivation activities. 🎯  </p><p>We also listened to the ideas that caught our members’ interest and aimed to shape our future projects based on their feedback. With high participation, this event strengthened our community spirit and marked the first step toward an amazing new term! 🎉&nbsp;&nbsp;</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/stant%2520post_ereq2kD.png",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/stant%2520post_ereq2kD.png",
     "tags": [
       "Community Building",
       "Tech Talk / Meetup"
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-gdgoncampusaibu-back-on-campus/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-gdgoncampusaibu-back-on-campus/",
+    "coverAspect": 0.917
   },
   {
     "id": "91706",
@@ -1284,7 +1360,8 @@
       }
     ],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-bu-gelecegi-kodlayan-kadinlar/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-bu-gelecegi-kodlayan-kadinlar/",
+    "coverAspect": 0.8
   },
   {
     "id": "88643",
@@ -1310,7 +1387,8 @@
       }
     ],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-bu-day-3-4/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-bu-day-3-4/",
+    "coverAspect": 0.8
   },
   {
     "id": "88458",
@@ -1329,7 +1407,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-bu-day-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-bu-day-2/",
+    "coverAspect": 1
   },
   {
     "id": "88459",
@@ -1347,7 +1426,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-bu-day-1/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-ai-bu-day-1/",
+    "coverAspect": 1
   },
   {
     "id": "77782",
@@ -1359,7 +1439,7 @@
     "venue": "Abant İzzet Baysal Üniversitesi",
     "summary": "Arif Tumiçin KIZILASLAN shared his valuable experiences on professional networking strategies and building an effective profile. Participants learned how to stand out on LinkedIn.",
     "descriptionHtml": "<p>Arif Tumiçin KIZILASLAN shared his extensive experience in professional networking strategies and creating an impactful profile. Throughout the training, participants had the opportunity to learn the intricacies of building a professional presence on LinkedIn and standing out on the platform.</p><p>Mr. Kızılaslan highlighted the key elements necessary for creating a strong LinkedIn profile. He discussed the importance of standout sections, the strategic use of relevant keywords, and how profiles supported by effective visuals can leave a positive impression on employers and professional networks. Additionally, he provided practical tips on personal branding, crafting an engaging summary, and effectively presenting professional experiences.</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/WhatsApp%2520Image%25202024-12-27%2520at%252019.40.57_8b5df2ce_l1qmveG.jpg",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/WhatsApp%2520Image%25202024-12-27%2520at%252019.40.57_8b5df2ce_l1qmveG.jpg",
     "tags": [
       "Career Development",
       "Conference"
@@ -1373,7 +1453,8 @@
       }
     ],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-linkedin-day/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-linkedin-day/",
+    "coverAspect": 1.525
   },
   {
     "id": "81654",
@@ -1385,7 +1466,7 @@
     "venue": "Abant İzzet Baysal Üniversitesi",
     "summary": "Git & GitHub Training: İsmail Hakkı Parlak provided us with a comprehensive overview of GitHub, one of the indispensable tools in the software world. Participants learned how to manage their projects more efficiently.",
     "descriptionHtml": "<p>The Git &amp; GitHub Training, led by İsmail Hakkı Parlak, offered a comprehensive and interactive experience for participants eager to learn the key strategies for managing projects more efficiently in the software world. İsmail Hakkı Parlak emphasized the importance of Git and GitHub in the software development process and shared detailed insights on how to effectively use these tools. </p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/WhatsApp%2520Image%25202024-12-27%2520at%252019.40.57_d2dea0c4_yM3rnsD.jpg",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/WhatsApp%2520Image%25202024-12-27%2520at%252019.40.57_d2dea0c4_yM3rnsD.jpg",
     "tags": [
       "Career Development",
       "Conference"
@@ -1399,7 +1480,8 @@
       }
     ],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-git-amp-github-day/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-git-amp-github-day/",
+    "coverAspect": 1.526
   },
   {
     "id": "76657",
@@ -1418,7 +1500,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-aifest/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-aifest/",
+    "coverAspect": 0.8
   },
   {
     "id": "78318",
@@ -1437,7 +1520,8 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-coffee-talk/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-coffee-talk/",
+    "coverAspect": 0.993
   },
   {
     "id": "78311",
@@ -1449,14 +1533,15 @@
     "venue": "Abant İzzet Baysal Üniversitesi",
     "summary": "GDG on Campus: Abant İzzet Baysal Üniversitesi olarak, topluluğumuzu tanıttığımız, Google teknolojilerini keşfettiğimiz ve gelecek planlarımızı paylaştığımız başarılı bir etkinlik düzenledik.",
     "descriptionHtml": "<p>GDG on Campus: Abant İzzet Baysal Üniversitesi olarak, topluluğumuzu tanıttığımız, Google teknolojileri hakkında katılımcılara bilgi verdiğimiz ve yıl boyunca gerçekleştireceğimiz etkinliklerden bahsettiğimiz verimli bir organizasyon gerçekleştirdik </p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/12e8441b-ef9d-4730-a01d-6a41ddf781f6_K7ccjuB.jpg",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/12e8441b-ef9d-4730-a01d-6a41ddf781f6_K7ccjuB.jpg",
     "tags": [
       "Community Building",
       "Tech Talk / Meetup"
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stant-gunleri-3/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stant-gunleri-3/",
+    "coverAspect": 0.937
   },
   {
     "id": "78309",
@@ -1468,14 +1553,15 @@
     "venue": "Abant İzzet Baysal Üniversitesi",
     "summary": "GDG on Campus: Abant İzzet Baysal Üniversitesi olarak, topluluğumuzu tanıttığımız, Google teknolojilerini keşfettiğimiz ve gelecek planlarımızı paylaştığımız başarılı bir etkinlik düzenledik.",
     "descriptionHtml": "<p>GDG on Campus: Abant İzzet Baysal Üniversitesi olarak, topluluğumuzu tanıttığımız, Google teknolojileri hakkında katılımcılara bilgi verdiğimiz ve yıl boyunca gerçekleştireceğimiz etkinliklerden bahsettiğimiz verimli bir organizasyon gerçekleştirdik </p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/12e8441b-ef9d-4730-a01d-6a41ddf781f6_K7ccjuB.jpg",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/12e8441b-ef9d-4730-a01d-6a41ddf781f6_K7ccjuB.jpg",
     "tags": [
       "Community Building",
       "Tech Talk / Meetup"
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stant-gunleri-2/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stant-gunleri-2/",
+    "coverAspect": 0.937
   },
   {
     "id": "71847",
@@ -1487,14 +1573,15 @@
     "venue": "Bolu Abant İzzet Baysal Üniversitesi",
     "summary": "GDG on Campus: Abant İzzet Baysal Üniversitesi olarak, topluluğumuzu tanıttığımız, Google teknolojilerini keşfettiğimiz ve gelecek planlarımızı paylaştığımız başarılı bir etkinlik düzenledik.",
     "descriptionHtml": "<p>GDG on Campus: Abant İzzet Baysal Üniversitesi olarak, topluluğumuzu tanıttığımız, Google teknolojileri hakkında katılımcılara bilgi verdiğimiz ve yıl boyunca gerçekleştireceğimiz etkinliklerden bahsettiğimiz verimli bir organizasyon gerçekleştirdik</p>",
-    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/12e8441b-ef9d-4730-a01d-6a41ddf781f6_X2763kr.jpg",
+    "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/12e8441b-ef9d-4730-a01d-6a41ddf781f6_X2763kr.jpg",
     "tags": [
       "Community Building",
       "Tech Talk / Meetup"
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stant-gunleri/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-stant-gunleri/",
+    "coverAspect": 0.937
   },
   {
     "id": "75108",
@@ -1513,6 +1600,7 @@
     ],
     "speakers": [],
     "photos": [],
-    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-info-session/"
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-info-session/",
+    "coverAspect": 2
   }
 ]
