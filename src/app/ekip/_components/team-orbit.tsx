@@ -85,7 +85,7 @@ export function TeamOrbit({ members }: { members: Member[] }) {
                 <span className="orbit-upright block size-full">
                   <Link
                     href={`/ekip/${member.slug}`}
-                    className={`group relative block size-full rounded-full ring-2 ring-offset-1 ring-offset-bg transition duration-300 hover:z-10 hover:scale-[1.7] focus-visible:scale-[1.7] ${ring[member.team.tone]}`}
+                    className={`group relative block size-full rounded-full ring-[3px] transition duration-300 hover:z-10 hover:scale-[1.7] focus-visible:scale-[1.7] ${ring[member.team.tone]}`}
                   >
                     <Avatar
                       name={member.name}
@@ -93,6 +93,7 @@ export function TeamOrbit({ members }: { members: Member[] }) {
                       size={96}
                       priority
                       fluid
+                      bare
                     />
                     <span className="pointer-events-none absolute top-full left-1/2 z-20 mt-1 -translate-x-1/2 scale-[0.6] rounded-full border-2 border-border-strong bg-surface px-2.5 py-0.5 font-mono text-[11px] whitespace-nowrap opacity-0 shadow-sticker-sm transition group-hover:opacity-100 group-focus-visible:opacity-100">
                       {member.name.split(" ")[0]} · {member.team.id}/
