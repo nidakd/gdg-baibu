@@ -24,7 +24,11 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <MarqueeRibbon className="-mt-4" colorClass="bg-surface text-fg" />
+      <MarqueeRibbon
+        className="-mt-4"
+        colorClass="bg-surface text-fg"
+        edgeClass="border-blue shadow-[0_4px_0_0_var(--brand-blue-halftone)]"
+      />
 
       <div id="rakamlar" className="mx-auto max-w-content scroll-mt-24 px-4 pt-20 pb-12 sm:px-6">
         <Reveal>
