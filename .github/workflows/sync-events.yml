@@ -1,0 +1,47 @@
+# Haftalık senkron: GDG Community'deki etkinlikleri ve topluluk üye sayısını çeker
+# (npm run sync:events). Değişiklik varsa main'e commit atar; Vercel siteyi otomatik yeniden yayınlar.
+# Elle çalıştırmak için: GitHub → Actions → "Etkinlikleri senkronla" → Run workflow.
+
+name: Etkinlikleri senkronla
+
+on:
+  schedule:
+    # Her pazartesi 06:00 UTC (Türkiye saatiyle 09:00)
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-events
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # Betik sadece Node'un kendi modüllerini kullanıyor; bağımlılık kurulumu gerekmiyor
+      - name: GDG Community'den çek
+        run: node scripts/sync-gdg-community.mjs
+
+      - name: Değişiklik varsa commitle
+        run: |
+          # Sadece tarih (statsUpdatedAt) değiştiyse commit atma
+          changes=$(git diff -U0 -- content/ | grep -E '^[+-] ' | grep -v statsUpdatedAt || true)
+          if [ -z "$changes" ]; then
+            echo "Etkinlik ya da üye sayısında değişiklik yok."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/events.json content/site.json
+          git commit -m "chore: haftalık etkinlik ve üye sayısı senkronu"
+          git push
