@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -37,6 +38,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <SiteFooter />
         <SmoothScroll />
+        {/* Vercel Web Analytics: çerez kullanmaz, sadece yayında (Vercel'de) veri toplar */}
+        <Analytics />
       </body>
     </html>
   );
