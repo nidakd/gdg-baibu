@@ -10,27 +10,60 @@ import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { WaveBand } from "@/components/ui/wave-band";
-import { getEvents, getMembers, getSite } from "@/lib/content";
+import { getMembers, getSite } from "@/lib/content";
+import { getEventTimeline } from "@/lib/events";
 import { Hero } from "./_components/hero";
+import { NextRelease } from "./_components/next-release";
 
-export default function Home() {
+export default async function Home() {
   const site = getSite();
   const members = getMembers();
-  const latest = getEvents().slice(0, 3);
+  // Yaklaşan etkinlik ayrı kartta; listede sadece geçmişler
+  const { upcoming, past } = await getEventTimeline();
+  const next = upcoming[0];
+  const latest = past.slice(0, 3);
 
   return (
     <>
       <Hero />
       <MarqueeRibbon className="-mt-4" />
 
-      <div id="rakamlar" className="mx-auto max-w-content scroll-mt-24 px-4 pt-20 sm:px-6">
+      <div id="rakamlar" className="mx-auto max-w-content scroll-mt-24 px-4 pt-20 pb-12 sm:px-6">
         <Reveal>
           <StatsGrid />
         </Reveal>
       </div>
 
+      <WaveBand tone="blue">
+        <Section
+          label="01 — son sürümler"
+          title="Son etkinlikler"
+          className="py-8 md:py-10"
+          action={
+            <ButtonLink href="/etkinlikler" tone="plain">
+              Tüm etkinlikler
+            </ButtonLink>
+          }
+        >
+          {next && (
+            <Reveal className="mb-8">
+              <NextRelease event={next} />
+            </Reveal>
+          )}
+          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {latest.map((event, i) => (
+              <li key={event.id}>
+                <Reveal delay={i * 120} className="h-full">
+                  <ReleaseCard event={event} />
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      </WaveBand>
+
       <Section
-        label="01 — ne yapıyoruz"
+        label="02 — ne yapıyoruz"
         title="Altı alanda üretiyoruz"
         action={
           <ButtonLink href="/hakkimizda" tone="plain">
@@ -44,29 +77,6 @@ export default function Home() {
       </Section>
 
       <DinoRunner />
-
-      <WaveBand tone="blue">
-        <Section
-          label="02 — son sürümler"
-          title="Son etkinlikler"
-          className="py-8 md:py-10"
-          action={
-            <ButtonLink href="/etkinlikler" tone="plain">
-              Tüm etkinlikler
-            </ButtonLink>
-          }
-        >
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {latest.map((event, i) => (
-              <li key={event.id}>
-                <Reveal delay={i * 120} className="h-full">
-                  <ReleaseCard event={event} />
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      </WaveBand>
 
       <Section
         label="03 — contributors"
