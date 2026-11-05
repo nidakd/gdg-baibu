@@ -25,6 +25,16 @@ const text: Record<Tone, string> = {
   silver: "group-hover:text-silver-ink",
 };
 
+// Ekip etiketi: ekibin pastel zemini ve okunur (ink) yazı rengi
+const badge: Record<Tone, string> = {
+  blue: "bg-blue-soft text-blue-ink",
+  green: "bg-green-soft text-green-ink",
+  yellow: "bg-yellow-soft text-yellow-ink",
+  red: "bg-red-soft text-red-ink",
+  lilac: "bg-lilac-soft text-lilac-ink",
+  silver: "bg-silver-soft text-silver-ink",
+};
+
 const SECONDS_PER_ROW = 2.2;
 
 function Roll({ members, joinHref, copy }: { members: Member[]; joinHref: string; copy: number }) {
@@ -34,22 +44,24 @@ function Roll({ members, joinHref, copy }: { members: Member[]; joinHref: string
       {members.map((m) => (
         <li
           key={m.slug}
-          className="credit-row grid grid-cols-[6rem_1fr] items-baseline gap-5 py-2.5 sm:grid-cols-[10rem_1fr] sm:gap-8"
+          className="credit-row grid grid-cols-[6rem_1fr] items-center gap-5 py-2 sm:grid-cols-[10rem_1fr] sm:gap-8"
         >
           <span className="text-right font-mono text-[11px] leading-tight text-fg-subtle sm:text-xs">
             {m.role.toLocaleLowerCase("tr")}
             <br />
-            {m.team.id}/
+            <span className={`mt-1 inline-block rounded-full px-2 py-px ${badge[m.team.tone]}`}>
+              {m.team.id}/
+            </span>
           </span>
           <Link href={`/ekip/${m.slug}`} className="group relative inline-block w-fit">
             <span
-              className={`block text-2xl leading-tight font-bold tracking-tight transition-colors sm:text-[clamp(1.75rem,3vw,2.4rem)] sm:leading-none sm:whitespace-nowrap ${text[m.team.tone]}`}
+              className={`block text-xl leading-tight font-bold tracking-tight transition-colors sm:text-[clamp(1.4rem,2.3vw,1.85rem)] sm:leading-none sm:whitespace-nowrap ${text[m.team.tone]}`}
             >
               {m.name}
             </span>
             {m.photoUrl && (
               <span
-                className={`absolute top-1/2 left-full ml-4 size-14 -translate-y-1/2 scale-50 overflow-hidden rounded-full opacity-0 ring-[3px] transition duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 ${ring[m.team.tone]}`}
+                className={`absolute top-1/2 left-full ml-4 size-12 -translate-y-1/2 scale-50 overflow-hidden rounded-full opacity-0 ring-[3px] transition duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 ${ring[m.team.tone]}`}
               >
                 <Image src={m.photoUrl} alt="" fill sizes="3.5rem" className="object-cover" />
               </span>
@@ -57,13 +69,13 @@ function Roll({ members, joinHref, copy }: { members: Member[]; joinHref: string
           </Link>
         </li>
       ))}
-      <li className="credit-row grid grid-cols-[6rem_1fr] items-baseline gap-5 pt-10 sm:grid-cols-[10rem_1fr] sm:gap-8">
+      <li className="credit-row grid grid-cols-[6rem_1fr] items-center gap-5 pt-10 sm:grid-cols-[10rem_1fr] sm:gap-8">
         <span className="text-right font-mono text-xs text-fg-subtle">ve</span>
         <a
           href={joinHref}
           target="_blank"
           rel="noreferrer"
-          className="w-fit text-5xl leading-none font-bold tracking-tight text-blue-ink hover:underline sm:text-6xl"
+          className="w-fit text-4xl leading-none font-bold tracking-tight text-blue-ink hover:underline sm:text-5xl"
         >
           sen?
         </a>
