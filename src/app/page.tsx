@@ -1,10 +1,10 @@
+import Link from "next/link";
 import { DinoRunner } from "@/components/fun/dino-runner";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
 import { FocusAreas } from "@/components/sections/focus-areas";
 import { StatsGrid } from "@/components/sections/stats-grid";
-import { toCreditMember } from "@/components/team/credit-member";
-import { KineticRows } from "@/components/team/kinetic-rows";
+import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 import { ContactSection } from "@/components/sections/contact-section";
@@ -73,10 +73,21 @@ export default async function Home() {
           </ButtonLink>
         }
       >
-        {/* İsimli şerit sayfa genişliğini taşar */}
-        <div className="mx-[calc(50%-50vw)]">
-          <KineticRows members={members.map(toCreditMember)} />
-        </div>
+        <ul className="flex flex-wrap gap-3">
+          {members.map((member, i) => (
+            <li key={member.slug}>
+              <Reveal delay={i * 40}>
+                <Link
+                  href={`/ekip/${member.slug}`}
+                  title={`${member.name} · ${member.role}`}
+                  className="block rounded-full transition hover:-translate-y-1 hover:rotate-3"
+                >
+                  <Avatar name={member.name} photoUrl={member.photoUrl} size={64} />
+                </Link>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
       </Section>
 
       <div className="mx-auto max-w-content px-4 pb-24 sm:px-6">
