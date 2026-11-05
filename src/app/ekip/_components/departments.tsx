@@ -20,13 +20,11 @@ const ring: Record<Tone, string> = {
 };
 
 export function Departments({ departments }: { departments: Department[] }) {
-  const people = departments.reduce((n, d) => n + d.members.length, 0);
   const max = Math.max(...departments.map((d) => d.members.length));
   const engineering = departments.filter((d) => d.name.includes("Mühendisliği")).length;
 
   const stats = [
     { value: departments.length, label: "bölüm", tone: "lilac" as const },
-    { value: people, label: "kişi", tone: "blue" as const },
     {
       value: departments.length - engineering,
       label: "mühendislik dışı",
@@ -36,7 +34,7 @@ export function Departments({ departments }: { departments: Department[] }) {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
-      <dl className="grid grid-cols-3 gap-3 lg:grid-cols-1">
+      <dl className="grid grid-cols-2 gap-3 lg:grid-cols-1">
         {stats.map((s) => (
           <StatTile
             key={s.label}
