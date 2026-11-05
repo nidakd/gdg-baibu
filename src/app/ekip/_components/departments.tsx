@@ -4,6 +4,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { Avatar } from "@/components/team/avatar";
 import type { Tone } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { StatTile } from "@/components/ui/stat-tile";
 import type { Department } from "@/lib/insights";
 
 // Core team'in hangi bölümlerden geldiği: solda sayılar, sağda her bölüm bir satır;
@@ -24,12 +25,12 @@ export function Departments({ departments }: { departments: Department[] }) {
   const engineering = departments.filter((d) => d.name.includes("Mühendisliği")).length;
 
   const stats = [
-    { value: departments.length, label: "bölüm", className: "bg-lilac-halftone" },
-    { value: people, label: "kişi", className: "bg-blue-halftone" },
+    { value: departments.length, label: "bölüm", tone: "lilac" as const },
+    { value: people, label: "kişi", tone: "blue" as const },
     {
       value: departments.length - engineering,
       label: "mühendislik dışı",
-      className: "bg-yellow-halftone",
+      tone: "yellow" as const,
     },
   ];
 
@@ -37,15 +38,13 @@ export function Departments({ departments }: { departments: Department[] }) {
     <div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
       <dl className="grid grid-cols-3 gap-3 lg:grid-cols-1">
         {stats.map((s) => (
-          <div
+          <StatTile
             key={s.label}
-            className={`rounded-xl border-2 border-ink-black px-4 py-3 text-ink-black shadow-sticker-sm ${s.className}`}
-          >
-            <dt className="font-mono text-[11px] sm:text-xs">{s.label}</dt>
-            <dd className="text-3xl font-bold tracking-tight sm:text-4xl">
-              <CountUp to={s.value} />
-            </dd>
-          </div>
+            label={s.label}
+            value={<CountUp to={s.value} />}
+            tone={s.tone}
+            size="md"
+          />
         ))}
       </dl>
 
