@@ -1,38 +1,55 @@
 import Link from "next/link";
-import { ReleaseCard } from "@/components/events/release-card";
 import { DinoRunner } from "@/components/fun/dino-runner";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
 import { FocusAreas } from "@/components/sections/focus-areas";
-import { StatsGrid } from "@/components/sections/stats-grid";
 import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { WaveBand } from "@/components/ui/wave-band";
-import { getEvents, getMembers, getSite } from "@/lib/content";
+import { getMembers, getSite } from "@/lib/content";
+import { getEventTimeline } from "@/lib/events";
 import { Hero } from "./_components/hero";
+import { LatestEvents } from "./_components/latest-events";
 
-export default function Home() {
+export default async function Home() {
   const site = getSite();
   const members = getMembers();
-  const latest = getEvents().slice(0, 3);
+  // Yaklaşan etkinlik ayrı kartta; listede sadece geçmişler
+  const { upcoming, past } = await getEventTimeline();
+  const next = upcoming[0];
 
   return (
     <>
       <Hero />
-      <MarqueeRibbon className="-mt-4" />
+      <MarqueeRibbon
+        className="-mt-4"
+        colorClass="bg-surface text-fg"
+        edgeClass="border-blue shadow-[0_4px_0_0_var(--brand-blue-halftone)]"
+      />
 
-      <div id="rakamlar" className="mx-auto max-w-content scroll-mt-24 px-4 pt-20 sm:px-6">
-        <Reveal>
-          <StatsGrid />
-        </Reveal>
-      </div>
+      {/* Rakamlar terminalde zaten var; kartlar sadece hakkımızda sayfasında */}
+      <div className="h-16" />
+
+      <WaveBand tone="blue">
+        <Section
+          label="01 — son sürümler"
+          title="Son etkinlikler"
+          className="py-8 md:py-10"
+          action={
+            <ButtonLink href="/etkinlikler" tone="plain">
+              Tüm etkinlikler
+            </ButtonLink>
+          }
+        >
+          <LatestEvents next={next} past={past} />
+        </Section>
+      </WaveBand>
 
       <Section
-        label="01 — ne yapıyoruz"
-        title="Etkinliklerimizin çoğu bu altı başlıktan birine giriyor"
-        intro="Sayılar GDG Community'deki etkinlik arşivimizden; bir etkinlik birden fazla başlıkta yer alabilir."
+        label="02 — ne yapıyoruz"
+        title="Altı alanda üretiyoruz"
         action={
           <ButtonLink href="/hakkimizda" tone="plain">
             Hakkımızda
@@ -45,29 +62,6 @@ export default function Home() {
       </Section>
 
       <DinoRunner />
-
-      <WaveBand tone="blue">
-        <Section
-          label="02 — son sürümler"
-          title="Son etkinlikler"
-          className="py-8 md:py-10"
-          action={
-            <ButtonLink href="/etkinlikler" tone="plain">
-              Tüm etkinlikler
-            </ButtonLink>
-          }
-        >
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {latest.map((event, i) => (
-              <li key={event.id}>
-                <Reveal delay={i * 120} className="h-full">
-                  <ReleaseCard event={event} />
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      </WaveBand>
 
       <Section
         label="03 — contributors"
@@ -86,7 +80,7 @@ export default function Home() {
                 <Link
                   href={`/ekip/${member.slug}`}
                   title={`${member.name} · ${member.role}`}
-                  className="block rounded-full transition hover:-translate-y-1 hover:rotate-3"
+                  className="block rounded-full transition duration-300 hover:z-10 hover:-translate-y-1 hover:scale-125 hover:rotate-3 focus-visible:scale-125"
                 >
                   <Avatar name={member.name} photoUrl={member.photoUrl} size={64} />
                 </Link>
@@ -98,7 +92,7 @@ export default function Home() {
 
       <div className="mx-auto max-w-content px-4 pb-24 sm:px-6">
         <Reveal>
-          <div className="relative overflow-hidden rounded-card border-[3px] border-ink-black bg-yellow p-8 text-ink-black shadow-sticker-lg md:p-12">
+          <div className="relative overflow-hidden rounded-card border-[3px] border-border-strong bg-green-soft p-8 text-fg shadow-sticker-lg md:p-12">
             <p className="font-mono text-sm">{"// 04 — deploy yourself"}</p>
             <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-balance sm:text-5xl">
               Deneyim şart değil. Merak yeter.
@@ -111,7 +105,7 @@ export default function Home() {
               ].map(([cmd, text], i) => (
                 <li
                   key={cmd}
-                  className="rounded-xl border-2 border-ink-black bg-off-white p-4 transition odd:-rotate-1 even:rotate-1 hover:rotate-0"
+                  className="rounded-xl border-2 border-border-strong bg-surface p-4 transition odd:-rotate-1 even:rotate-1 hover:rotate-0"
                 >
                   <span className="font-bold">
                     {i + 1}. $ {cmd}

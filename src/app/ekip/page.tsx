@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { GdgMark } from "@/components/brand/gdg-mark";
-import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
 import { MemberCard } from "@/components/team/member-card";
@@ -8,7 +6,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { RandomLinkButton } from "@/components/ui/random-link-button";
 import { Cursor } from "@/components/ui/terminal";
 import { Section } from "@/components/ui/section";
-import { WaveBand } from "@/components/ui/wave-band";
+import { StatTile } from "@/components/ui/stat-tile";
 import { Window } from "@/components/ui/window";
 import { getMembers, getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
 import { getDepartments } from "@/lib/insights";
@@ -27,12 +25,12 @@ export default function TeamPage() {
   const members = getMembers();
 
   const stats = [
-    { value: members.length, label: "kişi", className: "bg-blue-halftone" },
-    { value: getWorkingTeams().length, label: "ekip", className: "bg-green-halftone" },
+    { value: members.length, label: "kişi", tone: "blue" as const },
+    { value: getWorkingTeams().length, label: "ekip", tone: "green" as const },
     {
       value: members.filter((m) => m.role === "Koordinatör").length,
       label: "koordinatör",
-      className: "bg-red-halftone",
+      tone: "red" as const,
     },
   ];
 
@@ -51,15 +49,13 @@ export default function TeamPage() {
             </p>
             <dl className="grid max-w-md grid-cols-3 gap-3">
               {stats.map((s) => (
-                <div
+                <StatTile
                   key={s.label}
-                  className={`rounded-xl border-2 border-ink-black px-3 py-2.5 text-ink-black shadow-sticker-sm ${s.className}`}
-                >
-                  <dt className="font-mono text-[11px]">{s.label}</dt>
-                  <dd className="text-3xl font-bold tracking-tight">
-                    <CountUp to={s.value} />
-                  </dd>
-                </div>
+                  label={s.label}
+                  value={<CountUp to={s.value} />}
+                  tone={s.tone}
+                  size="sm"
+                />
               ))}
             </dl>
             <RandomLinkButton
@@ -130,21 +126,6 @@ export default function TeamPage() {
         </div>
       </div>
 
-      <WaveBand tone="silver">
-        <MarqueeRibbon
-          items={teams.map((t) => (
-            <span key={t.id} className="flex items-center gap-3">
-              <GdgMark tone={t.tone} className="h-8 w-auto sm:h-9" />
-              <span className="font-mono text-sm font-bold">{t.id}/</span>
-            </span>
-          ))}
-          variant="band"
-          wave
-          colorClass="text-fg"
-          duration={60}
-        />
-      </WaveBand>
-
       <Section
         id="bolumler"
         label="bölümler"
@@ -177,7 +158,7 @@ export default function TeamPage() {
                 konuşalım.
               </p>
               <div className="mt-5">
-                <ButtonLink href={site.links.coreTeamForm} tone="yellow">
+                <ButtonLink href={site.links.coreTeamForm} tone="blue">
                   Core team başvurusu
                 </ButtonLink>
               </div>

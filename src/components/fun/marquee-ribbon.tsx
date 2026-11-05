@@ -11,6 +11,8 @@ type MarqueeRibbonProps = {
   items?: ReactNode[];
   /** Şeridin zemin ve yazı rengi */
   colorClass?: string;
+  /** "ribbon" şeridin üst/alt çizgisi ve gölgesi */
+  edgeClass?: string;
   /** Eğim yönü */
   tilt?: "left" | "right";
   /**
@@ -29,6 +31,7 @@ export function MarqueeRibbon({
   words = defaultWords,
   items,
   colorClass = "bg-yellow-halftone text-ink-black",
+  edgeClass = "border-ink-black shadow-sticker",
   tilt = "left",
   variant = "ribbon",
   wave = false,
@@ -53,7 +56,7 @@ export function MarqueeRibbon({
       <div
         className={
           variant === "ribbon"
-            ? `overflow-hidden border-y-[3px] border-ink-black py-3 shadow-sticker ${colorClass}`
+            ? `overflow-hidden border-y-[3px] py-3 ${edgeClass} ${colorClass}`
             : `overflow-hidden ${wave ? "py-8" : "py-3"} ${colorClass}`
         }
         style={

@@ -21,7 +21,7 @@ export function SiteHeader() {
           {nav.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
-          <ButtonLink href={site.links.coreTeamForm} tone="yellow">
+          <ButtonLink href={site.links.coreTeamForm} tone="blue">
             Aramıza katıl
           </ButtonLink>
         </nav>
@@ -44,7 +44,7 @@ export function SiteHeader() {
               <NavLink key={link.href} {...link} block />
             ))}
             <div className="mt-2">
-              <ButtonLink href={site.links.coreTeamForm} tone="yellow">
+              <ButtonLink href={site.links.coreTeamForm} tone="blue">
                 Aramıza katıl
               </ButtonLink>
             </div>

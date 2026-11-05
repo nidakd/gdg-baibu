@@ -43,7 +43,7 @@ export const focusAreas: FocusAreaDef[] = [
   },
   {
     id: "platforms",
-    title: "Mobil, web ve cloud",
+    title: "Mobil, web ve bulut",
     description: "Flutter, Firebase, Android, web ve Google Cloud üzerine teknik içerikler.",
     tone: "blue",
     tags: ["Android", "Flutter", "Firebase", "Web", "Google Cloud"],

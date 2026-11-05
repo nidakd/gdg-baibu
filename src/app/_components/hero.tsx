@@ -2,19 +2,30 @@ import type { ReactNode } from "react";
 import { PillShapes } from "@/components/brand/pill-shapes";
 import { ButtonLink } from "@/components/ui/button";
 import { TypingTerminal, type TerminalLine } from "@/components/ui/typing-terminal";
-import { getEvents, getMembers, getSite, getWorkingTeams } from "@/lib/content";
+import { getMembers, getSite, getWorkingTeams } from "@/lib/content";
+import { getEventTimeline } from "@/lib/events";
+import { formatDate } from "@/lib/format";
 
-export function Hero() {
+export async function Hero() {
   const site = getSite();
-  const events = getEvents();
+  const { upcoming, past } = await getEventTimeline();
+  const next = upcoming[0];
   const lines: TerminalLine[] = [
     { kind: "command", text: "gdg init --campus aibu" },
     {
       kind: "ok",
       text: `${getMembers().length} core team üyesi, ${getWorkingTeams().length} ekip`,
     },
-    { kind: "ok", text: `${events.length} etkinlik arşivde` },
-    { kind: "info", text: `son etkinlik: "${events[0]?.title}"` },
+    { kind: "ok", text: `${past.length} etkinlik arşivde` },
+    { kind: "info", text: `son etkinlik: "${past[0]?.title}"` },
+    ...(next
+      ? [
+          {
+            kind: "info" as const,
+            text: `sıradaki: "${next.title}" · ${formatDate(next.startsAt)}`,
+          },
+        ]
+      : []),
     { kind: "command", text: "gdg join --you" },
   ];
 
@@ -33,13 +44,13 @@ export function Hero() {
           <h1 className="text-[clamp(2.6rem,5.8vw,5.25rem)] leading-[1.02] font-bold tracking-tight">
             Birlikte <Sticker className="-rotate-2 bg-blue-pastel">öğreniyor,</Sticker>
             <br />
-            birlikte <Sticker className="rotate-1 bg-yellow-halftone">üretiyoruz.</Sticker>
+            birlikte <Sticker className="rotate-1 bg-green-pastel">üretiyoruz.</Sticker>
           </h1>
 
           <p className="max-w-xl text-lg text-fg-muted sm:text-xl">{site.about.intro}</p>
 
           <div className="flex flex-wrap gap-3">
-            <ButtonLink href={site.links.coreTeamForm} tone="yellow">
+            <ButtonLink href={site.links.coreTeamForm} tone="blue">
               Aramıza katıl
             </ButtonLink>
             <ButtonLink href="/ekip" tone="plain">

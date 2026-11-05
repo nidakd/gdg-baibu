@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { RandomLinkButton } from "@/components/ui/random-link-button";
 import { Section } from "@/components/ui/section";
 import { TypingTerminal } from "@/components/ui/typing-terminal";
+import { StatTile } from "@/components/ui/stat-tile";
 import { WaveBand } from "@/components/ui/wave-band";
 import { getSite } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
@@ -35,16 +36,16 @@ export default async function EventsPage() {
   }));
 
   const stats = [
-    { value: past.length, label: "etkinlik", className: "bg-green-halftone" },
+    { value: past.length, label: "etkinlik", tone: "green" as const },
     {
       value: past.filter((e) => e.tags.includes("Workshop / hands-on session")).length,
       label: "atölye",
-      className: "bg-yellow-halftone",
+      tone: "yellow" as const,
     },
     {
       value: new Set(past.map((e) => e.startsAt.slice(0, 4))).size,
       label: "yıl",
-      className: "bg-blue-halftone",
+      tone: "blue" as const,
     },
   ];
 
@@ -60,15 +61,13 @@ export default async function EventsPage() {
           </p>
           <dl className="grid max-w-md grid-cols-3 gap-3">
             {stats.map((s) => (
-              <div
+              <StatTile
                 key={s.label}
-                className={`rounded-xl border-2 border-ink-black px-3 py-2.5 text-ink-black shadow-sticker-sm ${s.className}`}
-              >
-                <dt className="font-mono text-[11px]">{s.label}</dt>
-                <dd className="text-3xl font-bold tracking-tight">
-                  <CountUp to={s.value} />
-                </dd>
-              </div>
+                label={s.label}
+                value={<CountUp to={s.value} />}
+                tone={s.tone}
+                size="sm"
+              />
             ))}
           </dl>
           <div className="flex flex-wrap gap-3">
