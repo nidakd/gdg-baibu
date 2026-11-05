@@ -4,11 +4,13 @@
 import type { Tone } from "@/components/ui/button";
 import milestonesJson from "../../content/milestones.json";
 import { getEvents, getMembers, getSite, type Event, type Member } from "./content";
+import { getEventTimeline } from "./events";
 
 export type Stat = { value: number; label: string; tone: Tone };
 
-export function getStats(): Stat[] {
-  const events = getEvents();
+/** Rakam kartları; yaklaşan etkinlikler sayılmaz (etkinlikler sayfasıyla aynı sayı). */
+export async function getStats(): Promise<Stat[]> {
+  const { past: events } = await getEventTimeline();
   const workshops = events.filter((e) => e.tags.includes("Workshop / hands-on session"));
   return [
     { value: getSite().stats.communityMembers, label: "topluluk üyesi", tone: "blue" },

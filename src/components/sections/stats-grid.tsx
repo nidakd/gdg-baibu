@@ -11,10 +11,11 @@ const tones: Record<Tone, string> = {
   silver: "bg-silver-halftone",
 };
 
-export function StatsGrid() {
+export async function StatsGrid() {
+  const stats = await getStats();
   return (
     <dl className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-      {getStats().map((stat) => (
+      {stats.map((stat) => (
         <div
           key={stat.label}
           className={`rounded-card border-2 border-ink-black p-5 text-ink-black shadow-sticker ${tones[stat.tone]}`}
