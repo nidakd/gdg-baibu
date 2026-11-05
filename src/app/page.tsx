@@ -31,8 +31,7 @@ export default function Home() {
 
       <Section
         label="01 — ne yapıyoruz"
-        title="Etkinliklerimizin çoğu bu altı başlıktan birine giriyor"
-        intro="Sayılar GDG Community'deki etkinlik arşivimizden; bir etkinlik birden fazla başlıkta yer alabilir."
+        title="Altı alanda üretiyoruz"
         action={
           <ButtonLink href="/hakkimizda" tone="plain">
             Hakkımızda
