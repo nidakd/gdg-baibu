@@ -6,7 +6,7 @@ import { initials } from "@/lib/format";
 
 // Logodaki haplardan: her ekip kendi renginde, eğik duran bir hap; içinde üyelerin
 // fotoğrafları ve ekip adı. Üstüne gelince hap düzleşip kalkar, fotoğraflar aralanır.
-// Tıklayınca sayfadaki ekip bölümüne iner.
+// Tıklayınca sayfadaki ekip bölümüne iner. Ekip sayfasında ekip listesinin üstünde, tek sırada.
 
 const fill: Record<Tone, string> = {
   blue: "bg-blue",
@@ -19,13 +19,28 @@ const fill: Record<Tone, string> = {
 
 const tilt = ["-rotate-6", "rotate-3", "-rotate-2", "rotate-6", "-rotate-3", "rotate-2"];
 
-export function TeamPills({ teams, members }: { teams: Team[]; members: Member[] }) {
+export function TeamPills({
+  teams,
+  members,
+  row = false,
+}: {
+  teams: Team[];
+  members: Member[];
+  /** Yan yana, sarmalayan tek sıra (dikey zikzak yerine) */
+  row?: boolean;
+}) {
   return (
-    <ul className="flex flex-col gap-4 px-3 py-4">
+    <ul
+      className={
+        row
+          ? "flex flex-wrap justify-center gap-x-5 gap-y-6 px-3 py-4"
+          : "flex flex-col gap-4 px-3 py-4"
+      }
+    >
       {teams.map((t, i) => {
         const list = members.filter((m) => m.team.id === t.id);
         return (
-          <li key={t.id} className={i % 2 ? "self-end" : "self-start"}>
+          <li key={t.id} className={row ? "" : i % 2 ? "self-end" : "self-start"}>
             <Link
               href={`/ekip#${t.id}`}
               aria-label={`${t.name}: ${list.map((m) => m.name).join(", ")}`}

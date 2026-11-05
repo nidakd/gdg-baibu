@@ -14,6 +14,7 @@ import { getMembers, getMembersByTeam, getSite, getTeams, getWorkingTeams } from
 import { getDepartments } from "@/lib/insights";
 import { toCreditMember } from "@/components/team/credit-member";
 import { KineticRows } from "@/components/team/kinetic-rows";
+import { TeamOrbit } from "./_components/team-orbit";
 import { TeamPills } from "./_components/team-pills";
 import { Departments } from "./_components/departments";
 import { TeamNav } from "./_components/team-nav";
@@ -70,12 +71,16 @@ export default function TeamPage() {
               label="Rastgele biriyle tanış"
             />
           </div>
-          <TeamPills teams={teams} members={members} />
+          <TeamOrbit members={members} />
         </header>
 
         {/* Bütün ekip, büyük isimlerle akan satırlarda; sayfa genişliğini taşar */}
         <div className="mx-[calc(50%-50vw)] mt-16">
           <KineticRows members={creditMembers} />
+        </div>
+
+        <div className="mt-12">
+          <TeamPills teams={teams} members={members} row />
         </div>
 
         <div className="mt-16 grid gap-10 lg:grid-cols-[14rem_1fr]">
