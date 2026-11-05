@@ -13,7 +13,7 @@ export function SiteHeader() {
   const site = getSite();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md">
+    <header className="relative z-40 border-b border-border bg-bg">
       <div className="mx-auto flex h-16 max-w-content items-center justify-between gap-4 px-4 sm:px-6">
         <Logo className="h-6 sm:h-8" />
 

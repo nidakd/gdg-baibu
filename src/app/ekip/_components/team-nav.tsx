@@ -38,7 +38,7 @@ export function TeamNav({ teams }: { teams: NavTeam[] }) {
   }, [teams]);
 
   return (
-    <nav aria-label="Ekipler" className="lg:sticky lg:top-24 lg:self-start">
+    <nav aria-label="Ekipler" className="lg:sticky lg:top-8 lg:self-start">
       <p className="mb-3 font-mono text-xs text-fg-subtle">team/</p>
       <ul className="space-y-1 font-mono text-sm">
         {teams.map((team, i) => {

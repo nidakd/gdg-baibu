@@ -29,7 +29,7 @@ export function SmoothScroll() {
       autoRaf: true,
       lerp: 0.1,
       // Yapışkan header'ın altında kalmasın
-      anchors: { offset: -80 },
+      anchors: { offset: -24 },
     });
     return () => {
       window.removeEventListener("popstate", onPopState);
@@ -51,7 +51,7 @@ export function SmoothScroll() {
     }
     if (target) {
       if (lenis.current)
-        lenis.current.scrollTo(target, { immediate: true, force: true, offset: -80 });
+        lenis.current.scrollTo(target, { immediate: true, force: true, offset: -24 });
       else target.scrollIntoView();
       return;
     }

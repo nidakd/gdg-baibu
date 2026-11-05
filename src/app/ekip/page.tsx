@@ -83,7 +83,7 @@ export default function TeamPage() {
                   key={team.id}
                   id={team.id}
                   aria-labelledby={`${team.id}-baslik`}
-                  className="scroll-mt-24"
+                  className="scroll-mt-6"
                 >
                   <Reveal>
                     <Window
