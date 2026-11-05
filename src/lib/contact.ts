@@ -120,7 +120,7 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         // Boş bırakılmış değişken de varsayılana düşsün
-        from: process.env.CONTACT_FROM || "GDG AİBÜ Site <onboarding@resend.dev>",
+        from: process.env.CONTACT_FROM || "GDG on Campus AİBÜ Website <onboarding@resend.dev>",
         to: [getSite().email],
         reply_to: values.email,
         subject: `[Site] ${values.name} yazdı`,
