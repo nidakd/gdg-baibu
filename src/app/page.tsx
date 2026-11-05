@@ -80,7 +80,7 @@ export default async function Home() {
                 <Link
                   href={`/ekip/${member.slug}`}
                   title={`${member.name} · ${member.role}`}
-                  className="block rounded-full transition hover:-translate-y-1 hover:rotate-3"
+                  className="block rounded-full transition duration-300 hover:z-10 hover:-translate-y-1 hover:scale-125 hover:rotate-3 focus-visible:scale-125"
                 >
                   <Avatar name={member.name} photoUrl={member.photoUrl} size={64} />
                 </Link>
