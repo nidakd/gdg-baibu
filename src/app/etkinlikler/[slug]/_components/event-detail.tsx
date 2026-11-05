@@ -27,7 +27,7 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
   return (
     <>
       <div className="mt-8 grid gap-10 lg:grid-cols-[22rem_1fr] lg:items-start">
-        <div className="space-y-6 lg:sticky lg:top-24">
+        <div className="space-y-6 lg:sticky lg:top-8">
           {event.coverUrl && (
             // Detayda afiş kırpılmadan, kendi oranında görünür
             <div

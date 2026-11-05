@@ -43,7 +43,7 @@ export function Window({
       className={`overflow-clip rounded-card border-2 border-border-strong bg-surface shadow-sticker ${className}`}
     >
       <div
-        className={`flex items-center justify-between gap-3 border-b-2 border-border-strong px-4 py-2.5 font-mono text-sm ${bars[tone]} ${sticky ? "sticky top-16 z-10" : ""}`}
+        className={`flex items-center justify-between gap-3 border-b-2 border-border-strong px-4 py-2.5 font-mono text-sm ${bars[tone]} ${sticky ? "sticky top-1 z-10" : ""}`}
       >
         <span className="flex min-w-0 items-center gap-3">
           <span aria-hidden className="flex shrink-0 gap-1.5">
