@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Poster } from "@/components/events/poster";
 import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -20,20 +21,26 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
   const series = getSeriesOf(event);
   const siblings = series?.events.filter((e) => e.id !== event.id) ?? [];
   const { older, newer } = getAdjacentEvents(event.slug);
+  // Çok uzun ya da çok yatay afiş sayfayı bozmasın
+  const posterBox = Math.min(Math.max(event.coverAspect ?? 1, 0.7), 1.6);
 
   return (
     <>
       <div className="mt-8 grid gap-10 lg:grid-cols-[22rem_1fr] lg:items-start">
         <div className="space-y-6 lg:sticky lg:top-24">
           {event.coverUrl && (
-            <div className="relative aspect-square overflow-hidden rounded-card border-[3px] border-border-strong bg-surface-2 shadow-sticker-lg">
-              <Image
+            // Detayda afiş kırpılmadan, kendi oranında görünür
+            <div
+              className="relative overflow-hidden rounded-card border-[3px] border-border-strong bg-surface-2 shadow-sticker-lg"
+              style={{ aspectRatio: posterBox }}
+            >
+              <Poster
                 src={event.coverUrl}
+                aspect={event.coverAspect}
+                box={posterBox}
                 alt={`${event.title} afişi`}
-                fill
                 priority
                 sizes="(min-width: 1024px) 22rem, 100vw"
-                className="object-cover"
               />
             </div>
           )}

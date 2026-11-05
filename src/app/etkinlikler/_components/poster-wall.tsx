@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { Poster } from "@/components/events/poster";
 import type { Event } from "@/lib/content";
 import { formatMonth } from "@/lib/format";
 
@@ -27,8 +27,8 @@ export function PosterWall({ events }: { events: Event[] }) {
               tabIndex={copy === 1 ? -1 : undefined}
               className="group/poster block w-36 shrink-0 overflow-hidden rounded-xl border-2 border-border-strong bg-surface shadow-sticker-sm transition duration-300 hover:-translate-y-1.5 hover:shadow-sticker"
             >
-              <span className="relative block aspect-square border-b-2 border-border-strong bg-surface-2">
-                <Image src={event.coverUrl!} alt="" fill sizes="9rem" className="object-cover" />
+              <span className="relative block aspect-square overflow-hidden border-b-2 border-border-strong bg-surface-2">
+                <Poster src={event.coverUrl!} aspect={event.coverAspect} alt="" sizes="9rem" />
               </span>
               <span className="block px-2.5 py-2">
                 <span className="block truncate text-xs font-bold group-hover/poster:underline">

@@ -52,6 +52,33 @@ function toEvent(e) {
   };
 }
 
+// Afişlerin çoğu kare bir görselin ortasına kenar boşluğuyla (siyah/beyaz şerit) konmuş.
+// Cloudinary'nin e_trim'i bu düz renkli kenarları kırpar; fl_getinfo kırpılmış boyutu söyler.
+// Kırpınca anlamsız bir şerit kalıyorsa (ör. sadece logo) özgün görsel kullanılır.
+async function trimCover(event) {
+  event.coverAspect = null;
+  const url = event.coverUrl;
+  if (!url?.includes("/upload/")) return;
+  // Bevy'nin dönüşümlerini (c_fill,...) atla, sürüm ve dosya yolunu al
+  const path = url.slice(url.indexOf("/upload/") + 8).replace(/^([a-z]_[^/]*\/)+/, "");
+  const base = url.slice(0, url.indexOf("/upload/") + 8);
+  try {
+    const res = await fetch(`${base}e_trim/fl_getinfo/${path}`);
+    if (!res.ok) throw new Error(res.status);
+    const { input, output } = await res.json();
+    const trimmed = output.width / output.height;
+    const changed = output.width < input.width * 0.98 || output.height < input.height * 0.98;
+    if (changed && trimmed >= 0.5 && trimmed <= 2) {
+      event.coverUrl = `${base}e_trim/${url.slice(url.indexOf("/upload/") + 8)}`;
+      event.coverAspect = Math.round(trimmed * 1000) / 1000;
+    } else {
+      event.coverAspect = Math.round((input.width / input.height) * 1000) / 1000;
+    }
+  } catch (err) {
+    console.warn(`afiş boyutu alınamadı (${event.slug}): ${err.message}`);
+  }
+}
+
 const lists = await Promise.all(
   ["Completed", "Live"].map((status) =>
     getJson(`/api/chapter/${CHAPTER_ID}/event/?status=${status}&page_size=500`),
@@ -60,6 +87,7 @@ const lists = await Promise.all(
 const ids = lists.flatMap((l) => l.results.map((r) => r.id));
 const details = await Promise.all(ids.map((id) => getJson(`/api/event/${id}/`)));
 const events = details.map(toEvent).sort((a, b) => b.startsAt.localeCompare(a.startsAt));
+await Promise.all(events.map(trimCover));
 
 await writeFile(OUT, JSON.stringify(events, null, 2) + "\n");
 console.log(`${events.length} etkinlik yazıldı → content/events.json`);

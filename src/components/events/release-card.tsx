@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Event } from "@/lib/content";
 import { formatDate, releaseTag } from "@/lib/format";
 import { Tag } from "@/components/ui/tag";
+import { Poster } from "./poster";
 
 /** Etkinliği bir sürüm notu gibi gösteren kart. */
 export function ReleaseCard({ event }: { event: Event }) {
@@ -12,13 +12,12 @@ export function ReleaseCard({ event }: { event: Event }) {
       className="group flex h-full flex-col overflow-hidden rounded-card border-2 border-border-strong bg-surface shadow-sticker transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-sticker-lg"
     >
       {event.coverUrl && (
-        <div className="relative aspect-square border-b-2 border-border-strong bg-surface-2">
-          <Image
+        <div className="relative aspect-square overflow-hidden border-b-2 border-border-strong bg-surface-2">
+          <Poster
             src={event.coverUrl}
+            aspect={event.coverAspect}
             alt=""
-            fill
             sizes="(min-width: 1024px) 22rem, (min-width: 640px) 50vw, 100vw"
-            className="object-cover"
           />
         </div>
       )}
