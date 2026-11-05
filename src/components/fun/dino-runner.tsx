@@ -309,13 +309,13 @@ export function DinoRunner() {
   }, []);
 
   return (
-    <figure className="mx-auto w-full max-w-content px-4 sm:px-6">
+    <figure className="w-full">
       <canvas
         ref={canvasRef}
         tabIndex={0}
         role="img"
         aria-label="Dinozor oyunu. Oynamak için tıkla, zıplamak için boşluk tuşuna bas."
-        className="block h-[180px] w-full cursor-pointer touch-manipulation rounded-card font-mono"
+        className="block h-[180px] w-full cursor-pointer touch-manipulation font-mono"
       />
       <figcaption className="mt-2 text-center font-mono text-xs text-fg-subtle">
         {"// t-rex.run — oynamak için tıkla, zıplamak için boşluk"}
