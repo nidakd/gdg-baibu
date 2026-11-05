@@ -9,21 +9,11 @@ type AvatarProps = {
   priority?: boolean;
   /** Genişliği kapsayıcıdan alır (size sadece görsel çözünürlüğü belirler) */
   fluid?: boolean;
-  /** Çerçevesiz (çevresine başka bir halka çizilecekse) */
-  bare?: boolean;
   className?: string;
 };
 
-export function Avatar({
-  name,
-  photoUrl,
-  size,
-  priority,
-  fluid,
-  bare,
-  className = "",
-}: AvatarProps) {
-  const base = `shrink-0 overflow-hidden rounded-full bg-surface-2 ${bare ? "" : "border-2 border-border-strong"} ${className}`;
+export function Avatar({ name, photoUrl, size, priority, fluid, className = "" }: AvatarProps) {
+  const base = `shrink-0 overflow-hidden rounded-full bg-surface-2 border-2 border-border-strong ${className}`;
   const box = fluid ? { width: "100%", height: "100%" } : { width: size, height: size };
   if (!photoUrl) {
     return (
