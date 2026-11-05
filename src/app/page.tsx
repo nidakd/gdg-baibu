@@ -24,7 +24,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <MarqueeRibbon className="-mt-4" />
+      <MarqueeRibbon className="-mt-4" colorClass="bg-surface text-fg" />
 
       <div id="rakamlar" className="mx-auto max-w-content scroll-mt-24 px-4 pt-20 pb-12 sm:px-6">
         <Reveal>
@@ -92,7 +92,7 @@ export default async function Home() {
 
       <div className="mx-auto max-w-content px-4 pb-24 sm:px-6">
         <Reveal>
-          <div className="relative overflow-hidden rounded-card border-[3px] border-ink-black bg-yellow p-8 text-ink-black shadow-sticker-lg md:p-12">
+          <div className="relative overflow-hidden rounded-card border-[3px] border-border-strong bg-green-soft p-8 text-fg shadow-sticker-lg md:p-12">
             <p className="font-mono text-sm">{"// 04 — deploy yourself"}</p>
             <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-balance sm:text-5xl">
               Deneyim şart değil. Merak yeter.
@@ -105,7 +105,7 @@ export default async function Home() {
               ].map(([cmd, text], i) => (
                 <li
                   key={cmd}
-                  className="rounded-xl border-2 border-ink-black bg-off-white p-4 transition odd:-rotate-1 even:rotate-1 hover:rotate-0"
+                  className="rounded-xl border-2 border-border-strong bg-surface p-4 transition odd:-rotate-1 even:rotate-1 hover:rotate-0"
                 >
                   <span className="font-bold">
                     {i + 1}. $ {cmd}

@@ -3,14 +3,14 @@ import { Poster } from "@/components/events/poster";
 import type { Event } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 
-/** Sıradaki etkinliğin kartı: koyu zemin, mavi bant üstünde afişi öne çıkarır. */
+/** Sıradaki etkinliğin kartı: diğer kartlardan büyük, kalın çerçeveli. */
 function NextCard({ event }: { event: Event }) {
   return (
     <Link
       href={`/etkinlikler/${event.slug}`}
-      className="group flex shrink-0 flex-col overflow-hidden rounded-card border-[3px] border-ink-black bg-ink-black text-off-white shadow-sticker transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-sticker-lg md:w-64"
+      className="group flex shrink-0 flex-col overflow-hidden rounded-card border-[3px] border-border-strong bg-surface text-fg shadow-sticker transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-sticker-lg md:w-64"
     >
-      <span className="relative block aspect-[4/3] overflow-hidden border-b-[3px] border-ink-black bg-surface-2">
+      <span className="relative block aspect-[4/3] overflow-hidden border-b-[3px] border-border-strong bg-surface-2">
         {event.coverUrl && (
           <Poster
             src={event.coverUrl}
