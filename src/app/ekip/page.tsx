@@ -12,7 +12,7 @@ import { WaveBand } from "@/components/ui/wave-band";
 import { Window } from "@/components/ui/window";
 import { getMembers, getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
 import { getDepartments } from "@/lib/insights";
-import { TeamOrbit } from "./_components/team-orbit";
+import { TeamCredits } from "./_components/team-credits";
 import { Departments } from "./_components/departments";
 import { TeamNav } from "./_components/team-nav";
 
@@ -67,7 +67,7 @@ export default function TeamPage() {
               label="Rastgele biriyle tanış"
             />
           </div>
-          <TeamOrbit members={members} />
+          <TeamCredits members={members} joinHref={site.links.coreTeamForm} />
         </header>
 
         <div className="mt-16 grid gap-10 lg:grid-cols-[14rem_1fr]">
