@@ -3,6 +3,10 @@ import { Braces } from "@/components/brand/brand-shapes";
 import { Logo } from "@/components/brand/logo";
 import { WaveEdge } from "@/components/ui/wave-band";
 import { getSite } from "@/lib/content";
+import { slugify } from "@/lib/slug";
+
+// Sitenin yapımcısı; kod ve tasarımın hakları onda (LICENSE)
+const AUTHOR = "Nida Akdoğan";
 
 export function SiteFooter() {
   const site = getSite();
@@ -38,6 +42,14 @@ export function SiteFooter() {
           </div>
           <FooterList title="sayfalar" items={pages} />
           <FooterList title="bağlantılar" items={social} />
+        </div>
+        <div className="mx-auto max-w-content px-4 pb-8 sm:px-6">
+          <p className="border-t border-border pt-5 font-mono text-xs text-fg-subtle">
+            © 2026 · tasarım ve geliştirme:{" "}
+            <Link href={`/ekip/${slugify(AUTHOR)}`} className="text-fg hover:underline">
+              {AUTHOR}
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

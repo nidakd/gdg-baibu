@@ -1,0 +1,32 @@
+Copyright (c) 2026 Hasibe Nida Akdoğan. Tüm hakları saklıdır.
+
+Bu depodaki kaynak kod, tasarım ve betikler Hasibe Nida Akdoğan'a aittir.
+
+Kullanım izni
+-------------
+GDG on Campus Abant İzzet Baysal University, bu siteyi kendi topluluk
+faaliyetleri için yayında tutabilir ve içeriğini güncelleyebilir. Kodun
+kopyalanması, değiştirilerek başka bir yerde kullanılması, dağıtılması ya da
+satılması için hak sahibinin yazılı izni gerekir.
+
+Bu lisansın kapsamı dışında kalanlar
+------------------------------------
+- "Google", "Google Developer Groups", "GDG on Campus" adları ve logoları
+  (public/brand/ dahil) Google LLC'ye aittir ve onun kurallarına tabidir.
+- Etkinlik bilgileri, afişler, fotoğraflar, ekip üyelerinin fotoğrafları ve
+  tanıtım yazıları (content/ klasörü) topluluğa ve ilgili kişilere aittir.
+- Google Sans ve Google Sans Code yazı tipleri kendi lisanslarıyla kullanılır.
+- package.json'da listelenen açık kaynak paketler kendi lisanslarına tabidir.
+
+İzin ve iletişim: https://github.com/nidakd
+
+---
+
+Copyright (c) 2026 Hasibe Nida Akdoğan. All rights reserved.
+
+The source code, design and scripts in this repository belong to Hasibe Nida
+Akdoğan. GDG on Campus Abant İzzet Baysal University may keep this site online
+and update its content for its community activities. Copying, modifying,
+redistributing or selling the code requires the author's written permission.
+Google and GDG names and logos, club content (content/) and third-party
+packages and fonts are excluded and remain with their respective owners.
