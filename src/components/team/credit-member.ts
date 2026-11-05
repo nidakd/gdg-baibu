@@ -1,7 +1,7 @@
 import type { Tone } from "@/components/ui/button";
 import type { Member } from "@/lib/content";
 
-// Ekip tipografi bileşenlerinin (isim listesi, kalkış tablosu, kinetik satırlar) ortak verisi.
+// Kinetik isim satırlarının (kinetic-rows.tsx) ihtiyaç duyduğu üye verisi ve ekip renkleri.
 // İstemci bileşenlerine sunucudaki Member nesnesinin sadece gereken kısmı gider.
 
 export type CreditMember = {
@@ -24,15 +24,6 @@ export function toCreditMember(m: Member): CreditMember {
   };
 }
 
-/** Ekip rozeti: pastel zemin, okunur (ink) yazı */
-export const badge: Record<Tone, string> = {
-  blue: "bg-blue-soft text-blue-ink",
-  green: "bg-green-soft text-green-ink",
-  yellow: "bg-yellow-soft text-yellow-ink",
-  red: "bg-red-soft text-red-ink",
-  lilac: "bg-lilac-soft text-lilac-ink",
-  silver: "bg-silver-soft text-silver-ink",
-};
 export const ring: Record<Tone, string> = {
   blue: "ring-blue",
   green: "ring-green",

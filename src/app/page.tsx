@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { FocusAreas } from "@/components/sections/focus-areas";
 import { StatsGrid } from "@/components/sections/stats-grid";
 import { toCreditMember } from "@/components/team/credit-member";
-import { HoverIndex } from "@/components/team/hover-index";
+import { KineticRows } from "@/components/team/kinetic-rows";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 import { ContactSection } from "@/components/sections/contact-section";
@@ -73,9 +73,10 @@ export default async function Home() {
           </ButtonLink>
         }
       >
-        <Reveal>
-          <HoverIndex members={members.map(toCreditMember)} columns={2} />
-        </Reveal>
+        {/* İsimli şerit sayfa genişliğini taşar */}
+        <div className="mx-[calc(50%-50vw)]">
+          <KineticRows members={members.map(toCreditMember)} />
+        </div>
       </Section>
 
       <div className="mx-auto max-w-content px-4 pb-24 sm:px-6">
