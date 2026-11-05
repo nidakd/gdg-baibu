@@ -3,7 +3,6 @@ import { DinoRunner } from "@/components/fun/dino-runner";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
 import { FocusAreas } from "@/components/sections/focus-areas";
-import { StatsGrid } from "@/components/sections/stats-grid";
 import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
@@ -30,11 +29,8 @@ export default async function Home() {
         edgeClass="border-blue shadow-[0_4px_0_0_var(--brand-blue-halftone)]"
       />
 
-      <div id="rakamlar" className="mx-auto max-w-content scroll-mt-24 px-4 pt-20 pb-12 sm:px-6">
-        <Reveal>
-          <StatsGrid />
-        </Reveal>
-      </div>
+      {/* Rakamlar terminalde zaten var; kartlar sadece hakkımızda sayfasında */}
+      <div className="h-16" />
 
       <WaveBand tone="blue">
         <Section
