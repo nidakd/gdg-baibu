@@ -2,6 +2,8 @@
   "name": "gdg-aibu",
   "version": "0.1.0",
   "private": true,
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Hasibe Nida Akdoğan (https://github.com/nidakd)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
