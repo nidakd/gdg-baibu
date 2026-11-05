@@ -7,7 +7,7 @@ import mark from "../../../../public/brand/gdg-mark.png";
 
 // Ekip, ortadaki GDG simgesinin etrafında üç halkada döner:
 // içte yönetim, ortada koordinatörler, dışta ekip üyeleri. Halkalar ters yönlere döner,
-// avatarlar dik kalır; üstüne gelince dönme durur. Ölçüler kapsayıcı genişliğine göre (cqw).
+// avatarlar dik kalır; üstüne gelince dönme durur ve fotoğraf büyür. Ölçüler kapsayıcı genişliğine göre (cqw).
 
 const ring: Record<Tone, string> = {
   blue: "ring-blue",
@@ -67,7 +67,7 @@ export function TeamOrbit({ members }: { members: Member[] }) {
         <ul
           key={o.diameter}
           data-reverse={o.reverse || undefined}
-          className="orbit-ring absolute inset-0"
+          className="orbit-ring pointer-events-none absolute inset-0 has-[:focus-visible]:z-20 has-[:hover]:z-20"
           style={{ ["--orbit-dur" as string]: o.duration }}
         >
           {o.members.map((member, i) => {
@@ -75,7 +75,7 @@ export function TeamOrbit({ members }: { members: Member[] }) {
             return (
               <li
                 key={member.slug}
-                className="absolute top-1/2 left-1/2"
+                className="pointer-events-auto absolute top-1/2 left-1/2"
                 style={{
                   width: `${o.avatar}cqw`,
                   height: `${o.avatar}cqw`,
@@ -85,7 +85,7 @@ export function TeamOrbit({ members }: { members: Member[] }) {
                 <span className="orbit-upright block size-full">
                   <Link
                     href={`/ekip/${member.slug}`}
-                    className={`group relative block size-full rounded-full ring-4 ring-offset-2 ring-offset-bg transition hover:z-10 hover:scale-115 focus-visible:scale-115 ${ring[member.team.tone]}`}
+                    className={`group relative block size-full rounded-full ring-2 ring-offset-1 ring-offset-bg transition duration-300 hover:z-10 hover:scale-[1.7] focus-visible:scale-[1.7] ${ring[member.team.tone]}`}
                   >
                     <Avatar
                       name={member.name}
@@ -94,7 +94,7 @@ export function TeamOrbit({ members }: { members: Member[] }) {
                       priority
                       fluid
                     />
-                    <span className="pointer-events-none absolute top-full left-1/2 z-20 mt-2 -translate-x-1/2 rounded-full border-2 border-border-strong bg-surface px-2.5 py-0.5 font-mono text-[11px] whitespace-nowrap opacity-0 shadow-sticker-sm transition group-hover:opacity-100 group-focus-visible:opacity-100">
+                    <span className="pointer-events-none absolute top-full left-1/2 z-20 mt-1 -translate-x-1/2 scale-[0.6] rounded-full border-2 border-border-strong bg-surface px-2.5 py-0.5 font-mono text-[11px] whitespace-nowrap opacity-0 shadow-sticker-sm transition group-hover:opacity-100 group-focus-visible:opacity-100">
                       {member.name.split(" ")[0]} · {member.team.id}/
                     </span>
                   </Link>
