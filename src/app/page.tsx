@@ -8,7 +8,8 @@ import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { WaveBand } from "@/components/ui/wave-band";
-import { getMembers, getSite } from "@/lib/content";
+import { PhotoStrip } from "@/components/sections/photo-strip";
+import { getMembers, getPhotos, getSite } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
 import { Hero } from "./_components/hero";
 import { LatestEvents } from "./_components/latest-events";
@@ -16,6 +17,7 @@ import { LatestEvents } from "./_components/latest-events";
 export default async function Home() {
   const site = getSite();
   const members = getMembers();
+  const photos = getPhotos();
   // Yaklaşan etkinlik ayrı kartta; listede sadece geçmişler
   const { upcoming, past } = await getEventTimeline();
   const next = upcoming[0];
@@ -48,7 +50,20 @@ export default async function Home() {
       </WaveBand>
 
       <Section
-        label="02 — ne yapıyoruz"
+        label="02 — kareler"
+        title="Etkinliklerden kareler"
+        intro="Atölyeler, kahve sohbetleri, sahne anları. Bir kareye tıkla, o etkinliğe git."
+        action={
+          <ButtonLink href="/etkinlikler" tone="plain">
+            Tüm etkinlikler
+          </ButtonLink>
+        }
+      >
+        <PhotoStrip photos={photos} />
+      </Section>
+
+      <Section
+        label="03 — ne yapıyoruz"
         title="Altı alanda üretiyoruz"
         action={
           <ButtonLink href="/hakkimizda" tone="plain">
@@ -64,7 +79,7 @@ export default async function Home() {
       <DinoRunner />
 
       <Section
-        label="03 — contributors"
+        label="04 — contributors"
         title="Bu dönemin core team'i"
         intro="Etkinlikleri planlayan, afişleri tasarlayan, atölyeleri hazırlayan ekip."
         action={
@@ -93,7 +108,7 @@ export default async function Home() {
       <div className="mx-auto max-w-content px-4 pb-24 sm:px-6">
         <Reveal>
           <div className="relative overflow-hidden rounded-card border-[3px] border-border-strong bg-green-soft p-8 text-fg shadow-sticker-lg md:p-12">
-            <p className="font-mono text-sm">{"// 04 — deploy yourself"}</p>
+            <p className="font-mono text-sm">{"// 05 — deploy yourself"}</p>
             <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-balance sm:text-5xl">
               Deneyim şart değil. Merak yeter.
             </h2>
@@ -126,7 +141,7 @@ export default async function Home() {
         </Reveal>
       </div>
 
-      <ContactSection label="05 — iletişim" className="pt-0" />
+      <ContactSection label="06 — iletişim" className="pt-0" />
     </>
   );
 }
