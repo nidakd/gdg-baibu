@@ -2,6 +2,8 @@
 
 // Footer'ın üstünde core team'in adları: büyük yazı, üç satır ters yönlerde akar.
 // Üstüne gelince satır durur ve ismin yanında fotoğraf açılır; isim profile gider.
+// Süs: klavye sırasına ve ekran okuyucuya girmez (kayan satırda odaklanan isim ekran dışında
+// kalabiliyor); aynı kişiler ekip sayfasında listeli.
 // Renk yok: adların arasında nötr bir nokta. "Hareketi azalt"ta satırlar sabit.
 
 import Image from "next/image";
@@ -13,6 +15,7 @@ export function FooterNames({ members }: { members: FooterName[] }) {
   const rows = [0, 1, 2].map((r) => members.filter((_, i) => i % 3 === r));
   return (
     <div
+      aria-hidden
       className="footer-names space-y-3 overflow-hidden py-2"
       style={{ maskImage: "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)" }}
     >
@@ -35,8 +38,7 @@ export function FooterNames({ members }: { members: FooterName[] }) {
               <Link
                 key={`${copy}-${m.slug}`}
                 href={`/ekip/${m.slug}`}
-                aria-hidden={copy === 1 || undefined}
-                tabIndex={copy === 1 ? -1 : undefined}
+                tabIndex={-1}
                 className="group flex shrink-0 items-center gap-3 pr-8"
               >
                 {m.photoUrl && (
