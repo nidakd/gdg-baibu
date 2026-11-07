@@ -66,20 +66,6 @@
       "order": 1
     },
     {
-      "name": "Eylül Ecem Kaçmaz",
-      "role": "Co-Organizer",
-      "team": "lead",
-      "department": "Bilgisayar Mühendisliği",
-      "year": 2,
-      "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/eyl%C3%BCl_ecem_ka%C3%A7maz.jpg",
-      "bio": "Bolu Abant İzzet Baysal Üniversitesi Bilgisayar Mühendisliği 2. sınıf öğrencisiyim. Geçen dönem Etkinlik ve Organizasyon Ekibi üyesi, ardından koordinatörü oldum; bu dönem ise Co-Organizer olarak görev alıyorum. Özellikle donanımla ilgileniyorum. Kendimi geliştirmeyi ve yeni insanlarla tanışmayı seviyorum.",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/eyl%C3%BCl-ecem-ka%C3%A7maz-045022382",
-        "gdgCommunity": "https://gdg.community.dev/u/mckpb8/"
-      },
-      "order": 2
-    },
-    {
       "name": "Nida Akdoğan",
       "role": "Team Mentor",
       "team": "lead",
@@ -157,18 +143,18 @@
     },
     {
       "name": "İrem Genç",
-      "role": "Koordinatör",
-      "team": "events",
+      "role": "Co-Organizer",
+      "team": "lead",
       "department": "Kimya Mühendisliği",
       "year": 4,
       "photoUrl": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_500,h_500,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/irem_gen%C3%A7_b832467b.jpg",
-      "bio": "Bolu Abant İzzet Baysal Üniversitesi Kimya Mühendisliği 4. sınıf öğrencisiyim. Etkinlik yönetimi ve organizasyon planlaması konularına ilgi duyuyor, kendimi farklı alanlarda geliştirmeyi seviyorum. GDG on Campus AİBÜ'de Etkinlik ve Organizasyon Koordinatörü olarak görev alıyor, ekip yönetimi ve süreç takibi alanlarında deneyim kazanıyorum. Yaratıcı fikirler üretmeyi, ekip çalışmalarında yer almayı ve öğrendiklerimi pratiğe dökerek kendimi geliştirmeyi önemsiyorum.",
+      "bio": "Bolu Abant İzzet Baysal Üniversitesi Kimya Mühendisliği 4. sınıf öğrencisiyim. Etkinlik yönetimi ve organizasyon planlaması konularına ilgi duyuyor, kendimi farklı alanlarda geliştirmeyi seviyorum. GDG on Campus AİBÜ'de Etkinlik ve Organizasyon Koordinatörü olarak başladım, şimdi Co-Organizer olarak görev alıyor, ekip yönetimi ve süreç takibi alanlarında deneyim kazanıyorum. Yaratıcı fikirler üretmeyi, ekip çalışmalarında yer almayı ve öğrendiklerimi pratiğe dökerek kendimi geliştirmeyi önemsiyorum.",
       "links": {
         "linkedin": "https://www.linkedin.com/in/irem-gen%C3%A7",
         "instagram": "https://www.instagram.com/ggenc_irem",
         "gdgCommunity": "https://gdg.community.dev/u/m95b48/"
       },
-      "order": 8
+      "order": 2
     },
     {
       "name": "Rüya Durgun",
