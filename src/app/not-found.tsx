@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/button";
 import { Prompt, Terminal } from "@/components/ui/terminal";
+
+export const metadata: Metadata = {
+  title: "Sayfa bulunamadı",
+  robots: { index: false },
+};
 
 export default function NotFound() {
   return (

@@ -14,6 +14,7 @@ import { getEventTimeline } from "@/lib/events";
 import { EventArchive, type ArchiveEvent } from "./_components/event-archive";
 import { FeaturedRelease } from "./_components/featured-release";
 import { PosterWall } from "./_components/poster-wall";
+import { UpcomingFeature } from "./_components/upcoming-feature";
 import { openGraph } from "@/lib/seo";
 
 const description =
@@ -92,7 +93,11 @@ export default async function EventsPage() {
       </WaveBand>
 
       <Section label="01 — yaklaşan" title="Sıradaki sürüm">
-        {upcoming.length > 0 ? (
+        {upcoming.length === 1 ? (
+          <Reveal>
+            <UpcomingFeature event={upcoming[0]} />
+          </Reveal>
+        ) : upcoming.length > 1 ? (
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {upcoming.map((event) => (
               <li key={event.id}>

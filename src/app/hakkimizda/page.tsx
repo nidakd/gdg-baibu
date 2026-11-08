@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ContactSection } from "@/components/sections/contact-section";
 import { FocusAreas } from "@/components/sections/focus-areas";
 import { AboutHero } from "./_components/about-hero";
+import { GroupPhoto } from "./_components/group-photo";
 import { Milestones } from "@/components/sections/milestones";
 import { StatsGrid } from "@/components/sections/stats-grid";
 import { Avatar } from "@/components/team/avatar";
@@ -35,6 +36,10 @@ export default function AboutPage() {
 
       <div className="mx-auto max-w-content px-4 pt-16 sm:px-6">
         <StatsGrid />
+      </div>
+
+      <div className="mx-auto max-w-content px-4 pt-16 sm:px-6">
+        <GroupPhoto />
       </div>
 
       <Section label="01 — ne yapıyoruz" title="Odak alanlarımız">
