@@ -83,8 +83,31 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
             )}
           </header>
 
-          {event.descriptionHtml ? (
+          {event.tr ? (
+            <div className="max-w-prose space-y-4">
+              <div className="prose-gdg">
+                {event.tr.paragraphs.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+              </div>
+              {event.descriptionHtml && (
+                // GDG Community'deki orijinal metin, kapalı başlar
+                <details className="group rounded-xl border-2 border-dashed border-border px-4 py-3 text-sm">
+                  <summary className="cursor-pointer font-mono text-xs text-fg-subtle marker:content-none">
+                    <span className="inline-block transition group-open:rotate-90">›</span> İngilizce
+                    orijinali (GDG Community)
+                  </summary>
+                  <div
+                    lang="en"
+                    className="prose-gdg mt-3 text-fg-muted"
+                    dangerouslySetInnerHTML={{ __html: sanitizeDescription(event.descriptionHtml) }}
+                  />
+                </details>
+              )}
+            </div>
+          ) : event.descriptionHtml ? (
             <div
+              lang="en"
               className="prose-gdg max-w-prose"
               dangerouslySetInnerHTML={{ __html: sanitizeDescription(event.descriptionHtml) }}
             />

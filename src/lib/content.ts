@@ -5,6 +5,7 @@ import siteJson from "../../content/site.json";
 import teamJson from "../../content/team.json";
 import eventsJson from "../../content/events.json";
 import photosJson from "../../content/photos.json";
+import eventNotesJson from "../../content/event-notes.json";
 import type { Tone } from "@/components/ui/button";
 import { slugify } from "./slug";
 
@@ -60,7 +61,12 @@ export type Event = {
   speakers: Speaker[];
   photos: string[];
   sourceUrl: string;
+  /** Türkçe metin (content/event-notes.json); yoksa sayfada İngilizce orijinal görünür */
+  tr: { summary: string; paragraphs: string[] } | null;
 };
+
+type EventNote = { ozet: string; aciklama: string[] };
+const eventNotes = eventNotesJson as unknown as Record<string, EventNote | string>;
 
 const teams = teamJson.teams as Team[];
 const teamById = new Map(teams.map((t) => [t.id, t]));
@@ -78,7 +84,15 @@ const members: Member[] = teamJson.members
   })
   .sort((a, b) => a.order - b.order);
 
-const events = (eventsJson as Event[]).slice().sort((a, b) => b.startsAt.localeCompare(a.startsAt));
+const events: Event[] = (eventsJson as Omit<Event, "tr">[])
+  .map((e) => {
+    const note = eventNotes[e.slug];
+    return {
+      ...e,
+      tr: typeof note === "object" ? { summary: note.ozet, paragraphs: note.aciklama } : null,
+    };
+  })
+  .sort((a, b) => b.startsAt.localeCompare(a.startsAt));
 
 export function getSite(): Site {
   return siteJson;
