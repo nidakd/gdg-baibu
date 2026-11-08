@@ -2,6 +2,7 @@ import { DinoRunner } from "@/components/fun/dino-runner";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
 import { FocusBigPills } from "@/components/home/focus-big-pills";
+import { JoinNotes } from "@/components/home/join-notes";
 import { TeamSpotlight } from "@/components/home/team-spotlight";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
@@ -103,41 +104,8 @@ export default async function Home() {
         </Reveal>
       </Section>
 
-      <div className="mx-auto max-w-content px-4 pb-24 sm:px-6">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-card border-[3px] border-border-strong bg-green-soft p-8 text-fg shadow-sticker-lg md:p-12">
-            <p className="font-mono text-sm">{"// 05 — deploy yourself"}</p>
-            <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-balance sm:text-5xl">
-              Deneyim şart değil. Merak yeter.
-            </h2>
-            <ol className="mt-8 grid gap-4 font-mono text-sm md:grid-cols-3">
-              {[
-                ["git clone", "WhatsApp grubuna katıl, duyuruları ilk sen gör."],
-                ["npm install", "Bir etkinliğe gel, ekiple tanış."],
-                ["deploy", "Core team başvurusunu doldur, bir ekibe katıl."],
-              ].map(([cmd, text], i) => (
-                <li
-                  key={cmd}
-                  className="rounded-xl border-2 border-border-strong bg-surface p-4 transition odd:-rotate-1 even:rotate-1 hover:rotate-0"
-                >
-                  <span className="font-bold">
-                    {i + 1}. $ {cmd}
-                  </span>
-                  <p className="mt-2 font-sans text-base">{text}</p>
-                </li>
-              ))}
-            </ol>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href={site.links.whatsapp} tone="green">
-                WhatsApp grubu
-              </ButtonLink>
-              <ButtonLink href={site.links.coreTeamForm} tone="blue">
-                Core team başvurusu
-              </ButtonLink>
-            </div>
-          </div>
-        </Reveal>
-      </div>
+      {/* 04'teki kutulu tanış kartından sonra ritim değişsin diye dış kutusuz */}
+      <JoinNotes whatsapp={site.links.whatsapp} form={site.links.coreTeamForm} />
 
       <ContactSection label="06 — iletişim" className="pt-0" />
     </>
