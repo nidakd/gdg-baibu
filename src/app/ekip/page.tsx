@@ -13,10 +13,15 @@ import { getDepartments } from "@/lib/insights";
 import { TeamOrbit } from "./_components/team-orbit";
 import { Departments } from "./_components/departments";
 import { TeamNav } from "./_components/team-nav";
+import { openGraph } from "@/lib/seo";
+
+const description =
+  "GDG on Campus Abant İzzet Baysal University core team üyeleri ve ekipleri.";
 
 export const metadata: Metadata = {
   title: "Ekip",
-  description: "GDG on Campus Abant İzzet Baysal University core team üyeleri ve ekipleri.",
+  description,
+  openGraph: openGraph({ title: "Ekip", description, path: "/ekip" }),
 };
 
 export default function TeamPage() {

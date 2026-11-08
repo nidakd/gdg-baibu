@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getEventBySlug, getEvents } from "@/lib/content";
 import { formatDate } from "@/lib/format";
+import { openGraph } from "@/lib/seo";
 import { EventDetail } from "./_components/event-detail";
 
 export function generateStaticParams() {
@@ -18,11 +19,13 @@ export async function generateMetadata(props: PageProps<"/etkinlikler/[slug]">):
   return {
     title: event.title,
     description,
-    openGraph: {
+    openGraph: openGraph({
       title: event.title,
       description,
-      images: event.coverUrl ? [{ url: event.coverUrl }] : undefined,
-    },
+      path: `/etkinlikler/${event.slug}`,
+      // Afiş yoksa sitenin genel paylaşım görseli kullanılır
+      ...(event.coverUrl && { images: [{ url: event.coverUrl, alt: `${event.title} afişi` }] }),
+    }),
   };
 }
 
