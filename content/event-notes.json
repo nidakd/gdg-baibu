@@ -1,0 +1,115 @@
+{
+  "_aciklama": "Etkinliklerin Türkçe metinleri. GDG Community'den gelen açıklamalar İngilizce ve haftalık senkron events.json'u ezdiği için Türkçeler burada, slug'a göre. ozet: tek cümle (paylaşım önizlemesi ve arama motorları için); aciklama: sayfada gösterilen paragraflar. Bir etkinlik burada yoksa sayfada İngilizce orijinal görünür.",
+  "2026-11-12-zcash": {
+    "ozet": "Zcash ile birlikte düzenlediğimiz konferansta blokzincirde şeffaflık ve gizlilik ekosistemini konuşuyoruz.",
+    "aciklama": [
+      "Zcash iş birliğiyle düzenlediğimiz bu konferansın konusu blokzincirde şeffaflık ve gizlilik ekosistemi.",
+      "Sektörden konuşmacılar proje geliştirme deneyimlerini paylaşacak. Alana ilgi duyan diğer katılımcılarla tanışmak için de iyi bir fırsat."
+    ]
+  },
+  "2026-10-17-coffee-talk": {
+    "ozet": "Dönemin ilk Coffee Talk'u: kahve, oyunlar ve Google teknolojileri üzerine rahat bir sohbet.",
+    "aciklama": [
+      "Dönemin ilk Coffee Talk buluşması. Teknolojiye meraklı insanlarla tanışıp birlikte oyun oynadığımız, Google teknolojileri üzerine sohbet ettiğimiz rahat bir ortam.",
+      "GDG topluluğunu tanımak ve yeni bağlantılar kurmak isteyen herkes gelebilir. Bir arkadaşını da getir."
+    ]
+  },
+  "2026-10-16-stand-day": {
+    "ozet": "Kampüsteki tanışma standımız: topluluğu ve bu yıl planladığımız etkinlikleri anlattık.",
+    "aciklama": [
+      "Bolu Abant İzzet Baysal Üniversitesi'nde kurduğumuz tanışma standı. Teknolojiye meraklı öğrencilerle tanışıp topluluğumuzu ve bu yıl için planladığımız etkinlikleri anlattık.",
+      "Topluluğun yönüne katkı vermek isteyenlerle sohbet ettik; ikramlarımız da vardı."
+    ]
+  },
+  "2026-10-01-ai-music": {
+    "ozet": "Suno AI'dan Yiğit Arslan ile yapay zekânın müziği nasıl değiştirdiğini konuştuk ve uygulamalı atölyede müzik ürettik.",
+    "aciklama": [
+      "Konuğumuz Suno AI'dan Yiğit Arslan'dı. Yapay zekânın müzik sektörünü nasıl dönüştürdüğünü konuştuk.",
+      "Ardından uygulamalı bir atölyede katılımcılar yapay zekâyla kendi müziklerini üretti."
+    ]
+  },
+  "2026-10-01-info-session": {
+    "ozet": "Yeni dönemin tanıtım buluşması: GDG on Campus AİBÜ nedir, bu yıl neler yapacağız, nasıl katılırsın.",
+    "aciklama": [
+      "GDG on Campus Abant İzzet Baysal University, Google Developer Group ağının bir parçası. Google teknolojilerini üniversite öğrencilerine yaklaştırıyor ve becerilerini geliştirmelerine destek oluyoruz.",
+      "Bu yıl yeni bir döneme yeni bir enerjiyle başlıyoruz: uygulamalı atölyeler, ilham veren seminerler ve tanışma fırsatları. Bu buluşmada planladığımız etkinlikleri, kazanabileceğin becerileri ve seni bekleyen fırsatları anlattık."
+    ]
+  },
+  "2026-09-23-stand-day": {
+    "ozet": "Dönem başı hoş geldin standı: kampüste yeni öğrencilerle tanıştık, topluluğu anlattık.",
+    "aciklama": [
+      "Dönem başında Bolu Abant İzzet Baysal Üniversitesi'nde kurduğumuz hoş geldin standı. Teknolojiye ilgi duyan öğrencilerle tanışıp topluluğumuzu ve yıl boyunca planladığımız etkinlikleri anlattık.",
+      "Topluluğun geleceğine katkı vermek isteyenlerle sohbet ettik; ikramlarımız da vardı."
+    ]
+  },
+  "2026-06-20-entrepreneurship-camp": {
+    "ozet": "Doğu Marmara Kalkınma Ajansı'nın Aladağlar'daki Yapay Zekâ Girişimcilik Kampı'nda yapay zekâ eğitimleri verdik.",
+    "aciklama": [
+      "Doğu Marmara Kalkınma Ajansı'nın Bolu Aladağlar'da düzenlediği Yapay Zekâ Girişimcilik Kampı'na GDG on Campus AİBÜ olarak katıldık ve yapay zekâ eğitimleri verdik.",
+      "Kampta Lyria ile yapay zekâyla jingle bestelemeyi, Pomelli ile marka stili oluşturmayı ve AI Studio ile sıfırdan ürün prototipi ve web sitesi geliştirmeyi gösterdik. Bu oturumda kamptaki araçları, teknikleri ve deneyimlerimizi paylaşıyoruz."
+    ]
+  },
+  "2026-06-03-muhendislik-kariyer-gunu": {
+    "ozet": "Teknofest Topluluğu ile birlikte girişimcilik, yapay zekâ ve sektör üzerine bir kariyer günü; ana konuşmacı Ecem Şafak.",
+    "aciklama": [
+      "GDG on Campus AİBÜ ve Teknofest Topluluğu iş birliğiyle düzenlenen Mühendislik Kariyer Günü'nde girişimcilik, yapay zekâ ve sektördeki gelişmeleri konuştuk.",
+      "Ana konuşmacımız yapay zekâ mühendisi Ecem Şafak'tı. Sektörden içgörüler edinmek ve mühendislik öğrencileriyle tanışmak için bir buluşma."
+    ]
+  },
+  "2026-05-19-give-your-agent-hands-building-tool-enabled-ai-with-google-a": {
+    "ozet": "Google Cloud GDE'si Alper Sarı ile Google ADK ve MCP kullanarak araç kullanabilen yapay zekâ ajanları geliştirdik.",
+    "aciklama": [
+      "Google Cloud alanında Google Developer Expert olan Alper Sarı ile \"Give Your Agent Hands\" atölyesinde yapay zekâ ajanlarının dış araçlarla nasıl çalıştığını ve bu araçlarla nasıl güçlendiğini inceledik.",
+      "Konular: Google ADK ve MCP kavramları, araç kullanabilen yapay zekâ ajanları, gerçek kullanım senaryoları ve ajanların araçlarla nasıl genişletildiği. Yer English Time Bolu, saat 14.00–15.30."
+    ]
+  },
+  "2026-05-18-ai-muzik-atolyesi": {
+    "ozet": "Yiğit Arslan ile yapay zekâyla müzik üretmenin temellerini öğrendik ve kendi parçalarımızı bestelediğimiz uygulamalı bir atölye yaptık.",
+    "aciklama": [
+      "Yiğit Arslan'ın yönettiği bu etkileşimli atölyede yapay zekâyla üretilen müziği ve teknolojinin müzik yapma ve dinleme biçimimizi nasıl değiştirdiğini keşfettik.",
+      "Önce müzikte yapay zekânın temellerini konuştuk, sonra katılımcılar yapay zekâyla kendi parçalarını besteledi. Teknolojiye de müziğe de meraklı olan herkes için."
+    ]
+  },
+  "2026-05-17-cyberfirst-day-3": {
+    "ozet": "BAİBÜSEC'in düzenlediği, GDG on Campus'ün desteklediği siber güvenlik festivali CYBERFIRST'ün üçüncü günü.",
+    "aciklama": [
+      "Bolu Abant İzzet Baysal Üniversitesi'nde BAİBÜSEC'in düzenlediği, GDG on Campus olarak desteklediğimiz siber güvenlik festivali CYBERFIRST'ün üçüncü günü.",
+      "Siber dünyaya ilgi duyan herkese açık: güncel siber tehditler hakkında bilgi edinmek ve alanın uzmanlarıyla tanışmak için bir fırsat."
+    ]
+  },
+  "2026-05-16-cyberfirst-day-2": {
+    "ozet": "BAİBÜSEC'in düzenlediği, GDG on Campus'ün desteklediği siber güvenlik festivali CYBERFIRST'ün ikinci günü.",
+    "aciklama": [
+      "Bolu Abant İzzet Baysal Üniversitesi'nde BAİBÜSEC'in düzenlediği, GDG on Campus olarak desteklediğimiz siber güvenlik festivali CYBERFIRST'ün ikinci günü.",
+      "Siber dünyaya ilgi duyan herkese açık: güncel siber tehditler hakkında bilgi edinmek ve alanın uzmanlarıyla tanışmak için bir fırsat."
+    ]
+  },
+  "2026-05-15-cyberfirst-day-1": {
+    "ozet": "BAİBÜSEC'in düzenlediği, GDG on Campus'ün desteklediği siber güvenlik festivali CYBERFIRST'ün ilk günü.",
+    "aciklama": [
+      "Bolu Abant İzzet Baysal Üniversitesi'nde BAİBÜSEC'in düzenlediği, GDG on Campus olarak desteklediğimiz siber güvenlik festivali CYBERFIRST'ün ilk günü.",
+      "Siber dünyaya ilgi duyan herkese açık: güncel siber tehditler hakkında bilgi edinmek ve alanın uzmanlarıyla tanışmak için bir fırsat."
+    ]
+  },
+  "2026-05-13-app-development-with-ai-studio-and-gemini": {
+    "ozet": "GDG İstanbul organizatörü Nurettin Selim Özyılmaz ile AI Studio ve Gemini kullanarak uygulama geliştirdiğimiz uygulamalı atölye.",
+    "aciklama": [
+      "Full-stack geliştirici ve GDG İstanbul organizatörü Nurettin Selim Özyılmaz ile AI Studio ve Gemini'nin uygulama geliştirmeyi nasıl değiştirdiğini inceledik.",
+      "Projelerine yapay zekâ eklemek isteyen geliştiriciler için uygulamalı bir atölye: daha akıllı ve verimli uygulamalar kurmanın araçları ve teknikleri."
+    ]
+  },
+  "2026-05-12-arduino-101-day-2": {
+    "ozet": "IEEE BAİBÜ ile düzenlediğimiz Arduino 101 atölyesinin ikinci günü: elektronik ve programlamanın temelleri, uygulamalı.",
+    "aciklama": [
+      "Bolu Abant İzzet Baysal Üniversitesi IEEE topluluğuyla birlikte düzenlediğimiz Arduino 101 atölyesinin ikinci günü.",
+      "Elektronik ve programlamanın temellerini uygulamalı olarak öğrendik. Mikrodenetleyicilere yeni başlayanlar da becerilerini geliştirmek isteyenler de kendi projelerini sıfırdan kurmaya başladı."
+    ]
+  },
+  "2026-05-11-arduino-101": {
+    "ozet": "IEEE BAİBÜ ile düzenlediğimiz Arduino 101 atölyesinin ilk günü: elektronik ve programlamanın temelleri, uygulamalı.",
+    "aciklama": [
+      "Bolu Abant İzzet Baysal Üniversitesi IEEE topluluğuyla birlikte düzenlediğimiz Arduino 101 atölyesinin ilk günü.",
+      "Elektronik ve programlamanın temellerini uygulamalı olarak öğrendik. Mikrodenetleyicilere yeni başlayanlar da becerilerini geliştirmek isteyenler de kendi projelerini sıfırdan kurmaya başladı."
+    ]
+  }
+}

@@ -15,7 +15,7 @@ export async function generateMetadata(props: PageProps<"/etkinlikler/[slug]">):
   const { slug } = await props.params;
   const event = getEventBySlug(slug);
   if (!event) notFound();
-  const description = event.summary ?? `${formatDate(event.startsAt)} · ${event.venue ?? ""}`;
+  const description = event.tr?.summary ?? event.summary ?? `${formatDate(event.startsAt)} · ${event.venue ?? ""}`;
   return {
     title: event.title,
     description,
