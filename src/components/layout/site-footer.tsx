@@ -62,7 +62,7 @@ function FooterCompact() {
               </span>
             </div>
             <nav aria-label="Alt menü">
-              <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              <ul className="flex flex-wrap gap-x-6 text-sm">
                 {pages.map((item) => (
                   <li key={item.href}>
                     <FooterAnchor {...item} />
@@ -78,14 +78,14 @@ function FooterCompact() {
           <div className="mt-10 grid items-end gap-10 border-t border-border pt-8 md:grid-cols-[1fr_auto]">
             <div className="space-y-4">
               <nav aria-label="Sosyal medya">
-                <ul className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-sm">
+                <ul className="flex flex-wrap gap-x-5 font-mono text-sm">
                   {social.map((item) => (
                     <li key={item.href}>
                       <FooterAnchor {...item} />
                     </li>
                   ))}
                   <li>
-                    <a href={`mailto:${site.email}`} className="hover:underline">
+                    <a href={`mailto:${site.email}`} className={LINK}>
                       {site.email}
                     </a>
                   </li>
@@ -104,17 +104,21 @@ function FooterCompact() {
 
 /* ───────────── ortak parçalar ───────────── */
 
+// Dokunma alanı en az 24 px yüksek olsun (telefonda yan yana linkler kolay basılsın); boşluk dolguyla
+// geldiği için satır arası (gap-y) küçük tutuldu.
+const LINK = "inline-block py-1.5 hover:underline";
+
 function FooterAnchor({ label, href }: FooterLink) {
   if (/^https?:\/\//.test(href)) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" className="hover:underline">
+      <a href={href} target="_blank" rel="noreferrer" className={LINK}>
         {label} <span aria-hidden>↗</span>
         <span className="sr-only"> (yeni sekmede açılır)</span>
       </a>
     );
   }
   return (
-    <Link href={href} className="hover:underline">
+    <Link href={href} className={LINK}>
       {label}
     </Link>
   );
