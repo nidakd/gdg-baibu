@@ -2,7 +2,7 @@ import Link from "next/link";
 import { DinoRunner } from "@/components/fun/dino-runner";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
-import { FocusAreas } from "@/components/sections/focus-areas";
+import { FocusAreaPills } from "@/components/sections/focus-area-pills";
 import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
@@ -65,6 +65,7 @@ export default async function Home() {
       <Section
         label="03 — ne yapıyoruz"
         title="Altı alanda üretiyoruz"
+        intro="Birine tıkla, o alandaki etkinlikleri gör."
         action={
           <ButtonLink href="/hakkimizda" tone="plain">
             Hakkımızda
@@ -72,37 +73,41 @@ export default async function Home() {
         }
       >
         <Reveal>
-          <FocusAreas />
+          <FocusAreaPills />
         </Reveal>
       </Section>
 
       <DinoRunner />
 
-      <Section
-        label="04 — contributors"
-        title="Bu dönemin core team'i"
-        intro="Etkinlikleri planlayan, afişleri tasarlayan, atölyeleri hazırlayan ekip."
-        action={
-          <ButtonLink href="/ekip" tone="green">
-            Tüm ekip
-          </ButtonLink>
-        }
-      >
-        <ul className="flex flex-wrap gap-3">
-          {members.map((member, i) => (
-            <li key={member.slug}>
-              <Reveal delay={i * 40}>
-                <Link
-                  href={`/ekip/${member.slug}`}
-                  title={`${member.name} · ${member.role}`}
-                  className="block rounded-full transition duration-300 hover:z-10 hover:-translate-y-1 hover:scale-125 hover:rotate-3 focus-visible:scale-125"
-                >
-                  <Avatar name={member.name} photoUrl={member.photoUrl} size={64} />
-                </Link>
-              </Reveal>
-            </li>
-          ))}
-        </ul>
+      {/* Kişiler footer'daki isim şeridinde de var; burada tek satırlık bir davet */}
+      <Section label="04 — contributors" title="Bu dönemin core team'i">
+        <Reveal>
+          <div className="flex flex-wrap items-center justify-between gap-5 rounded-card border-2 border-border-strong bg-surface p-5 shadow-sticker sm:p-6">
+            <Link href="/ekip" className="group flex items-center gap-4">
+              <span className="flex -space-x-3">
+                {members.slice(0, 7).map((member) => (
+                  <Avatar
+                    key={member.slug}
+                    name={member.name}
+                    photoUrl={member.photoUrl}
+                    size={48}
+                  />
+                ))}
+              </span>
+              <span>
+                <span className="block font-bold group-hover:underline">
+                  {members.length} kişilik core team
+                </span>
+                <span className="text-sm text-fg-muted">
+                  Etkinlikleri planlayan, afişleri tasarlayan, atölyeleri hazırlayan ekip.
+                </span>
+              </span>
+            </Link>
+            <ButtonLink href="/ekip" tone="green">
+              Ekibi tanı
+            </ButtonLink>
+          </div>
+        </Reveal>
       </Section>
 
       <div className="mx-auto max-w-content px-4 pb-24 sm:px-6">

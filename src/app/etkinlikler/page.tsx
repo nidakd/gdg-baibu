@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ReleaseCard } from "@/components/events/release-card";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
@@ -11,7 +12,7 @@ import { StatTile } from "@/components/ui/stat-tile";
 import { WaveBand } from "@/components/ui/wave-band";
 import { getSite } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
-import { EventArchive, type ArchiveEvent } from "./_components/event-archive";
+import { EventArchive, EventArchiveFromUrl, type ArchiveEvent } from "./_components/event-archive";
 import { FeaturedRelease } from "./_components/featured-release";
 import { PosterWall } from "./_components/poster-wall";
 import { UpcomingFeature } from "./_components/upcoming-feature";
@@ -144,7 +145,9 @@ export default async function EventsPage() {
         intro="Odak alanına, biçime ya da isme göre süz; bir kayda tıklayınca detayı açılır."
         className="pt-0"
       >
-        <EventArchive events={archive} />
+        <Suspense fallback={<EventArchive events={archive} />}>
+          <EventArchiveFromUrl events={archive} />
+        </Suspense>
       </Section>
     </>
   );

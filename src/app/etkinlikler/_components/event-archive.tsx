@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import type { Tone } from "@/components/ui/button";
@@ -35,9 +36,25 @@ type Format = "all" | "in-person" | "online";
 const INITIAL = 8;
 const STEP = 10;
 
+/**
+ * Adresteki `?alan=<id>` ile süzülmüş açılır (ana sayfadaki odak alanı hapları buraya gelir).
+ * useSearchParams statik sayfada Suspense ister; sayfa, beklerken filtresiz `EventArchive` gösterir.
+ */
+export function EventArchiveFromUrl({ events }: { events: ArchiveEvent[] }) {
+  const alan = useSearchParams().get("alan");
+  const initialArea = focusAreas.some((a) => a.id === alan) ? alan! : "all";
+  return <EventArchive key={initialArea} events={events} initialArea={initialArea} />;
+}
+
 /** Filtrelenebilir, yıllara bölünmüş "git log --graph" görünümlü etkinlik arşivi. */
-export function EventArchive({ events }: { events: ArchiveEvent[] }) {
-  const [area, setAreaState] = useState<string>("all");
+export function EventArchive({
+  events,
+  initialArea = "all",
+}: {
+  events: ArchiveEvent[];
+  initialArea?: string;
+}) {
+  const [area, setAreaState] = useState<string>(initialArea);
   const [format, setFormatState] = useState<Format>("all");
   const [query, setQueryState] = useState("");
   const [limit, setLimit] = useState(INITIAL);
