@@ -130,3 +130,17 @@ export function getPhotos(): Photo[] {
     return event ? [{ ...photo, event: { slug, title: event.title, startsAt: event.startsAt } }] : [];
   });
 }
+
+/** Etkinlik sayfasındaki galeri: önce seçilen kareler (photos.json), sonra GDG Community "wrap-up" fotoğrafları. */
+export type GalleryPhoto = { src: string; alt: string; width?: number; height?: number };
+
+export function getEventPhotos(event: Event): GalleryPhoto[] {
+  const picked = photosJson
+    .filter((p) => p.event === event.slug)
+    .map(({ src, alt, width, height }) => ({ src, alt, width, height }));
+  const wrapup = event.photos.map((src, i) => ({
+    src,
+    alt: `${event.title} etkinliğinden fotoğraf ${picked.length + i + 1}`,
+  }));
+  return [...picked, ...wrapup];
+}
