@@ -4,6 +4,7 @@
 import siteJson from "../../content/site.json";
 import teamJson from "../../content/team.json";
 import eventsJson from "../../content/events.json";
+import photosJson from "../../content/photos.json";
 import type { Tone } from "@/components/ui/button";
 import { slugify } from "./slug";
 
@@ -112,4 +113,34 @@ export function getEvents(): Event[] {
 
 export function getEventBySlug(slug: string): Event | undefined {
   return events.find((e) => e.slug === slug);
+}
+
+/** Ana sayfadaki "etkinliklerden kareler" şeridi. Senkron events.json'u ezdiği için ayrı dosyada. */
+export type Photo = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  event: { slug: string; title: string; startsAt: string };
+};
+
+export function getPhotos(): Photo[] {
+  return photosJson.flatMap(({ event: slug, ...photo }) => {
+    const event = getEventBySlug(slug);
+    return event ? [{ ...photo, event: { slug, title: event.title, startsAt: event.startsAt } }] : [];
+  });
+}
+
+/** Etkinlik sayfasındaki galeri: önce seçilen kareler (photos.json), sonra GDG Community "wrap-up" fotoğrafları. */
+export type GalleryPhoto = { src: string; alt: string; width?: number; height?: number };
+
+export function getEventPhotos(event: Event): GalleryPhoto[] {
+  const picked = photosJson
+    .filter((p) => p.event === event.slug)
+    .map(({ src, alt, width, height }) => ({ src, alt, width, height }));
+  const wrapup = event.photos.map((src, i) => ({
+    src,
+    alt: `${event.title} etkinliğinden fotoğraf ${picked.length + i + 1}`,
+  }));
+  return [...picked, ...wrapup];
 }
