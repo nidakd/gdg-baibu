@@ -11,8 +11,15 @@ import Link from "next/link";
 
 export type FooterName = { slug: string; name: string; photoUrl: string | null };
 
+// Bir satırda 4–5 isim var; tek tur geniş ekrandan kısa kalıp arada boşluk bırakmasın diye
+// satır birkaç kez art arda dizilir. Hız aynı kalsın diye süre de tekrar sayısıyla çarpılır.
+const REPEAT = 4;
+
 export function FooterNames({ members }: { members: FooterName[] }) {
-  const rows = [0, 1, 2].map((r) => members.filter((_, i) => i % 3 === r));
+  const rows = [0, 1, 2].map((r) => {
+    const row = members.filter((_, i) => i % 3 === r);
+    return Array.from({ length: REPEAT }, () => row).flat();
+  });
   return (
     <div
       aria-hidden
@@ -31,12 +38,12 @@ export function FooterNames({ members }: { members: FooterName[] }) {
           key={r}
           className="footer-names-row flex w-max"
           data-rev={r % 2 ? "" : undefined}
-          style={{ ["--dur" as string]: `${40 + r * 8}s` }}
+          style={{ ["--dur" as string]: `${(40 + r * 8) * REPEAT}s` }}
         >
           {[0, 1].map((copy) =>
-            row.map((m) => (
+            row.map((m, i) => (
               <Link
-                key={`${copy}-${m.slug}`}
+                key={`${copy}-${i}-${m.slug}`}
                 href={`/ekip/${m.slug}`}
                 tabIndex={-1}
                 className="group flex shrink-0 items-center gap-3 pr-8"
