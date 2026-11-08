@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { SiteFooter } from "@/components/layout/site-footer";
+import { AUTHOR, SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
@@ -16,6 +16,9 @@ export const metadata: Metadata = {
     template: `%s · ${site.shortName}`,
   },
   description: `${site.university} Google Developer Group topluluğu: biz kimiz, ne yapıyoruz, ekibimiz ve etkinliklerimiz.`,
+  // Sitenin tasarımcısı ve geliştiricisi (<meta name="author">, <link rel="author">)
+  authors: [{ name: AUTHOR.name, url: AUTHOR.url }],
+  creator: AUTHOR.name,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -9,6 +9,7 @@ export function ContactSection({ label, className }: { label: string; className?
   const site = getSite();
   return (
     <Section
+      id="iletisim"
       label={label}
       title="Bizimle iletişime geç"
       intro="Sponsorluk, iş birliği, bir fikir ya da sadece merhaba: kutumuz açık."
