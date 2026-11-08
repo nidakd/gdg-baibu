@@ -12,11 +12,15 @@ import { Section } from "@/components/ui/section";
 import { WaveBand } from "@/components/ui/wave-band";
 import { getMembersByTeam, getTeams, getWorkingTeams } from "@/lib/content";
 import { getEventsPerYear } from "@/lib/insights";
+import { openGraph } from "@/lib/seo";
+
+const description =
+  "GDG on Campus Abant İzzet Baysal University kimdir, ne yapar, hangi ekiplerden oluşur.";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
-  description:
-    "GDG on Campus Abant İzzet Baysal University kimdir, ne yapar, hangi ekiplerden oluşur.",
+  description,
+  openGraph: openGraph({ title: "Hakkımızda", description, path: "/hakkimizda" }),
 };
 
 export default function AboutPage() {

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getMemberBySlug, getMembers } from "@/lib/content";
 import { MemberProfile } from "./_components/member-profile";
+import { openGraph } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getMembers().map((m) => ({ slug: m.slug }));
@@ -13,9 +14,11 @@ export async function generateMetadata(props: PageProps<"/ekip/[slug]">): Promis
   const { slug } = await props.params;
   const member = getMemberBySlug(slug);
   if (!member) notFound();
+  const description = `${member.name}, ${member.team.name} · ${member.role}`;
   return {
     title: member.name,
-    description: `${member.name}, ${member.team.name} · ${member.role}`,
+    description,
+    openGraph: openGraph({ title: member.name, description, path: `/ekip/${member.slug}` }),
   };
 }
 

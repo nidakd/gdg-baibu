@@ -14,11 +14,15 @@ import { getEventTimeline } from "@/lib/events";
 import { EventArchive, type ArchiveEvent } from "./_components/event-archive";
 import { FeaturedRelease } from "./_components/featured-release";
 import { PosterWall } from "./_components/poster-wall";
+import { openGraph } from "@/lib/seo";
+
+const description =
+  "GDG on Campus Abant İzzet Baysal University'nin yaklaşan ve geçmiş etkinlikleri: atölyeler, kariyer buluşmaları, hackathon'lar.";
 
 export const metadata: Metadata = {
   title: "Etkinlikler",
-  description:
-    "GDG on Campus Abant İzzet Baysal University'nin yaklaşan ve geçmiş etkinlikleri: atölyeler, kariyer buluşmaları, hackathon'lar.",
+  description,
+  openGraph: openGraph({ title: "Etkinlikler", description, path: "/etkinlikler" }),
 };
 
 export default async function EventsPage() {
