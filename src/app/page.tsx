@@ -2,7 +2,7 @@ import { DinoRunner } from "@/components/fun/dino-runner";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
 import { FocusBigPills } from "@/components/home/focus-big-pills";
-import { JoinNotes } from "@/components/home/join-notes";
+import { JoinPath } from "@/components/home/join-path";
 import { TeamSpotlight } from "@/components/home/team-spotlight";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
@@ -104,10 +104,10 @@ export default async function Home() {
         </Reveal>
       </Section>
 
-      {/* 04'teki kutulu tanış kartından sonra ritim değişsin diye dış kutusuz */}
-      <JoinNotes whatsapp={site.links.whatsapp} form={site.links.coreTeamForm} />
+      {/* Son etkinlikler'deki mavi dalga bandının eşi: sayfa iki bantla bir bütün gibi okunur */}
+      <JoinPath whatsapp={site.links.whatsapp} form={site.links.coreTeamForm} />
 
-      <ContactSection label="06 — iletişim" className="pt-0" />
+      <ContactSection label="06 — iletişim" />
     </>
   );
 }
