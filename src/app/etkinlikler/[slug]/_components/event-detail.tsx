@@ -1,12 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { EventGallery } from "@/components/events/event-gallery";
 import { Poster } from "@/components/events/poster";
 import { Avatar } from "@/components/team/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tag } from "@/components/ui/tag";
-import { getEventBySlug, type Event } from "@/lib/content";
+import { getEventBySlug, getEventPhotos, type Event } from "@/lib/content";
 import { getAdjacentEvents, getEventTimeline, sanitizeDescription } from "@/lib/events";
 import { formatDate, formatDateLong, formatTimeRange, releaseTag } from "@/lib/format";
 import { getSeriesOf } from "@/lib/insights";
@@ -21,6 +21,7 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
   const series = getSeriesOf(event);
   const siblings = series?.events.filter((e) => e.id !== event.id) ?? [];
   const { older, newer } = getAdjacentEvents(event.slug);
+  const photos = getEventPhotos(event);
   // Çok uzun ya da çok yatay afiş sayfayı bozmasın
   const posterBox = Math.min(Math.max(event.coverAspect ?? 1, 0.7), 1.6);
 
@@ -115,27 +116,10 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
             </section>
           )}
 
-          {event.photos.length > 0 && (
+          {photos.length > 0 && (
             <section className="space-y-4">
               <h2 className="text-2xl font-bold">Fotoğraflar</h2>
-              <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                {event.photos.map((src, i) => (
-                  <li
-                    key={src}
-                    className={`relative aspect-[4/3] overflow-hidden rounded-xl border-2 border-border-strong ${
-                      i % 3 === 0 ? "-rotate-1" : i % 3 === 1 ? "rotate-1" : ""
-                    }`}
-                  >
-                    <Image
-                      src={src}
-                      alt={`${event.title} etkinliğinden fotoğraf ${i + 1}`}
-                      fill
-                      sizes="(min-width: 768px) 16rem, 50vw"
-                      className="object-cover"
-                    />
-                  </li>
-                ))}
-              </ul>
+              <EventGallery photos={photos} />
             </section>
           )}
 
