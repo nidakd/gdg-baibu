@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { DinoRunner } from "@/components/fun/dino-runner";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
-import { FocusAreaPills } from "@/components/sections/focus-area-pills";
-import { Avatar } from "@/components/team/avatar";
+import { FocusBigPills } from "@/components/home/focus-big-pills";
+import { TeamSpotlight } from "@/components/home/team-spotlight";
 import { ButtonLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 import { ContactSection } from "@/components/sections/contact-section";
@@ -73,40 +72,34 @@ export default async function Home() {
         }
       >
         <Reveal>
-          <FocusAreaPills />
+          <FocusBigPills events={past} />
         </Reveal>
       </Section>
 
       <DinoRunner />
 
-      {/* Kişiler footer'daki isim şeridinde de var; burada tek satırlık bir davet */}
-      <Section label="04 — contributors" title="Bu dönemin core team'i">
+      {/* Kişiler footer'daki isim şeridinde de var; burada her seferinde biri öne çıkar */}
+      <Section
+        label="04 — contributors"
+        title="Bu dönemin core team'i"
+        intro="Etkinlikleri planlayan, afişleri tasarlayan, atölyeleri hazırlayan ekip. Birine tıkla, tanış."
+        action={
+          <ButtonLink href="/ekip" tone="green">
+            Tüm ekip
+          </ButtonLink>
+        }
+      >
         <Reveal>
-          <div className="flex flex-wrap items-center justify-between gap-5 rounded-card border-2 border-border-strong bg-surface p-5 shadow-sticker sm:p-6">
-            <Link href="/ekip" className="group flex items-center gap-4">
-              <span className="flex -space-x-3">
-                {members.slice(0, 7).map((member) => (
-                  <Avatar
-                    key={member.slug}
-                    name={member.name}
-                    photoUrl={member.photoUrl}
-                    size={48}
-                  />
-                ))}
-              </span>
-              <span>
-                <span className="block font-bold group-hover:underline">
-                  {members.length} kişilik core team
-                </span>
-                <span className="text-sm text-fg-muted">
-                  Etkinlikleri planlayan, afişleri tasarlayan, atölyeleri hazırlayan ekip.
-                </span>
-              </span>
-            </Link>
-            <ButtonLink href="/ekip" tone="green">
-              Ekibi tanı
-            </ButtonLink>
-          </div>
+          <TeamSpotlight
+            members={members.map((m) => ({
+              slug: m.slug,
+              name: m.name,
+              role: m.role,
+              team: m.team.name,
+              photoUrl: m.photoUrl,
+              intro: m.bio,
+            }))}
+          />
         </Reveal>
       </Section>
 
