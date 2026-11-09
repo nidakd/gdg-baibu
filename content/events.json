@@ -21,6 +21,25 @@
     "coverAspect": 0.8
   },
   {
+    "id": "135131",
+    "slug": "2026-11-07-study-jam",
+    "title": "Study Jam",
+    "startsAt": "2026-11-07T13:00:00+03:00",
+    "endsAt": "2026-11-07T17:30:00+03:00",
+    "format": "in-person",
+    "venue": "Fakülte Yeni Nesil Kütüphane",
+    "summary": "Join the first Study Jam at GDG, Bolu Abant Izzet Baysal University, to explore cloud computing basics. Ideal for beginners or those wishing to expand their knowledge, participants will gain hands-on experience and solve challenges with peers. Bring your device, enjoy snacks and coffee, and connect with like-minded individuals. RSVP to secure your spot and start your cloud journey!",
+    "descriptionHtml": "Join us for our first Study Jam at GDG on Campus Bolu Abant Izzet Baysal University! Dive into the basics of cloud computing with peers, gain hands-on experience, and collaborate to solve challenges. Whether you're new to the field or looking to expand your knowledge, this is the perfect opportunity to learn together and build your skills. Don't miss out—bring your device, connect with like-minded individuals, and let’s study! Snacks and coffee will be provided. RSVP now to secure your spot and embark on your cloud journey with us!",
+    "coverUrl": null,
+    "tags": [
+      "Workshop / hands-on session"
+    ],
+    "speakers": [],
+    "photos": [],
+    "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-study-jam/",
+    "coverAspect": null
+  },
+  {
     "id": "133572",
     "slug": "2026-10-17-coffee-talk",
     "title": "Coffee Talk",
@@ -33,7 +52,13 @@
     "coverUrl": "https://res.cloudinary.com/startup-grind/image/upload/e_trim/c_fill,dpr_2,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/events/blob_KVxVlzN",
     "tags": [],
     "speakers": [],
-    "photos": [],
+    "photos": [
+      "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/IMG-20261018-WA0111_dLqK6ZT.jpg",
+      "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/IMG-20261017-WA0281_wF4Frcm.jpg",
+      "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/IMG-20261017-WA0267_zHDL26v.jpg",
+      "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/IMG-20261017-WA0278_WV0Vs8K.jpg",
+      "https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-goog/event_wrapup/IMG-20261018-WA0093_eZSKanm.jpg"
+    ],
     "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-on-campus-bolu-abant-izzet-baysal-university-bolu-turkiye-presents-coffee-talk-2/",
     "coverAspect": 0.713
   },
