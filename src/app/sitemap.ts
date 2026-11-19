@@ -11,7 +11,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: url("/etkinlikler"), lastModified: events[0]?.startsAt, priority: 0.8 },
     { url: url("/hakkimizda"), priority: 0.7 },
     { url: url("/ekip"), priority: 0.7 },
-    ...events.map((e) => ({ url: url(`/etkinlikler/${e.slug}`), lastModified: e.startsAt, priority: 0.5 })),
+    { url: url("/marka"), priority: 0.3 },
+    ...events.map((e) => ({
+      url: url(`/etkinlikler/${e.slug}`),
+      lastModified: e.startsAt,
+      priority: 0.5,
+    })),
     ...getMembers().map((m) => ({ url: url(`/ekip/${m.slug}`), priority: 0.4 })),
   ];
 }

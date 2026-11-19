@@ -129,7 +129,10 @@ function Copyright() {
   const site = getSite();
   return (
     <p className="font-mono text-xs text-fg-subtle">
-      © {YEAR} {site.shortName} · <span className="whitespace-nowrap">{site.hashtag}</span>
+      © {YEAR} {site.shortName} · <span className="whitespace-nowrap">{site.hashtag}</span> ·{" "}
+      <Link href="/marka" className={LINK}>
+        Marka rehberi
+      </Link>
     </p>
   );
 }
