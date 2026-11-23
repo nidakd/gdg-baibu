@@ -14,8 +14,17 @@ const known: Record<string, Set<string>> = {
 
 export function proxy(request: NextRequest) {
   const [, section, slug] = request.nextUrl.pathname.split("/");
-  if (slug && !known[section]?.has(decodeURIComponent(slug))) {
+  if (slug && !known[section]?.has(decode(slug) ?? "")) {
     return NextResponse.rewrite(new URL("/_bulunamadi", request.url));
+  }
+}
+
+/** Geçersiz yüzde kodlaması (ör. /ekip/%C3) hata fırlatıp 500 vermesin, 404'e düşsün. */
+function decode(s: string): string | null {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return null;
   }
 }
 

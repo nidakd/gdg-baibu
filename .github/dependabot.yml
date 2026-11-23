@@ -1,0 +1,18 @@
+# Dependabot: npm paketleri ve GitHub Actions için haftalık güncelleme PR'ları.
+# Küçük ve yama sürümleri tek PR'da toplanır; büyük sürümler ayrı gelir.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: tuesday
+    open-pull-requests-limit: 5
+    groups:
+      kucuk-guncellemeler:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

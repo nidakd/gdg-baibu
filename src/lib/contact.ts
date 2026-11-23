@@ -5,6 +5,7 @@
 // Kendi alan adı olmadan Resend sadece hesabın kendi adresine gönderebilir; bu yüzden
 // Resend hesabı gdgoncampusaibu@gmail.com ile açılmalı.
 
+import { checkBotId } from "botid/server";
 import { headers } from "next/headers";
 import { getSite } from "./content";
 import type { ContactState } from "./contact-state";
@@ -14,8 +15,8 @@ const LIMITS = { name: 100, email: 200, message: 3000 };
 const MIN_FILL_MS = 3000;
 /** Aynı IP'den 10 dakikada en fazla bu kadar mesaj */
 const RATE = { max: 3, windowMs: 10 * 60 * 1000 };
-// Sade bir koruma: sunucu örneği başına tutulur, yeniden başlayınca sıfırlanır.
-// Sürekli saldırıya karşı Vercel Firewall ya da Cloudflare Turnstile eklenmeli.
+// Asıl bot koruması Vercel BotID (instrumentation-client.ts). Bu sayaç ek bir fren:
+// sunucu örneği başına tutulur, yeniden başlayınca sıfırlanır.
 const hits = new Map<string, number[]>();
 
 // Kullanıcı girdisi e-postaya HTML olarak giriyor: etiket ve tırnaklar kaçırılır
@@ -67,6 +68,16 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
   const startedAt = Number(field("startedAt"));
   if (field("website") || !startedAt || Date.now() - startedAt < MIN_FILL_MS) {
     return { status: "ok" };
+  }
+
+  // Vercel BotID: otomasyon araçlarını ayıklar (geliştirmede her zaman insan sayılır)
+  const { isBot } = await checkBotId();
+  if (isBot) {
+    return {
+      status: "error",
+      message: `Gönderim doğrulanamadı. Sayfayı yenileyip tekrar dene ya da ${getSite().email} adresine yaz.`,
+      values,
+    };
   }
 
   const errors: ContactState["errors"] = {};
