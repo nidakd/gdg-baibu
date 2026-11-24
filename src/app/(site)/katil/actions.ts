@@ -14,9 +14,10 @@ import {
   sendMail,
 } from "@/lib/form-guard";
 import { publicClient } from "@/lib/supabase/public";
-import { YEAR_LABELS } from "./fields";
+import { GITHUB_TEAM, normalizeGithub, YEAR_LABELS } from "./fields";
 
-export type JoinField = "name" | "email" | "department" | "year" | "teams" | "message" | "consent";
+export type JoinField =
+  "name" | "email" | "department" | "year" | "teams" | "github" | "message" | "consent";
 
 export type JoinState = {
   status: "idle" | "ok" | "error";
@@ -28,6 +29,7 @@ export type JoinState = {
     department?: string;
     year?: string;
     message?: string;
+    github?: string;
     teams?: string[];
   };
 };
@@ -43,6 +45,7 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
     department: oneLine(str("department")),
     year: str("year"),
     message: multiLine(str("message")),
+    github: str("github").trim(),
     teams: form.getAll("teams").filter((t): t is string => typeof t === "string"),
   };
   const consent = form.get("consent") === "on";
@@ -67,6 +70,11 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
   if (values.year && !(values.year in YEAR_LABELS)) errors.year = "Sınıfını seç.";
   if (values.teams.length === 0 || values.teams.some((t) => !teamNames.has(t)))
     errors.teams = "En az bir ekip seç.";
+  // GitHub sadece Yazılım ve Teknik Ekibi seçiliyse sorulur; isteğe bağlı
+  const wantsGithub = values.teams.includes(GITHUB_TEAM);
+  const github = wantsGithub && values.github ? normalizeGithub(values.github) : null;
+  if (wantsGithub && values.github && !github)
+    errors.github = "GitHub kullanıcı adın ya da profil linkin olmalı (ör. github.com/kullanici).";
   if (values.message.length > 2000) errors.message = "Mesaj 2000 karakteri geçmesin.";
   if (!consent) errors.consent = "Başvurunu değerlendirebilmemiz için onay gerekiyor.";
   if (Object.keys(errors).length) return { status: "error", errors, values };
@@ -88,6 +96,7 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
       year: values.year || null,
       teams: values.teams,
       message: values.message || null,
+      github,
       consent: true,
     });
     if (error) console.error("[katıl] veritabanına yazılamadı", error.code);
@@ -101,6 +110,7 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
     ["Bölüm", values.department || "—"],
     ["Sınıf", YEAR_LABELS[values.year] ?? "—"],
     ["Ekip(ler)", chosen],
+    ...(github ? ([["GitHub", github]] as [string, string][]) : []),
   ];
   const sent = await sendMail({
     to: getSite().email,

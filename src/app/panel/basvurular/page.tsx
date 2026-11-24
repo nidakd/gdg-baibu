@@ -17,6 +17,7 @@ type Row = {
   year: string | null;
   teams: string[];
   message: string | null;
+  github: string | null;
   status: string;
   notes: string | null;
   created_at: string;
@@ -28,7 +29,7 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
   const filter = typeof durum === "string" && durum in STATUSES ? durum : null;
   let query = supabase
     .from("applications")
-    .select("id,name,email,department,year,teams,message,status,notes,created_at")
+    .select("id,name,email,department,year,teams,message,github,status,notes,created_at")
     .order("created_at", { ascending: false })
     .limit(200);
   if (filter) query = query.eq("status", filter);
@@ -80,6 +81,14 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
                     <span className="text-fg-subtle">ekip: </span>
                     {a.teams.map((t) => teamName.get(t) ?? t).join(", ")}
                   </p>
+                  {a.github && (
+                    <p>
+                      <span className="text-fg-subtle">GitHub: </span>
+                      <a href={a.github} target="_blank" rel="noreferrer" className="underline">
+                        {a.github.replace("https://", "")} ↗
+                      </a>
+                    </p>
+                  )}
                   {a.message && <p className="text-base whitespace-pre-wrap">{a.message}</p>}
                 </div>
                 <form action={updateApplication} className="space-y-2">
