@@ -110,7 +110,7 @@ export default async function TeamPage() {
                             <p className="text-fg-muted">{team.description}</p>
                           </div>
                           {team.kind === "team" && (
-                            <ButtonLink href={site.links.coreTeamForm} tone={team.tone}>
+                            <ButtonLink href={`/katil?ekip=${team.id}`} tone={team.tone}>
                               Bu ekibe katıl
                             </ButtonLink>
                           )}
