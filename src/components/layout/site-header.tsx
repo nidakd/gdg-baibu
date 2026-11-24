@@ -24,6 +24,7 @@ export function SiteHeader() {
           <ButtonLink href={site.links.coreTeamForm} tone="blue">
             Aramıza katıl
           </ButtonLink>
+          <LoginLink />
         </nav>
 
         <details className="group relative md:hidden">
@@ -48,6 +49,9 @@ export function SiteHeader() {
                 Aramıza katıl
               </ButtonLink>
             </div>
+            <div className="mt-2 border-t border-border pt-2">
+              <LoginLink block />
+            </div>
           </nav>
         </details>
       </div>
@@ -67,6 +71,23 @@ function NavLink({ href, label, block }: { href: string; label: string; block?: 
   ) : (
     <Link href={href} className={className}>
       {label}
+    </Link>
+  );
+}
+
+/** Yönetim paneline giriş: ziyaretçinin gözüne batmayan küçük bağlantı. */
+function LoginLink({ block }: { block?: boolean }) {
+  return (
+    <Link
+      href="/giris"
+      aria-label="Yönetim paneline giriş"
+      className={
+        block
+          ? "flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-fg-muted hover:bg-surface-2"
+          : "inline-flex items-center gap-1.5 text-sm text-fg-subtle hover:text-fg"
+      }
+    >
+      <span aria-hidden>⏻</span> Giriş
     </Link>
   );
 }
