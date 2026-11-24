@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 // Hiçbir rotaya uymayan adresler: kök yerleşimde site çerçevesi yok, burada eklenir.
 export default function NotFound() {
   return (
-    <SiteShell>
+    <SiteShell names={false}>
       <NotFoundContent />
     </SiteShell>
   );
