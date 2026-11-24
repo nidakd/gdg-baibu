@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Avatar } from "@/components/team/avatar";
+import { EditInPanel } from "@/components/team/edit-in-panel";
 import { MemberCard } from "@/components/team/member-card";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -25,7 +26,10 @@ export async function MemberProfile({ params }: Pick<PageProps<"/ekip/[slug]">, 
     <>
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-start">
         <Card tone={member.team.tone} className="flex flex-col items-start gap-6 p-6 md:p-10">
-          <Avatar name={member.name} photoUrl={member.photoUrl} size={160} />
+          <div className="flex w-full flex-wrap items-start justify-between gap-4">
+            <Avatar name={member.name} photoUrl={member.photoUrl} size={160} />
+            <EditInPanel slug={member.slug} />
+          </div>
           <div className="space-y-2">
             <h1 className="text-4xl font-bold tracking-tight">{member.name}</h1>
             <p className="text-lg">{member.role}</p>

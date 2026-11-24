@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useActionState, useState } from "react";
 import { Avatar } from "@/components/team/avatar";
-import { Window } from "@/components/ui/window";
+import { PanelBox } from "@/app/panel/_components/panel-box";
 import { saveMember, type MemberField, type MemberFormState } from "./actions";
 import { BIO_HINT, BIO_MAX, LINK_KEYS, LINK_LABELS, ROLES, YEARS } from "./fields";
 
@@ -44,11 +44,7 @@ export function MemberForm({
       {member.id && <input type="hidden" name="id" value={member.id} />}
       {member.slug && <input type="hidden" name="slug" value={member.slug} />}
 
-      <Window
-        title={member.id ? `~/ekip/${member.slug}.json` : "~/ekip/yeni-uye.json"}
-        tone="blue"
-        meta={pending ? "kaydediliyor…" : undefined}
-      >
+      <PanelBox title="Profil bilgileri" meta={pending ? "kaydediliyor…" : undefined}>
         <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
           <Field label="Ad soyad" htmlFor="name" error={err("name")}>
             <input id="name" name="name" required defaultValue={member.name} className={input} />
@@ -156,9 +152,9 @@ export function MemberForm({
             </Field>
           </div>
         </div>
-      </Window>
+      </PanelBox>
 
-      <Window title="bağlantılar" tone="lilac">
+      <PanelBox title="Bağlantılar">
         <div className="grid gap-4 p-5 sm:grid-cols-2 sm:p-6">
           {LINK_KEYS.map((key) => (
             <Field key={key} label={LINK_LABELS[key]} htmlFor={`link_${key}`}>
@@ -175,7 +171,7 @@ export function MemberForm({
           ))}
           {err("links") && <p className="text-sm text-red-ink sm:col-span-2">{err("links")}</p>}
         </div>
-      </Window>
+      </PanelBox>
 
       <label className="flex items-center gap-3">
         <input type="checkbox" name="active" defaultChecked={member.active} className="size-5" />

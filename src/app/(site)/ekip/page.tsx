@@ -15,8 +15,7 @@ import { Departments } from "./_components/departments";
 import { TeamNav } from "./_components/team-nav";
 import { openGraph } from "@/lib/seo";
 
-const description =
-  "GDG on Campus Abant İzzet Baysal University core team üyeleri ve ekipleri.";
+const description = "GDG on Campus Abant İzzet Baysal University core team üyeleri ve ekipleri.";
 
 export const metadata: Metadata = {
   title: "Ekip",

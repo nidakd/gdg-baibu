@@ -1,9 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { AUTHOR, SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { ScrollProgress } from "@/components/motion/scroll-progress";
-import { SmoothScroll } from "@/components/motion/smooth-scroll";
+import { AUTHOR } from "@/components/layout/site-footer";
 import { getSite } from "@/lib/content";
 import { openGraph, SITE_URL } from "@/lib/seo";
 import { googleSans, googleSansCode } from "@/styles/fonts";
@@ -35,19 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${googleSans.variable} ${googleSansCode.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <a
-          href="#icerik"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2"
-        >
-          İçeriğe geç
-        </a>
-        <SiteHeader />
-        <ScrollProgress />
-        <main id="icerik" className="flex-1">
-          {children}
-        </main>
-        <SiteFooter />
-        <SmoothScroll />
+        {children}
         {/* Vercel Web Analytics: çerez kullanmaz, sadece yayında (Vercel'de) veri toplar */}
         <Analytics />
       </body>

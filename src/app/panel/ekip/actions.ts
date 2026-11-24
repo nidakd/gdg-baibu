@@ -111,25 +111,32 @@ export async function saveMember(_prev: MemberFormState, form: FormData): Promis
     active,
     ...(photo_url && { photo_url }),
   };
-  const { error } = id
-    ? await supabase.from("team_members").update(row).eq("id", id)
-    : await supabase.from("team_members").insert({ ...row, slug });
-  if (error) {
-    console.error("[panel] üye kaydedilemedi", error.code, error.message);
+  const { data: saved, error } = id
+    ? await supabase.from("team_members").update(row).eq("id", id).select("id").single()
+    : await supabase
+        .from("team_members")
+        .insert({ ...row, slug })
+        .select("id")
+        .single();
+  if (error || !saved) {
+    console.error("[panel] üye kaydedilemedi", error?.code, error?.message);
     return { status: "error", message: "Kaydedilemedi. Yetkin olmayabilir ya da bir alan hatalı." };
   }
 
   updateTag(TEAM_CACHE_TAG);
-  redirect(`/panel/ekip?kaydedildi=${encodeURIComponent(name)}`);
+  // Kişinin panel sayfasında kalınır (siteye çıkılmaz)
+  redirect(`/panel/ekip/duzenle?id=${saved.id}&kaydedildi=1`);
 }
 
 /** Pasife al / geri al: silmek yerine (eski üyeler kayıtta kalsın). */
 export async function setActive(form: FormData) {
   const id = text(form, "id");
+  if (!/^[0-9a-f-]{36}$/.test(id)) redirect("/panel/ekip");
   const active = form.get("active") === "true";
   const { supabase } = await requirePanelUser("/panel/ekip");
   const { error } = await supabase.from("team_members").update({ active }).eq("id", id);
   if (error) console.error("[panel] durum değiştirilemedi", error.code);
   updateTag(TEAM_CACHE_TAG);
-  redirect("/panel/ekip");
+  // Listeden mi kişi sayfasından mı gelindiyse oraya dönülür
+  redirect(form.get("donus") === "kisi" ? `/panel/ekip/duzenle?id=${id}` : "/panel/ekip");
 }

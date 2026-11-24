@@ -9,11 +9,11 @@ import { Section } from "@/components/ui/section";
 import { Window } from "@/components/ui/window";
 import { getSite, getTeams } from "@/lib/content";
 import { openGraph } from "@/lib/seo";
-import mark from "../../../public/brand/gdg-mark.png";
-import logoBlue from "../../../public/brand/gdg-on-campus-aibu-horizontal-blue.png";
-import logoDark from "../../../public/brand/gdg-on-campus-aibu-horizontal-dark.png";
-import logoLight from "../../../public/brand/gdg-on-campus-aibu-horizontal-light.png";
-import logoStacked from "../../../public/brand/gdg-on-campus-aibu-stacked-light.png";
+import mark from "../../../../public/brand/gdg-mark.png";
+import logoBlue from "../../../../public/brand/gdg-on-campus-aibu-horizontal-blue.png";
+import logoDark from "../../../../public/brand/gdg-on-campus-aibu-horizontal-dark.png";
+import logoLight from "../../../../public/brand/gdg-on-campus-aibu-horizontal-light.png";
+import logoStacked from "../../../../public/brand/gdg-on-campus-aibu-stacked-light.png";
 import { CopyHex } from "./_components/copy-hex";
 
 // Marka rehberi: afiş, sunum, gönderi ya da sponsor dosyası hazırlayan herkesin ihtiyacı olan bilgiler.
