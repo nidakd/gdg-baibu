@@ -1,24 +1,27 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PanelNav } from "./_components/panel-nav";
+import { PanelSidebar } from "./_components/panel-sidebar";
 
 export const metadata: Metadata = {
   title: { default: "Panel", template: "%s · Panel" },
   robots: { index: false, follow: false },
 };
 
-// Panel sayfaları çerez okur (oturum); hepsi bu Suspense'in içinde akar.
+// Panel sitenin çerçevesi olmadan, kendi sade yerleşiminde: solda menü, sağda içerik.
+// Sayfalar çerez okur (oturum); hepsi Suspense içinde akar.
 export default function PanelLayout({ children }: LayoutProps<"/panel">) {
   return (
-    <div className="mx-auto max-w-content px-4 py-10 sm:px-6 md:py-14">
-      <Suspense fallback={<div className="h-12 animate-pulse rounded-full bg-surface" />}>
-        <PanelNav />
+    <div className="min-h-dvh lg:grid lg:grid-cols-[15rem_1fr]">
+      <Suspense fallback={<div className="h-14 bg-surface-2 lg:h-dvh" />}>
+        <PanelSidebar />
       </Suspense>
-      <div className="mt-8">
-        <Suspense fallback={<div className="h-64 animate-pulse rounded-card bg-surface" />}>
-          {children}
-        </Suspense>
-      </div>
+      <main id="icerik" className="min-w-0 px-4 py-8 sm:px-8 lg:py-10">
+        <div className="mx-auto max-w-5xl">
+          <Suspense fallback={<div className="h-64 animate-pulse rounded-card bg-surface" />}>
+            {children}
+          </Suspense>
+        </div>
+      </main>
     </div>
   );
 }

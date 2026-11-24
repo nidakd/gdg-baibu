@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { StatTile } from "@/components/ui/stat-tile";
-import { Window } from "@/components/ui/window";
+import { PanelBox } from "@/app/panel/_components/panel-box";
 import { getSite } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
 import { formatDate } from "@/lib/format";
@@ -45,8 +45,7 @@ export default async function PanelHome() {
   return (
     <div className="space-y-10">
       <header className="space-y-2">
-        <p className="font-mono text-sm text-fg-subtle">{"// whoami"}</p>
-        <h1 className="text-4xl font-bold tracking-tight">
+        <h1 className="text-3xl font-bold tracking-tight">
           Merhaba {user.name?.split(" ")[0] ?? ""} 👋
         </h1>
       </header>
@@ -132,7 +131,7 @@ export default async function PanelHome() {
                 size="md"
               />
             </dl>
-            <Window title="en çok bakılan sayfalar" tone="lilac" meta="30 gün">
+            <PanelBox title="en çok bakılan sayfalar" meta="30 gün">
               <ol className="divide-y-2 divide-border font-mono text-sm">
                 {visits.visits.topPages.length === 0 && (
                   <li className="px-5 py-3 text-fg-muted">veri yok</li>
@@ -144,7 +143,7 @@ export default async function PanelHome() {
                   </li>
                 ))}
               </ol>
-            </Window>
+            </PanelBox>
           </div>
         ) : (
           <Card className="p-5 text-fg-muted">
@@ -168,7 +167,7 @@ export default async function PanelHome() {
         <h2 id="mesaj" className="font-mono text-sm text-fg-subtle">
           iletişim formu · toplam {messages.count ?? 0}, son 30 günde {recent.count ?? 0}
         </h2>
-        <Window title="~/panel/mesajlar" tone="yellow" meta="son 5">
+        <PanelBox title="Son mesajlar" meta="son 5">
           <ul className="divide-y-2 divide-border text-sm">
             {(messages.data ?? []).length === 0 && (
               <li className="px-5 py-3 text-fg-muted">Henüz mesaj yok.</li>
@@ -187,7 +186,7 @@ export default async function PanelHome() {
               Tüm mesajlar →
             </Link>
           </div>
-        </Window>
+        </PanelBox>
       </section>
     </div>
   );

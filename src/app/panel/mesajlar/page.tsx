@@ -1,4 +1,4 @@
-import { Window } from "@/components/ui/window";
+import { PanelBox } from "@/app/panel/_components/panel-box";
 import { formatDate } from "@/lib/format";
 import { requirePanelUser } from "@/lib/panel/auth";
 
@@ -16,8 +16,7 @@ export default async function Messages() {
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <p className="font-mono text-sm text-fg-subtle">{"// inbox"}</p>
-        <h1 className="text-4xl font-bold tracking-tight">Mesajlar</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Mesajlar</h1>
         <p className="text-fg-muted">
           İletişim formundan gelenler ({count ?? 0}). Her mesaj ayrıca kulüp e-postasına gidiyor;
           yanıtı oradan yaz.
@@ -27,14 +26,14 @@ export default async function Messages() {
       <ul className="space-y-4">
         {(data ?? []).map((m) => (
           <li key={m.id}>
-            <Window title={m.name} tone="yellow" meta={formatDate(m.created_at)} titleAs="h2">
+            <PanelBox title={m.name} meta={formatDate(m.created_at)} titleAs="h2">
               <div className="space-y-3 p-5">
                 <a href={`mailto:${m.email}`} className="font-mono text-sm underline">
                   {m.email}
                 </a>
                 <p className="whitespace-pre-wrap">{m.message}</p>
               </div>
-            </Window>
+            </PanelBox>
           </li>
         ))}
       </ul>

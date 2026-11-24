@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Avatar } from "@/components/team/avatar";
 import type { Tone } from "@/components/ui/button";
 import type { Member } from "@/lib/content";
-import mark from "../../../../public/brand/gdg-mark.png";
+import mark from "../../../../../public/brand/gdg-mark.png";
 
 // Ekip, ortadaki GDG simgesinin etrafında üç halkada döner:
 // içte yönetim, ortada koordinatörler, dışta ekip üyeleri. Halkalar ters yönlere döner,

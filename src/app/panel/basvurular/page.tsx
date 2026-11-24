@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { YEAR_LABELS } from "@/app/katil/fields";
-import { Window } from "@/components/ui/window";
+import { YEAR_LABELS } from "@/app/(site)/katil/fields";
+import { PanelBox } from "@/app/panel/_components/panel-box";
 import { getTeams } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { requirePanelUser } from "@/lib/panel/auth";
@@ -39,8 +39,7 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <p className="font-mono text-sm text-fg-subtle">{"// git log --author=aday"}</p>
-        <h1 className="text-4xl font-bold tracking-tight">Başvurular</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Başvurular</h1>
         <p className="text-fg-muted">
           /katil formundan gelenler. Her başvuru kulüp e-postasına da gidiyor; yanıtı oradan yaz,
           durumu burada işaretle.
@@ -62,9 +61,8 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
       <ul className="space-y-4">
         {rows.map((a) => (
           <li key={a.id}>
-            <Window
+            <PanelBox
               title={a.name}
-              tone={STATUSES[a.status]?.tone ?? "blue"}
               meta={`${STATUSES[a.status]?.label ?? a.status} · ${formatDate(a.created_at)}`}
               titleAs="h2"
             >
@@ -121,7 +119,7 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
                   </button>
                 </form>
               </div>
-            </Window>
+            </PanelBox>
           </li>
         ))}
       </ul>
