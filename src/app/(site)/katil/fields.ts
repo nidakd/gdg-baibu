@@ -11,3 +11,16 @@ export const YEAR_LABELS: Record<string, string> = {
   "yuksek-lisans": "Yüksek lisans",
   mezun: "Mezun",
 };
+
+/** GitHub sorulan ekip */
+export const GITHUB_TEAM = "software";
+
+/** "kullanici", "@kullanici", "github.com/kullanici" ya da tam link → https://github.com/kullanici; geçersizse null */
+export function normalizeGithub(input: string): string | null {
+  const v = input
+    .trim()
+    .replace(/^@/, "")
+    .replace(/^(https?:\/\/)?(www\.)?github\.com\//i, "")
+    .replace(/\/+$/, "");
+  return /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/.test(v) ? `https://github.com/${v}` : null;
+}

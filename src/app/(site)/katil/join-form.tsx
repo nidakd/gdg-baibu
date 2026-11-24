@@ -1,9 +1,9 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Window } from "@/components/ui/window";
 import { sendApplication, type JoinField, type JoinState } from "./actions";
-import { YEAR_LABELS } from "./fields";
+import { GITHUB_TEAM, YEAR_LABELS } from "./fields";
 
 const input =
   "w-full rounded-xl border-2 border-border-strong bg-surface px-3 py-2.5 text-base outline-none focus-visible:ring-2 focus-visible:ring-blue";
@@ -20,6 +20,10 @@ export function JoinForm({
     status: "idle",
   });
   const startedAt = useRef<HTMLInputElement>(null);
+  // Yazılım ve Teknik Ekibi işaretliyse GitHub sorulur
+  const [askGithub, setAskGithub] = useState(() =>
+    (state.values?.teams ?? (preselected ? [preselected] : [])).includes(GITHUB_TEAM),
+  );
 
   // Bot tuzağı: formun ne zaman açıldığı (tarayıcıda yazılsın)
   useEffect(() => {
@@ -105,6 +109,9 @@ export function JoinForm({
                   name="teams"
                   value={t.id}
                   defaultChecked={chosen.has(t.id)}
+                  onChange={
+                    t.id === GITHUB_TEAM ? (e) => setAskGithub(e.target.checked) : undefined
+                  }
                   className="size-4"
                 />
                 <span>{t.name}</span>
@@ -113,6 +120,20 @@ export function JoinForm({
           </div>
           {err("teams") && <p className="text-sm text-red-ink">{err("teams")}</p>}
         </fieldset>
+
+        {askGithub && (
+          <Field label="GitHub profilin (isteğe bağlı)" htmlFor="j-github" error={err("github")}>
+            <input
+              id="j-github"
+              name="github"
+              inputMode="url"
+              autoComplete="off"
+              defaultValue={v.github}
+              placeholder="github.com/kullanici-adin"
+              className={input}
+            />
+          </Field>
+        )}
 
         <Field label="Kendinden biraz bahset (isteğe bağlı)" htmlFor="j-msg" error={err("message")}>
           <textarea
