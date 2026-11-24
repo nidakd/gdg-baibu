@@ -65,7 +65,7 @@ export default async function OpengraphImage() {
   const title = ["Birlikte", "öğreniyor,", "birlikte", "üretiyoruz."];
   // Sayılar içerikten gelir, her yayında güncellenir; etkinlik sayısı ana sayfadaki gibi geçmiş etkinlikler
   const { past } = await getEventTimeline();
-  const label = `${site.stats.communityMembers} üye · ${past.length} etkinlik · ${getMembers().length} kişilik core team`;
+  const label = `${site.stats.communityMembers} üye · ${past.length} etkinlik · ${(await getMembers()).length} kişilik core team`;
 
   const [logo, sans, mono] = await Promise.all([
     readFile(join(process.cwd(), "public/brand/gdg-on-campus-aibu-horizontal-light.png")),

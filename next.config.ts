@@ -6,8 +6,12 @@ import type { NextConfig } from "next";
 // (nonce sayfaları dinamik yapardı). Geliştirmede hızlı yenileme ve Analytics'in hata ayıklama
 // betiği, önizleme dağıtımlarında da Vercel araç çubuğu (vercel.live) için ek izin verilir.
 const dev = process.env.NODE_ENV === "development";
+// Panelden yüklenen ekip fotoğrafları Supabase Storage'dan gelir
+const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
+  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).host
+  : null;
 const preview = process.env.VERCEL_ENV === "preview";
-const extra = (...sources: (string | false)[]) =>
+const extra = (...sources: (string | false | null)[]) =>
   sources
     .filter(Boolean)
     .map((s) => ` ${s}`)
@@ -16,7 +20,7 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${extra(dev && "'unsafe-eval' https://va.vercel-scripts.com", preview && "https://vercel.live")}`,
   `style-src 'self' 'unsafe-inline'${extra(preview && "https://vercel.live")}`,
-  `img-src 'self' data: blob: https://res.cloudinary.com${extra(preview && "https://vercel.live https://vercel.com")}`,
+  `img-src 'self' data: blob: https://res.cloudinary.com${extra(supabaseHost && `https://${supabaseHost}`, preview && "https://vercel.live https://vercel.com")}`,
   `font-src 'self'${extra(preview && "https://vercel.live https://assets.vercel.com")}`,
   `connect-src 'self'${extra(dev && "ws:", preview && "https://vercel.live wss://ws-us3.pusher.com")}`,
   // BotID kendi yolunu (aynı adres) gizli bir çerçevede açabiliyor
@@ -46,6 +50,8 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   agentRules: false,
   poweredByHeader: false,
+  // Panelde ekip fotoğrafı yükleme (en çok 4 MB; Vercel isteği 4,5 MB'ta keser)
+  experimental: { serverActions: { bodySizeLimit: "4.4mb" } },
   async headers() {
     // BotID'nin yolu hariç: withBotId oraya kendi (aynı adresten çerçeveye izin veren) başlıklarını koyar
     return [{ source: `/((?!${BOTID_PATH}/).*)`, headers: securityHeaders }];
@@ -54,6 +60,15 @@ const nextConfig: NextConfig = {
     // GDG Community (Bevy) etkinlik ve profil görselleri
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com", pathname: "/startup-grind/**" },
+      ...(supabaseHost
+        ? [
+            {
+              protocol: "https" as const,
+              hostname: supabaseHost,
+              pathname: "/storage/v1/object/public/ekip/**",
+            },
+          ]
+        : []),
     ],
   },
   turbopack: {

@@ -16,7 +16,7 @@ export async function getStats(): Promise<Stat[]> {
     { value: getSite().stats.communityMembers, label: "topluluk üyesi", tone: "blue" },
     { value: events.length, label: "etkinlik", tone: "green" },
     { value: workshops.length, label: "uygulamalı atölye", tone: "yellow" },
-    { value: getMembers().length, label: "core team üyesi", tone: "red" },
+    { value: (await getMembers()).length, label: "core team üyesi", tone: "red" },
   ];
 }
 
@@ -72,9 +72,9 @@ export function getEventsPerYear(): { year: string; count: number }[] {
 export type Department = { name: string; members: Member[] };
 
 /** Core team'in bölümlere göre dağılımı, en kalabalık bölümden başlayarak. */
-export function getDepartments(): Department[] {
+export async function getDepartments(): Promise<Department[]> {
   const groups = new Map<string, Member[]>();
-  for (const m of getMembers()) {
+  for (const m of await getMembers()) {
     if (!m.department) continue;
     groups.set(m.department, [...(groups.get(m.department) ?? []), m]);
   }

@@ -3,7 +3,8 @@ import { SITE_URL } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
+    // Panel ve giriş sayfaları aramada çıkmasın
+    rules: { userAgent: "*", allow: "/", disallow: ["/panel", "/giris", "/auth"] },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

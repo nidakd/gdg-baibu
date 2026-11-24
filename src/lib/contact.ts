@@ -8,6 +8,7 @@
 import { checkBotId } from "botid/server";
 import { headers } from "next/headers";
 import { getSite } from "./content";
+import { publicClient } from "./supabase/public";
 import type { ContactState } from "./contact-state";
 
 const LIMITS = { name: 100, email: 200, message: 3000 };
@@ -99,6 +100,13 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
       message: "Kısa sürede çok mesaj geldi. Biraz sonra tekrar dene ya da doğrudan e-posta at.",
       values,
     };
+  }
+
+  // Panelde görünsün diye veritabanına da yazılır; yazılamazsa e-posta yine gider
+  const db = publicClient();
+  if (db) {
+    const { error } = await db.from("contact_messages").insert(values);
+    if (error) console.error("[iletişim] veritabanına yazılamadı", error.code);
   }
 
   const apiKey = process.env.RESEND_API_KEY;
