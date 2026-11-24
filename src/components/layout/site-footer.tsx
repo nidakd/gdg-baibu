@@ -5,6 +5,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { WaveEdge } from "@/components/ui/wave-band";
 import { getMembers, getSite } from "@/lib/content";
 import { FooterNames } from "./footer-names";
+import { FooterNamesGate } from "./footer-names-gate";
 
 // Sitenin yapımcısı; kod ve tasarımın hakları onda (LICENSE).
 // Kişisel marka adı bulununca sadece burası değişir.
@@ -33,18 +34,21 @@ function footerLinks() {
   return { site, pages, social };
 }
 
-export async function SiteFooter() {
-  const names = (await getMembers()).map((m) => ({
-    slug: m.slug,
-    name: m.name,
-    photoUrl: m.photoUrl,
-  }));
+/** names: false ise isim şeridi hiç gösterilmez (404). Kısa sayfalarda ayrıca FooterNamesGate gizler. */
+export async function SiteFooter({ names: showNames = true }: { names?: boolean }) {
+  const names = showNames
+    ? (await getMembers()).map((m) => ({ slug: m.slug, name: m.name, photoUrl: m.photoUrl }))
+    : [];
   return (
     <footer className="mt-auto">
       {/* Core team'in adları footer'ın üstünde akar; sayfa genişliğini taşar */}
-      <div className="mt-16 mb-6">
-        <FooterNames members={names} />
-      </div>
+      {showNames ? (
+        <FooterNamesGate>
+          <FooterNames members={names} />
+        </FooterNamesGate>
+      ) : (
+        <div className="mt-16" />
+      )}
       <FooterCompact />
     </footer>
   );

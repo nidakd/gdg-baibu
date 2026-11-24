@@ -7,8 +7,9 @@ import { SiteHeader } from "./site-header";
 /**
  * Sitenin herkese açık sayfalarının çerçevesi: üst menü, ilerleme şeridi, footer (isim şeridiyle).
  * (site) yerleşimi ve kök 404 sayfası kullanır; panel ve giriş sayfası kullanmaz.
+ * names: false → footer'da isim şeridi yok (404).
  */
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({ children, names = true }: { children: ReactNode; names?: boolean }) {
   return (
     <>
       <a
@@ -22,7 +23,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <main id="icerik" className="flex-1">
         {children}
       </main>
-      <SiteFooter />
+      <SiteFooter names={names} />
       <SmoothScroll />
     </>
   );
