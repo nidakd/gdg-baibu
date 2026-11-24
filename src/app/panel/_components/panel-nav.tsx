@@ -5,6 +5,7 @@ import { requirePanelUser } from "@/lib/panel/auth";
 const links = [
   { href: "/panel", label: "özet" },
   { href: "/panel/ekip", label: "ekip" },
+  { href: "/panel/basvurular", label: "başvurular" },
   { href: "/panel/mesajlar", label: "mesajlar" },
 ];
 

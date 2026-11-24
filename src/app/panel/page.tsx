@@ -22,7 +22,7 @@ export default async function PanelHome() {
   const { supabase, user } = await requirePanelUser("/panel");
   const site = getSite();
   const since30 = daysAgo(30);
-  const [{ upcoming, past }, visits, messages, recent, members] = await Promise.all([
+  const [{ upcoming, past }, visits, messages, recent, members, applications] = await Promise.all([
     getEventTimeline(),
     getVisits(),
     supabase
@@ -35,6 +35,7 @@ export default async function PanelHome() {
       .select("id", { count: "exact", head: true })
       .gte("created_at", since30),
     supabase.from("team_members").select("active,photo_url,bio"),
+    supabase.from("applications").select("id", { count: "exact", head: true }).eq("status", "yeni"),
   ]);
   const thisTerm = past.filter((e) => e.startsAt >= termStart()).length;
   const next = upcoming[0];
@@ -65,7 +66,7 @@ export default async function PanelHome() {
           <StatTile label="bu dönem" value={thisTerm} tone="yellow" size="md" />
           <StatTile label="core team" value={active.length} tone="red" size="md" />
         </dl>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-3">
           <Card className="space-y-1 p-5">
             <p className="font-mono text-xs text-fg-subtle">sıradaki etkinlik</p>
             {next ? (
@@ -94,6 +95,18 @@ export default async function PanelHome() {
             </p>
             <Link href="/panel/ekip" className="text-fg-muted underline hover:no-underline">
               Ekibi düzenle →
+            </Link>
+          </Card>
+          <Card tone={applications.count ? "blue" : "plain"} className="space-y-1 p-5">
+            <p className="font-mono text-xs text-fg-subtle">core team başvuruları</p>
+            <p className="text-lg font-bold">
+              {applications.count ? `${applications.count} yeni başvuru` : "Bekleyen başvuru yok"}
+            </p>
+            <Link
+              href="/panel/basvurular?durum=yeni"
+              className="text-fg-muted underline hover:no-underline"
+            >
+              Başvurulara bak →
             </Link>
           </Card>
         </div>
