@@ -50,6 +50,8 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   agentRules: false,
   poweredByHeader: false,
+  // Panelde ekip fotoğrafı yükleme (en çok 4 MB; Vercel isteği 4,5 MB'ta keser)
+  experimental: { serverActions: { bodySizeLimit: "4.4mb" } },
   async headers() {
     // BotID'nin yolu hariç: withBotId oraya kendi (aynı adresten çerçeveye izin veren) başlıklarını koyar
     return [{ source: `/((?!${BOTID_PATH}/).*)`, headers: securityHeaders }];

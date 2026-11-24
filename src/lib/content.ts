@@ -234,7 +234,9 @@ export type Photo = {
 export function getPhotos(): Photo[] {
   return photosJson.flatMap(({ event: slug, ...photo }) => {
     const event = getEventBySlug(slug);
-    return event ? [{ ...photo, event: { slug, title: event.title, startsAt: event.startsAt } }] : [];
+    return event
+      ? [{ ...photo, event: { slug, title: event.title, startsAt: event.startsAt } }]
+      : [];
   });
 }
 

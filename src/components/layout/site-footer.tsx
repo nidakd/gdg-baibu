@@ -34,7 +34,11 @@ function footerLinks() {
 }
 
 export async function SiteFooter() {
-  const names = (await getMembers()).map((m) => ({ slug: m.slug, name: m.name, photoUrl: m.photoUrl }));
+  const names = (await getMembers()).map((m) => ({
+    slug: m.slug,
+    name: m.name,
+    photoUrl: m.photoUrl,
+  }));
   return (
     <footer className="mt-auto">
       {/* Core team'in adları footer'ın üstünde akar; sayfa genişliğini taşar */}
