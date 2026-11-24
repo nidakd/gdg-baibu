@@ -38,7 +38,16 @@ export async function sendLoginLink(_prev: LoginState, formData: FormData): Prom
       emailRedirectTo: `${origin}/auth/callback?sonra=${encodeURIComponent(next)}`,
     },
   });
-  // Hesap yoksa da aynı cevap: kimin panelde olduğu anlaşılmasın (hata sadece loglanır, e-posta yazılmaz)
+  // Supabase'in kendi e-posta servisi saatte birkaç e-postayla sınırlı: bunu açıkça söyle
+  if (error?.code === "over_email_send_rate_limit" || error?.status === 429) {
+    return {
+      status: "error",
+      message:
+        "Kısa sürede çok fazla giriş bağlantısı istendi. Yaklaşık bir saat sonra tekrar dene; daha önce gelen bağlantı hâlâ geçerliyse onu kullanabilirsin.",
+      email,
+    };
+  }
+  // Diğer hatalarda aynı cevap: kimin panelde olduğu anlaşılmasın (hata sadece loglanır, e-posta yazılmaz)
   if (error) console.error("[giriş] bağlantı gönderilemedi:", error.code ?? error.status);
   return { status: "sent", email };
 }
