@@ -11,7 +11,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
 import { WaveBand } from "@/components/ui/wave-band";
-import { getMembersByTeam, getTeams, getWorkingTeams } from "@/lib/content";
+import { getMembers, getTeams, getWorkingTeams } from "@/lib/content";
 import { getEventsPerYear } from "@/lib/insights";
 import { openGraph } from "@/lib/seo";
 
@@ -24,7 +24,12 @@ export const metadata: Metadata = {
   openGraph: openGraph({ title: "Hakkımızda", description, path: "/hakkimizda" }),
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [teams, workingTeams, allMembers] = await Promise.all([
+    getTeams(),
+    getWorkingTeams(),
+    getMembers(),
+  ]);
   const years = getEventsPerYear();
   const maxYear = Math.max(...years.map((y) => y.count));
 
@@ -54,7 +59,7 @@ export default function AboutPage() {
 
       <Section
         label="03 — ekipler"
-        title={`Core team'imiz ${getWorkingTeams().length} ekipten oluşuyor`}
+        title={`Core team'imiz ${workingTeams.length} ekipten oluşuyor`}
         action={
           <ButtonLink href="/ekip" tone="green">
             Ekibi tanı
@@ -62,8 +67,8 @@ export default function AboutPage() {
         }
       >
         <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {getTeams().map((team) => {
-            const members = getMembersByTeam(team.id);
+          {teams.map((team) => {
+            const members = allMembers.filter((m) => m.team.id === team.id);
             return (
               <li key={team.id}>
                 <Card tone={team.tone} className="flex h-full flex-col gap-3 p-6">

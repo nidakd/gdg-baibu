@@ -14,7 +14,7 @@ export async function Hero() {
     { kind: "command", text: "gdg init --campus aibu" },
     {
       kind: "ok",
-      text: `${getMembers().length} core team üyesi, ${getWorkingTeams().length} ekip`,
+      text: `${(await getMembers()).length} core team üyesi, ${(await getWorkingTeams()).length} ekip`,
     },
     { kind: "ok", text: `${past.length} etkinlik arşivde` },
     { kind: "info", text: `son etkinlik: "${past[0]?.title}"` },

@@ -8,7 +8,7 @@ import { Cursor } from "@/components/ui/terminal";
 import { Section } from "@/components/ui/section";
 import { StatTile } from "@/components/ui/stat-tile";
 import { Window } from "@/components/ui/window";
-import { getMembers, getMembersByTeam, getSite, getTeams, getWorkingTeams } from "@/lib/content";
+import { getMembers, getSite, getTeams, getWorkingTeams } from "@/lib/content";
 import { getDepartments } from "@/lib/insights";
 import { TeamOrbit } from "./_components/team-orbit";
 import { Departments } from "./_components/departments";
@@ -24,22 +24,25 @@ export const metadata: Metadata = {
   openGraph: openGraph({ title: "Ekip", description, path: "/ekip" }),
 };
 
-export default function TeamPage() {
+export default async function TeamPage() {
   const site = getSite();
-  const teams = getTeams();
-  const members = getMembers();
+  const [teams, members, workingTeams, departments] = await Promise.all([
+    getTeams(),
+    getMembers(),
+    getWorkingTeams(),
+    getDepartments(),
+  ]);
+  const byTeam = (id: string) => members.filter((m) => m.team.id === id);
 
   const stats = [
     { value: members.length, label: "kişi", tone: "blue" as const },
-    { value: getWorkingTeams().length, label: "ekip", tone: "green" as const },
+    { value: workingTeams.length, label: "ekip", tone: "green" as const },
     {
       value: members.filter((m) => m.role === "Koordinatör").length,
       label: "koordinatör",
       tone: "red" as const,
     },
   ];
-
-  const departments = getDepartments();
 
   return (
     <>
@@ -76,13 +79,13 @@ export default function TeamPage() {
             teams={teams.map((t) => ({
               id: t.id,
               tone: t.tone,
-              count: getMembersByTeam(t.id).length,
+              count: byTeam(t.id).length,
             }))}
           />
 
           <div className="space-y-10">
             {teams.map((team) => {
-              const teamMembers = getMembersByTeam(team.id);
+              const teamMembers = byTeam(team.id);
               return (
                 <section
                   key={team.id}

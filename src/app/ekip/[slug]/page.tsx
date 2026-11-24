@@ -6,13 +6,13 @@ import { getMemberBySlug, getMembers } from "@/lib/content";
 import { MemberProfile } from "./_components/member-profile";
 import { openGraph } from "@/lib/seo";
 
-export function generateStaticParams() {
-  return getMembers().map((m) => ({ slug: m.slug }));
+export async function generateStaticParams() {
+  return (await getMembers()).map((m) => ({ slug: m.slug }));
 }
 
 export async function generateMetadata(props: PageProps<"/ekip/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
-  const member = getMemberBySlug(slug);
+  const member = await getMemberBySlug(slug);
   if (!member) notFound();
   const description = `${member.name}, ${member.team.name} · ${member.role}`;
   return {

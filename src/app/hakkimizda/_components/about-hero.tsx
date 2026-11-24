@@ -4,9 +4,9 @@ import { getMembers, getSite } from "@/lib/content";
 import { formatMonth } from "@/lib/format";
 
 /** Hakkımızda girişi: solda metin, sağda core team fotoğraflarından kolaj. */
-export function AboutHero() {
+export async function AboutHero() {
   const site = getSite();
-  const members = getMembers();
+  const members = await getMembers();
   // Fotoğraflar farklı boyut ve hafif kaymayla, elle yapıştırılmış gibi
   const sizes = [88, 64, 76, 60, 84, 68, 72];
   return (

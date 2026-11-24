@@ -15,10 +15,10 @@ const linkLabels: Record<string, string> = {
 
 export async function MemberProfile({ params }: Pick<PageProps<"/ekip/[slug]">, "params">) {
   const { slug } = await params;
-  const member = getMemberBySlug(slug);
+  const member = await getMemberBySlug(slug);
   if (!member) notFound();
 
-  const teammates = getMembersByTeam(member.team.id).filter((m) => m.slug !== member.slug);
+  const teammates = (await getMembersByTeam(member.team.id)).filter((m) => m.slug !== member.slug);
   const links = Object.entries(member.links).filter(([, url]) => url);
 
   return (

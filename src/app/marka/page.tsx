@@ -362,7 +362,7 @@ const TEAM_HEX: Record<Tone, string> = {
   silver: "#9AA0A6",
 };
 
-function Colours() {
+async function Colours() {
   return (
     <Section
       id="renk"
@@ -449,7 +449,7 @@ function Colours() {
         eklendi.
       </p>
       <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {getTeams().map((team) => (
+        {(await getTeams()).map((team) => (
           <li key={team.id}>
             <Card tone={team.tone} className="flex items-center justify-between gap-3 px-4 py-3">
               <span className="flex items-center gap-3">

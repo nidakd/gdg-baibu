@@ -3,7 +3,7 @@ import { getEvents, getMembers } from "@/lib/content";
 import { SITE_URL } from "@/lib/seo";
 
 // Sayfalar + her etkinlik ve her üye profili. Etkinliklerin tarihi "son değişiklik" olarak geçer.
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = (path: string) => `${SITE_URL}${path}`;
   const events = getEvents();
   return [
@@ -17,6 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: e.startsAt,
       priority: 0.5,
     })),
-    ...getMembers().map((m) => ({ url: url(`/ekip/${m.slug}`), priority: 0.4 })),
+    ...(await getMembers()).map((m) => ({ url: url(`/ekip/${m.slug}`), priority: 0.4 })),
   ];
 }
