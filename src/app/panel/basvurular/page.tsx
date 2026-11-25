@@ -21,18 +21,25 @@ type Row = {
   status: string;
   notes: string | null;
   created_at: string;
+  email_verified_at: string | null;
 };
 
 export default async function Applications({ searchParams }: PageProps<"/panel/basvurular">) {
   const { supabase } = await requirePanelUser("/panel/basvurular");
-  const { durum } = await searchParams;
+  const { durum, eposta } = await searchParams;
   const filter = typeof durum === "string" && durum in STATUSES ? durum : null;
+  // E-posta onayı süzgeci: onayli | onaysiz
+  const verified = eposta === "onayli" || eposta === "onaysiz" ? eposta : null;
   let query = supabase
     .from("applications")
-    .select("id,name,email,department,year,teams,message,github,status,notes,created_at")
+    .select(
+      "id,name,email,department,year,teams,message,github,status,notes,created_at,email_verified_at",
+    )
     .order("created_at", { ascending: false })
     .limit(200);
   if (filter) query = query.eq("status", filter);
+  if (verified === "onayli") query = query.not("email_verified_at", "is", null);
+  if (verified === "onaysiz") query = query.is("email_verified_at", null);
   const [{ data }, teams] = await Promise.all([query, getTeams()]);
   const teamName = new Map(teams.map((t) => [t.id, t.name]));
   const rows = (data ?? []) as Row[];
@@ -42,13 +49,14 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
       <header className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">Başvurular</h1>
         <p className="text-fg-muted">
-          /katil formundan gelenler. Her başvuru kulüp e-postasına da gidiyor; yanıtı oradan yaz,
-          durumu burada işaretle.
+          /katil formundan gelenler. Başvuran e-postasındaki bağlantıyla adresini onaylayınca
+          başvuru kulüp e-postasına da gidiyor; yanıtı oradan yaz, durumu burada işaretle. Onaysız
+          başvurularda adresin gerçek olduğu kanıtlanmadı.
         </p>
       </header>
 
       <nav aria-label="Duruma göre" className="flex flex-wrap gap-2 font-mono text-sm">
-        <FilterLink href="/panel/basvurular" active={!filter}>
+        <FilterLink href="/panel/basvurular" active={!filter && !verified}>
           hepsi
         </FilterLink>
         {Object.entries(STATUSES).map(([key, s]) => (
@@ -56,6 +64,15 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
             {s.label}
           </FilterLink>
         ))}
+        <span aria-hidden className="self-center text-fg-subtle">
+          ·
+        </span>
+        <FilterLink href="/panel/basvurular?eposta=onayli" active={verified === "onayli"}>
+          ✓ e-posta onaylı
+        </FilterLink>
+        <FilterLink href="/panel/basvurular?eposta=onaysiz" active={verified === "onaysiz"}>
+          onaysız
+        </FilterLink>
       </nav>
 
       {rows.length === 0 && <p className="text-fg-muted">Bu listede başvuru yok.</p>}
@@ -69,9 +86,23 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
             >
               <div className="grid gap-5 p-5 md:grid-cols-[1fr_18rem]">
                 <div className="space-y-2 text-sm">
-                  <a href={`mailto:${a.email}`} className="font-mono underline">
-                    {a.email}
-                  </a>
+                  <p className="flex flex-wrap items-center gap-2">
+                    <a href={`mailto:${a.email}`} className="font-mono break-all underline">
+                      {a.email}
+                    </a>
+                    {a.email_verified_at ? (
+                      <span className="rounded-full border-2 border-green-ink px-2 py-0.5 font-mono text-xs text-green-ink">
+                        ✓ onaylı
+                      </span>
+                    ) : (
+                      <span
+                        title="Başvuran e-postasındaki onay bağlantısına tıklamadı (ya da onay açılmadan önce gelen başvuru)"
+                        className="rounded-full border-2 border-red-ink px-2 py-0.5 font-mono text-xs text-red-ink"
+                      >
+                        onaysız
+                      </span>
+                    )}
+                  </p>
                   <p className="text-fg-muted">
                     {[a.department, a.year ? YEAR_LABELS[a.year] : null]
                       .filter(Boolean)
