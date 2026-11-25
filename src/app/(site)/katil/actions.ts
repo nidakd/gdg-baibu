@@ -14,7 +14,8 @@ import {
   sendMail,
 } from "@/lib/form-guard";
 import { publicClient } from "@/lib/supabase/public";
-import { GITHUB_TEAM, normalizeGithub, YEAR_LABELS } from "./fields";
+import { checkDepartment, checkMessage, checkName } from "@/lib/text-guard";
+import { GITHUB_TEAM, MESSAGE_RULES, normalizeGithub, YEAR_LABELS } from "./fields";
 
 export type JoinField =
   "name" | "email" | "department" | "year" | "teams" | "github" | "message" | "consent";
@@ -63,10 +64,12 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
   const teams = await getWorkingTeams();
   const teamNames = new Map(teams.map((t) => [t.id, t.name]));
   const errors: JoinState["errors"] = {};
-  if (values.name.length < 2 || values.name.length > 100) errors.name = "Adını ve soyadını yaz.";
+  const nameError = checkName(values.name, { fullName: true });
+  if (nameError) errors.name = nameError;
   if (!EMAIL.test(values.email) || values.email.length > 200)
     errors.email = "Bu e-posta adresi olmadı.";
-  if (values.department.length > 120) errors.department = "Bölüm adı çok uzun.";
+  const deptError = checkDepartment(values.department);
+  if (deptError) errors.department = deptError;
   if (values.year && !(values.year in YEAR_LABELS)) errors.year = "Sınıfını seç.";
   if (values.teams.length === 0 || values.teams.some((t) => !teamNames.has(t)))
     errors.teams = "En az bir ekip seç.";
@@ -75,7 +78,9 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
   const github = wantsGithub && values.github ? normalizeGithub(values.github) : null;
   if (wantsGithub && values.github && !github)
     errors.github = "GitHub kullanıcı adın ya da profil linkin olmalı (ör. github.com/kullanici).";
-  if (values.message.length > 2000) errors.message = "Mesaj 2000 karakteri geçmesin.";
+  // Mesaj isteğe bağlı; yazıldıysa anlamlı olmalı
+  const messageError = values.message && checkMessage(values.message, MESSAGE_RULES);
+  if (messageError) errors.message = messageError;
   if (!consent) errors.consent = "Başvurunu değerlendirebilmemiz için onay gerekiyor.";
   if (Object.keys(errors).length) return { status: "error", errors, values };
 

@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { Window } from "@/components/ui/window";
 import { sendContact } from "@/lib/contact";
-import type { ContactField, ContactState } from "@/lib/contact-state";
+import { CONTACT_MESSAGE, type ContactField, type ContactState } from "@/lib/contact-state";
 
 // Mesaj kutusu boşken dönen fikir örnekleri
 const ideas = [
@@ -13,7 +13,7 @@ const ideas = [
   "Topluluğumuzla ortak bir etkinlik yapalım mı?",
   "Sadece merhaba demek istedim 👋",
 ];
-const MAX = 3000;
+const MAX = CONTACT_MESSAGE.max;
 
 /** E-posta yazar gibi doldurulan iletişim formu; sunucuda e-postaya çevrilir (lib/contact.ts). */
 export function ContactForm({ to }: { to: string }) {
@@ -54,6 +54,7 @@ export function ContactForm({ to }: { to: string }) {
               name="name"
               autoComplete="name"
               required
+              maxLength={80}
               placeholder="Adın soyadın"
               defaultValue={v.name}
               aria-invalid={!!err("name")}
@@ -67,6 +68,7 @@ export function ContactForm({ to }: { to: string }) {
               type="email"
               autoComplete="email"
               required
+              maxLength={200}
               placeholder="sen@ornek.com"
               defaultValue={v.email}
               aria-invalid={!!err("email")}
@@ -83,6 +85,7 @@ export function ContactForm({ to }: { to: string }) {
           name="message"
           rows={6}
           required
+          minLength={CONTACT_MESSAGE.min}
           maxLength={MAX}
           placeholder={ideas[idea]}
           defaultValue={v.message}

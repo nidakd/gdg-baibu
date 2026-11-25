@@ -7,7 +7,7 @@
 
 import { checkBotId } from "botid/server";
 import { getSite } from "./content";
-import type { ContactState } from "./contact-state";
+import { CONTACT_MESSAGE, type ContactState } from "./contact-state";
 import {
   EMAIL,
   escapeHtml,
@@ -18,8 +18,7 @@ import {
   sendMail,
 } from "./form-guard";
 import { publicClient } from "./supabase/public";
-
-const LIMITS = { name: 100, email: 200, message: 3000 };
+import { checkMessage, checkName } from "./text-guard";
 
 export async function sendContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   const raw = (name: string) => {
@@ -47,12 +46,14 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
 
   const errors: ContactState["errors"] = {};
   if (!values.name) errors.name = "Kime cevap yazacağız? Adını yaz.";
-  else if (values.name.length > LIMITS.name) errors.name = "Ad çok uzun.";
-  if (!EMAIL.test(values.email) || values.email.length > LIMITS.email)
+  else {
+    const nameError = checkName(values.name);
+    if (nameError) errors.name = nameError;
+  }
+  if (!EMAIL.test(values.email) || values.email.length > 200)
     errors.email = "Bu e-posta adresi olmadı, sana buradan döneceğiz.";
-  if (values.message.length < 10) errors.message = "Biraz daha anlat, en az 10 karakter.";
-  else if (values.message.length > LIMITS.message)
-    errors.message = "Mesaj 3000 karakteri geçmesin.";
+  const messageError = checkMessage(values.message, CONTACT_MESSAGE);
+  if (messageError) errors.message = messageError;
 
   if (Object.keys(errors).length > 0) return { status: "error", errors, values };
 

@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { Window } from "@/components/ui/window";
 import { sendApplication, type JoinField, type JoinState } from "./actions";
-import { GITHUB_TEAM, YEAR_LABELS } from "./fields";
+import { GITHUB_TEAM, MESSAGE_RULES, YEAR_LABELS } from "./fields";
 
 const input =
   "w-full rounded-xl border-2 border-border-strong bg-surface px-3 py-2.5 text-base outline-none focus-visible:ring-2 focus-visible:ring-blue";
@@ -20,6 +20,7 @@ export function JoinForm({
     status: "idle",
   });
   const startedAt = useRef<HTMLInputElement>(null);
+  const [length, setLength] = useState(state.values?.message?.length ?? 0);
   // Yazılım ve Teknik Ekibi işaretliyse GitHub sorulur
   const [askGithub, setAskGithub] = useState(() =>
     (state.values?.teams ?? (preselected ? [preselected] : [])).includes(GITHUB_TEAM),
@@ -58,6 +59,7 @@ export function JoinForm({
               name="name"
               autoComplete="name"
               required
+              maxLength={80}
               defaultValue={v.name}
               className={input}
             />
@@ -69,6 +71,7 @@ export function JoinForm({
               type="email"
               autoComplete="email"
               required
+              maxLength={200}
               defaultValue={v.email}
               className={input}
             />
@@ -77,6 +80,8 @@ export function JoinForm({
             <input
               id="j-dept"
               name="department"
+              required
+              maxLength={120}
               defaultValue={v.department}
               placeholder="ör. Bilgisayar Mühendisliği"
               className={input}
@@ -128,6 +133,7 @@ export function JoinForm({
               name="github"
               inputMode="url"
               autoComplete="off"
+              maxLength={100}
               defaultValue={v.github}
               placeholder="github.com/kullanici-adin"
               className={input}
@@ -135,16 +141,25 @@ export function JoinForm({
           </Field>
         )}
 
-        <Field label="Kendinden biraz bahset (isteğe bağlı)" htmlFor="j-msg" error={err("message")}>
+        <Field
+          label="Kendinden biraz bahset (isteğe bağlı, birkaç cümle)"
+          htmlFor="j-msg"
+          error={err("message")}
+        >
           <textarea
             id="j-msg"
             name="message"
             rows={5}
-            maxLength={2000}
+            maxLength={MESSAGE_RULES.max}
             defaultValue={v.message}
+            onChange={(e) => setLength(e.target.value.length)}
             placeholder="Neler yapmayı seversin, toplulukta ne yapmak istersin?"
             className={`${input} resize-y`}
           />
+          <p className="text-right font-mono text-xs text-fg-subtle">
+            {length}/{MESSAGE_RULES.max}
+            {length > 0 && length < MESSAGE_RULES.min && ` · en az ${MESSAGE_RULES.min}`}
+          </p>
         </Field>
 
         <label className="flex items-start gap-3 text-sm">
