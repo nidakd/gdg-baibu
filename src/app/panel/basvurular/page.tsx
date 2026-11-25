@@ -49,9 +49,9 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
       <header className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">Başvurular</h1>
         <p className="text-fg-muted">
-          /katil formundan gelenler. Başvuran e-postasındaki bağlantıyla adresini onaylayınca
-          başvuru kulüp e-postasına da gidiyor; yanıtı oradan yaz, durumu burada işaretle. Onaysız
-          başvurularda adresin gerçek olduğu kanıtlanmadı.
+          /katil formundan gelenler. Her başvuru kulüp e-postasına da gidiyor; yanıtı oradan yaz,
+          durumu burada işaretle. Başvurana teşekkür e-postası gider; içindeki bağlantıyla adresini
+          doğrularsa &quot;✓ onaylı&quot; görünür. Onaysızlarda adresin gerçek olduğu kanıtlanmadı.
         </p>
       </header>
 
@@ -96,7 +96,7 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
                       </span>
                     ) : (
                       <span
-                        title="Başvuran e-postasındaki onay bağlantısına tıklamadı (ya da onay açılmadan önce gelen başvuru)"
+                        title="Başvuran teşekkür e-postasındaki doğrulama bağlantısına tıklamadı (ya da bu özellikten önce gelen başvuru)"
                         className="rounded-full border-2 border-red-ink px-2 py-0.5 font-mono text-xs text-red-ink"
                       >
                         onaysız

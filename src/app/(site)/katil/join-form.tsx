@@ -31,31 +31,14 @@ export function JoinForm({
     if (startedAt.current) startedAt.current.value = String(Date.now());
   }, [state]);
 
-  if (state.status === "verify") {
-    return (
-      <Window title="~/katil/basvuru.json" tone="yellow" meta="onay bekliyor">
-        <div className="space-y-3 p-6 font-mono text-sm" role="status">
-          <p>✉ 202 Accepted · bir adım kaldı</p>
-          <p className="font-sans text-base">
-            <b className="break-all">{state.email}</b> adresine bir onay bağlantısı gönderdik.
-            Bağlantıya tıklayıp <b>Onayla</b>&apos;ya basınca başvurun ekibe ulaşır.
-          </p>
-          <p className="font-sans text-sm text-fg-muted">
-            Birkaç dakikada gelmezse spam / gereksiz klasörüne bak. Bağlantı 48 saat geçerli.
-          </p>
-        </div>
-      </Window>
-    );
-  }
-
   if (state.status === "ok") {
     return (
       <Window title="~/katil/basvuru.json" tone="green" meta="gönderildi">
         <div className="space-y-2 p-6 font-mono text-sm" role="status">
           <p className="text-green-ink">✓ 201 Created · başvurun alındı</p>
           <p className="font-sans text-base">
-            Teşekkürler! Ekipten biri birkaç gün içinde e-postayla dönecek. O zamana kadar
-            Instagram&apos;dan etkinliklerimizi takip edebilirsin.
+            Teşekkürler! E-posta adresine bir teşekkür mesajı gönderdik. Ekipten biri birkaç gün
+            içinde dönecek; o zamana kadar Instagram&apos;dan etkinliklerimizi takip edebilirsin.
           </p>
         </div>
       </Window>

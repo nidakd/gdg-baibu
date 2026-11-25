@@ -1,4 +1,4 @@
-// Başvurunun ortak parçaları: veritabanı satırı, onay anahtarı özeti ve kulübe giden bildirim.
+// Başvurunun ortak parçaları: veritabanı satırı, doğrulama anahtarı özeti ve kulübe giden bildirim.
 // Sadece sunucuda kullanılır (katil/actions.ts ve katil/onay/actions.ts).
 
 import { createHash } from "node:crypto";
@@ -16,8 +16,9 @@ export type Application = {
   github: string | null;
 };
 
-/** Onay bağlantısının geçerlilik süresi */
-export const VERIFY_TTL_MS = 48 * 60 * 60 * 1000;
+/** Doğrulama bağlantısının geçerlilik süresi */
+export const VERIFY_TTL_DAYS = 7;
+export const VERIFY_TTL_MS = VERIFY_TTL_DAYS * 24 * 60 * 60 * 1000;
 
 /** Bağlantıdaki anahtar saklanmaz; SHA-256 özeti saklanır */
 export const hashToken = (token: string) => createHash("sha256").update(token).digest("hex");
@@ -33,15 +34,8 @@ export const toRow = (a: Application) => ({
   consent: true,
 });
 
-const NOTES = {
-  onayli: "✓ E-posta adresi onay bağlantısıyla doğrulandı.",
-  kapali:
-    "⚠ E-posta onayı kapalı (Gmail ya da Supabase gizli anahtarı ayarlı değil); adres doğrulanmadı.",
-  gonderilemedi: "⚠ Onay e-postası gönderilemedi; adres doğrulanmadı.",
-};
-
 /** Başvuruyu kulüp adresine e-postayla bildirir. */
-export async function notifyClub(a: Application, note: keyof typeof NOTES): Promise<boolean> {
+export async function notifyClub(a: Application): Promise<boolean> {
   const teams = await getWorkingTeams();
   const teamNames = new Map(teams.map((t) => [t.id, t.name]));
   const chosen = a.teams.map((t) => teamNames.get(t) ?? t).join(", ");
@@ -62,8 +56,7 @@ export async function notifyClub(a: Application, note: keyof typeof NOTES): Prom
       ${rows.map(([k, v]) => `<tr><td style="color:#666">${k}</td><td><b>${escapeHtml(v)}</b></td></tr>`).join("")}
     </table>
     <p style="font-family:sans-serif;font-size:14px;white-space:pre-wrap">${escapeHtml(a.message || "(mesaj yok)")}</p>
-    <p style="font-family:sans-serif;font-size:13px">${NOTES[note]}</p>
-    <p style="font-family:sans-serif;font-size:12px;color:#999">Sitedeki katılım formundan gönderildi; panelde Başvurular'da da var. Yanıtla dersen doğrudan ${escapeHtml(a.email)} adresine gider.</p>`,
-    text: `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\n${a.message ?? ""}\n\n${NOTES[note]}`,
+    <p style="font-family:sans-serif;font-size:12px;color:#999">Sitedeki katılım formundan gönderildi; panelde Başvurular'da da var. Başvurana teşekkür e-postası gitti; adresini doğrularsa panelde "✓ onaylı" görünür. Yanıtla dersen doğrudan ${escapeHtml(a.email)} adresine gider.</p>`,
+    text: `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\n${a.message ?? ""}`,
   });
 }

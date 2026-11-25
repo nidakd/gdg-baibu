@@ -7,7 +7,7 @@ import { checkBotId } from "botid/server";
 import { getSite, getWorkingTeams } from "@/lib/content";
 import { checkEmail } from "@/lib/email-check";
 import { escapeHtml, looksLikeBot, multiLine, oneLine, rateLimited } from "@/lib/form-guard";
-import { hasGmail, sendGmail } from "@/lib/gmail";
+import { sendGmail } from "@/lib/gmail";
 import { SITE_URL } from "@/lib/seo";
 import { adminClient } from "@/lib/supabase/admin";
 import { publicClient } from "@/lib/supabase/public";
@@ -19,11 +19,8 @@ export type JoinField =
   "name" | "email" | "department" | "year" | "teams" | "github" | "message" | "consent";
 
 export type JoinState = {
-  /** verify: kaydedildi, onay bağlantısı e-postayla gitti */
-  status: "idle" | "ok" | "verify" | "error";
+  status: "idle" | "ok" | "error";
   message?: string;
-  /** verify durumunda bağlantının gittiği adres */
-  email?: string;
   errors?: Partial<Record<JoinField, string>>;
   values?: {
     name?: string;
@@ -107,11 +104,9 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
     values,
   } as const;
 
-  // E-posta onayı: satır gizli anahtarla yazılır, başvurana tek kullanımlık bağlantı gider.
-  // Kulübe bildirim bağlantıya tıklanınca gider (onay/actions.ts).
   const admin = adminClient();
-  if (admin && (hasGmail || process.env.NODE_ENV === "development")) {
-    // Aynı adrese kısa sürede çok onay e-postası gitmesin (başkasının adresini doldurma)
+  if (admin) {
+    // Aynı adrese kısa sürede çok başvuru (ve e-posta) gitmesin
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
     const { count } = await admin
       .from("applications")
@@ -121,53 +116,61 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
     if ((count ?? 0) >= 3)
       return {
         status: "error",
-        message: "Bu adresle bugün birkaç başvuru yapıldı. E-postandaki onay bağlantısına bak.",
+        message: "Bu adresle bugün birkaç başvuru yapıldı. Sana döneceğiz, biraz bekle.",
         values,
       };
-
-    const token = randomBytes(32).toString("base64url");
-    const { data, error } = await admin
-      .from("applications")
-      .insert({
-        ...toRow(app),
-        verify_token_hash: hashToken(token),
-        verify_expires_at: new Date(Date.now() + VERIFY_TTL_MS).toISOString(),
-      })
-      .select("id")
-      .single();
-    if (error || !data) {
-      console.error("[katıl] veritabanına yazılamadı", error?.code);
-      return (await notifyClub(app, "kapali")) ? { status: "ok" } : fail;
-    }
-
-    const link = `${SITE_URL}/katil/onay?t=${token}`;
-    const firstName = values.name.split(" ")[0];
-    const mailed = await sendGmail({
-      to: values.email,
-      subject: "Başvurunu onayla · GDG on Campus AİBÜ",
-      html: `
-    <div style="font-family:sans-serif;font-size:15px;line-height:1.5;color:#202124">
-      <p>Merhaba ${escapeHtml(firstName)},</p>
-      <p>GDG on Campus AİBÜ core team başvurun bize ulaştı. Bu adresin sana ait olduğunu doğrulamak için aşağıdaki bağlantıya tıkla ve açılan sayfada <b>Onayla</b>'ya bas:</p>
-      <p><a href="${link}" style="display:inline-block;background:#34a853;color:#fff;padding:10px 18px;border-radius:999px;text-decoration:none">Başvurumu onayla</a></p>
-      <p style="font-size:13px;color:#5f6368">Bağlantı 48 saat geçerli. Onaylamazsan başvurun değerlendirmeye alınmaz.<br>Bu başvuruyu sen yapmadıysan bu e-postayı yok say.</p>
-    </div>`,
-      text: `Merhaba ${firstName},\n\nGDG on Campus AİBÜ core team başvurun bize ulaştı. Adresini doğrulamak için bu bağlantıyı aç ve Onayla'ya bas:\n${link}\n\nBağlantı 48 saat geçerli. Bu başvuruyu sen yapmadıysan bu e-postayı yok say.`,
-    });
-    if (mailed) return { status: "verify", email: values.email };
-    // Onay e-postası gitmediyse başvuru kaybolmasın: kulübe onaysız olarak bildirilir
-    return (await notifyClub(app, "gonderilemedi")) ? { status: "ok" } : fail;
   }
 
-  // Onay kapalıyken (Gmail ya da gizli anahtar ayarlı değil) eski yol: kaydet + kulübe bildir
-  const db = publicClient();
+  // Gizli anahtar varsa sunucu yazar ve doğrulama anahtarını ekler; yoksa yayınlanabilir anahtarla
+  const token = admin ? randomBytes(32).toString("base64url") : null;
+  const db = admin ?? publicClient();
   let stored = false;
   if (db) {
-    const { error } = await db.from("applications").insert(toRow(app));
+    const row = token
+      ? {
+          ...toRow(app),
+          verify_token_hash: hashToken(token),
+          verify_expires_at: new Date(Date.now() + VERIFY_TTL_MS).toISOString(),
+        }
+      : toRow(app);
+    const { error } = await db.from("applications").insert(row);
     if (error) console.error("[katıl] veritabanına yazılamadı", error.code);
     else stored = true;
   }
-  const sent = await notifyClub(app, "kapali");
+  // Kulübe hemen bildirilir; doğrulama başvuruyu bekletmez
+  const sent = await notifyClub(app);
   // Biri tuttuysa başvuru kaybolmadı
-  return stored || sent ? { status: "ok" } : fail;
+  if (!stored && !sent) return fail;
+
+  // Başvurana teşekkür e-postası (altında isteğe bağlı adres doğrulama). Gitmese de başvuru alındı.
+  const firstName = values.name.split(" ")[0];
+  const chosen = values.teams.map((t) => teamNames.get(t) ?? t).join(", ");
+  const club = getSite().email;
+  const link = stored && token ? `${siteOrigin()}/katil/onay?t=${token}` : null;
+  await sendGmail({
+    to: values.email,
+    subject: "Başvurunu aldık · GDG on Campus AİBÜ",
+    html: `
+    <div style="font-family:sans-serif;font-size:15px;line-height:1.5;color:#202124">
+      <p>Merhaba ${escapeHtml(firstName)},</p>
+      <p>GDG on Campus AİBÜ core team başvurunu aldık, teşekkürler! 🎉</p>
+      <p>Başvurun ekibimiz tarafından değerlendiriliyor. Birkaç gün içinde bu adres üzerinden sana döneceğiz.</p>
+      <p style="font-size:14px;color:#5f6368">Başvurduğun ekip(ler): ${escapeHtml(chosen)}</p>
+      ${
+        link
+          ? `<p style="font-size:14px">Sana ulaşabileceğimizden emin olmak için adresini doğrularsan seviniriz:</p>
+      <p><a href="${link}" style="display:inline-block;background:#34a853;color:#fff;padding:9px 16px;border-radius:999px;text-decoration:none;font-size:14px">E-posta adresimi doğrula</a></p>`
+          : ""
+      }
+      <p style="font-size:13px;color:#5f6368">Sorun olursa ${escapeHtml(club)} adresine yazabilirsin. Bu başvuruyu sen yapmadıysan bu e-postayı yok say.</p>
+    </div>`,
+    text: `Merhaba ${firstName},\n\nGDG on Campus AİBÜ core team başvurunu aldık, teşekkürler!\n\nBaşvurun ekibimiz tarafından değerlendiriliyor. Birkaç gün içinde bu adres üzerinden sana döneceğiz.\n\nBaşvurduğun ekip(ler): ${chosen}\n${link ? `\nAdresini doğrulamak için: ${link}\n` : ""}\nSorun olursa ${club} adresine yazabilirsin. Bu başvuruyu sen yapmadıysan bu e-postayı yok say.`,
+  });
+  return { status: "ok" };
+}
+
+/** Bağlantıların gideceği adres: preview'da o dalın adresi, yayında sitenin adresi */
+function siteOrigin(): string {
+  const branch = process.env.VERCEL_BRANCH_URL;
+  return process.env.VERCEL_ENV === "preview" && branch ? `https://${branch}` : SITE_URL;
 }
