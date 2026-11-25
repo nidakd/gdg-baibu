@@ -10,6 +10,7 @@ import { getSite } from "./content";
 import { checkEmail } from "./email-check";
 import { CONTACT_MESSAGE, type ContactState } from "./contact-state";
 import { escapeHtml, looksLikeBot, multiLine, oneLine, rateLimited, sendMail } from "./form-guard";
+import { adminClient } from "./supabase/admin";
 import { publicClient } from "./supabase/public";
 import { checkMessage, checkName } from "./text-guard";
 
@@ -59,7 +60,7 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
   }
 
   // Panelde görünsün diye veritabanına da yazılır; yazılamazsa e-posta yine gider
-  const db = publicClient();
+  const db = adminClient() ?? publicClient();
   if (db) {
     const { error } = await db.from("contact_messages").insert(values);
     if (error) console.error("[iletişim] veritabanına yazılamadı", error.code);

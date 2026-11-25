@@ -2,27 +2,28 @@
 
 // Core team başvurusu: doğrular, veritabanına yazar (panelde görünür) ve kulüp adresine e-posta atar.
 
+import { randomBytes } from "node:crypto";
 import { checkBotId } from "botid/server";
 import { getSite, getWorkingTeams } from "@/lib/content";
 import { checkEmail } from "@/lib/email-check";
-import {
-  escapeHtml,
-  looksLikeBot,
-  multiLine,
-  oneLine,
-  rateLimited,
-  sendMail,
-} from "@/lib/form-guard";
+import { escapeHtml, looksLikeBot, multiLine, oneLine, rateLimited } from "@/lib/form-guard";
+import { hasGmail, sendGmail } from "@/lib/gmail";
+import { SITE_URL } from "@/lib/seo";
+import { adminClient } from "@/lib/supabase/admin";
 import { publicClient } from "@/lib/supabase/public";
 import { checkDepartment, checkMessage, checkName } from "@/lib/text-guard";
 import { GITHUB_TEAM, MESSAGE_RULES, normalizeGithub, YEAR_LABELS } from "./fields";
+import { type Application, hashToken, notifyClub, toRow, VERIFY_TTL_MS } from "./notify";
 
 export type JoinField =
   "name" | "email" | "department" | "year" | "teams" | "github" | "message" | "consent";
 
 export type JoinState = {
-  status: "idle" | "ok" | "error";
+  /** verify: kaydedildi, onay bağlantısı e-postayla gitti */
+  status: "idle" | "ok" | "verify" | "error";
   message?: string;
+  /** verify durumunda bağlantının gittiği adres */
+  email?: string;
   errors?: Partial<Record<JoinField, string>>;
   values?: {
     name?: string;
@@ -91,51 +92,82 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
       values,
     };
 
+  const app: Application = {
+    name: values.name,
+    email: values.email,
+    department: values.department,
+    year: values.year || null,
+    teams: values.teams,
+    message: values.message || null,
+    github,
+  };
+  const fail = {
+    status: "error",
+    message: `Başvuru gönderilemedi. Biraz sonra tekrar dene ya da ${getSite().email} adresine yaz.`,
+    values,
+  } as const;
+
+  // E-posta onayı: satır gizli anahtarla yazılır, başvurana tek kullanımlık bağlantı gider.
+  // Kulübe bildirim bağlantıya tıklanınca gider (onay/actions.ts).
+  const admin = adminClient();
+  if (admin && (hasGmail || process.env.NODE_ENV === "development")) {
+    // Aynı adrese kısa sürede çok onay e-postası gitmesin (başkasının adresini doldurma)
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const { count } = await admin
+      .from("applications")
+      .select("id", { count: "exact", head: true })
+      .ilike("email", values.email)
+      .gte("created_at", since);
+    if ((count ?? 0) >= 3)
+      return {
+        status: "error",
+        message: "Bu adresle bugün birkaç başvuru yapıldı. E-postandaki onay bağlantısına bak.",
+        values,
+      };
+
+    const token = randomBytes(32).toString("base64url");
+    const { data, error } = await admin
+      .from("applications")
+      .insert({
+        ...toRow(app),
+        verify_token_hash: hashToken(token),
+        verify_expires_at: new Date(Date.now() + VERIFY_TTL_MS).toISOString(),
+      })
+      .select("id")
+      .single();
+    if (error || !data) {
+      console.error("[katıl] veritabanına yazılamadı", error?.code);
+      return (await notifyClub(app, "kapali")) ? { status: "ok" } : fail;
+    }
+
+    const link = `${SITE_URL}/katil/onay?t=${token}`;
+    const firstName = values.name.split(" ")[0];
+    const mailed = await sendGmail({
+      to: values.email,
+      subject: "Başvurunu onayla · GDG on Campus AİBÜ",
+      html: `
+    <div style="font-family:sans-serif;font-size:15px;line-height:1.5;color:#202124">
+      <p>Merhaba ${escapeHtml(firstName)},</p>
+      <p>GDG on Campus AİBÜ core team başvurun bize ulaştı. Bu adresin sana ait olduğunu doğrulamak için aşağıdaki bağlantıya tıkla ve açılan sayfada <b>Onayla</b>'ya bas:</p>
+      <p><a href="${link}" style="display:inline-block;background:#34a853;color:#fff;padding:10px 18px;border-radius:999px;text-decoration:none">Başvurumu onayla</a></p>
+      <p style="font-size:13px;color:#5f6368">Bağlantı 48 saat geçerli. Onaylamazsan başvurun değerlendirmeye alınmaz.<br>Bu başvuruyu sen yapmadıysan bu e-postayı yok say.</p>
+    </div>`,
+      text: `Merhaba ${firstName},\n\nGDG on Campus AİBÜ core team başvurun bize ulaştı. Adresini doğrulamak için bu bağlantıyı aç ve Onayla'ya bas:\n${link}\n\nBağlantı 48 saat geçerli. Bu başvuruyu sen yapmadıysan bu e-postayı yok say.`,
+    });
+    if (mailed) return { status: "verify", email: values.email };
+    // Onay e-postası gitmediyse başvuru kaybolmasın: kulübe onaysız olarak bildirilir
+    return (await notifyClub(app, "gonderilemedi")) ? { status: "ok" } : fail;
+  }
+
+  // Onay kapalıyken (Gmail ya da gizli anahtar ayarlı değil) eski yol: kaydet + kulübe bildir
   const db = publicClient();
   let stored = false;
   if (db) {
-    const { error } = await db.from("applications").insert({
-      name: values.name,
-      email: values.email,
-      department: values.department || null,
-      year: values.year || null,
-      teams: values.teams,
-      message: values.message || null,
-      github,
-      consent: true,
-    });
+    const { error } = await db.from("applications").insert(toRow(app));
     if (error) console.error("[katıl] veritabanına yazılamadı", error.code);
     else stored = true;
   }
-
-  const chosen = values.teams.map((t) => teamNames.get(t) ?? t).join(", ");
-  const rows: [string, string][] = [
-    ["Ad", values.name],
-    ["E-posta", values.email],
-    ["Bölüm", values.department || "—"],
-    ["Sınıf", YEAR_LABELS[values.year] ?? "—"],
-    ["Ekip(ler)", chosen],
-    ...(github ? ([["GitHub", github]] as [string, string][]) : []),
-  ];
-  const sent = await sendMail({
-    to: getSite().email,
-    replyTo: values.email,
-    subject: `[Başvuru] ${values.name} · ${chosen}`,
-    html: `
-    <table cellpadding="6" style="border-collapse:collapse;font-family:sans-serif;font-size:14px">
-      ${rows.map(([k, v]) => `<tr><td style="color:#666">${k}</td><td><b>${escapeHtml(v)}</b></td></tr>`).join("")}
-    </table>
-    <p style="font-family:sans-serif;font-size:14px;white-space:pre-wrap">${escapeHtml(values.message || "(mesaj yok)")}</p>
-    <p style="font-family:sans-serif;font-size:12px;color:#999">Sitedeki katılım formundan gönderildi; panelde Başvurular'da da var. Yanıtla dersen doğrudan ${escapeHtml(values.email)} adresine gider.</p>`,
-    text: `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\n${values.message}`,
-  });
-
+  const sent = await notifyClub(app, "kapali");
   // Biri tuttuysa başvuru kaybolmadı
-  if (!stored && !sent)
-    return {
-      status: "error",
-      message: `Başvuru gönderilemedi. Biraz sonra tekrar dene ya da ${getSite().email} adresine yaz.`,
-      values,
-    };
-  return { status: "ok" };
+  return stored || sent ? { status: "ok" } : fail;
 }
