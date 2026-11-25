@@ -7,16 +7,9 @@
 
 import { checkBotId } from "botid/server";
 import { getSite } from "./content";
+import { checkEmail } from "./email-check";
 import { CONTACT_MESSAGE, type ContactState } from "./contact-state";
-import {
-  EMAIL,
-  escapeHtml,
-  looksLikeBot,
-  multiLine,
-  oneLine,
-  rateLimited,
-  sendMail,
-} from "./form-guard";
+import { escapeHtml, looksLikeBot, multiLine, oneLine, rateLimited, sendMail } from "./form-guard";
 import { publicClient } from "./supabase/public";
 import { checkMessage, checkName } from "./text-guard";
 
@@ -50,8 +43,8 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
     const nameError = checkName(values.name);
     if (nameError) errors.name = nameError;
   }
-  if (!EMAIL.test(values.email) || values.email.length > 200)
-    errors.email = "Bu e-posta adresi olmadı, sana buradan döneceğiz.";
+  const emailError = await checkEmail(values.email);
+  if (emailError) errors.email = emailError;
   const messageError = checkMessage(values.message, CONTACT_MESSAGE);
   if (messageError) errors.message = messageError;
 

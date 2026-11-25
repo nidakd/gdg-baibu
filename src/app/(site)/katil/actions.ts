@@ -4,8 +4,8 @@
 
 import { checkBotId } from "botid/server";
 import { getSite, getWorkingTeams } from "@/lib/content";
+import { checkEmail } from "@/lib/email-check";
 import {
-  EMAIL,
   escapeHtml,
   looksLikeBot,
   multiLine,
@@ -66,8 +66,8 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
   const errors: JoinState["errors"] = {};
   const nameError = checkName(values.name, { fullName: true });
   if (nameError) errors.name = nameError;
-  if (!EMAIL.test(values.email) || values.email.length > 200)
-    errors.email = "Bu e-posta adresi olmadı.";
+  const emailError = await checkEmail(values.email);
+  if (emailError) errors.email = emailError;
   const deptError = checkDepartment(values.department);
   if (deptError) errors.department = deptError;
   if (values.year && !(values.year in YEAR_LABELS)) errors.year = "Sınıfını seç.";
