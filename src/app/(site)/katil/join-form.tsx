@@ -37,8 +37,9 @@ export function JoinForm({
         <div className="space-y-2 p-6 font-mono text-sm" role="status">
           <p className="text-green-ink">✓ 201 Created · başvurun alındı</p>
           <p className="font-sans text-base">
-            Teşekkürler! E-posta adresine bir teşekkür mesajı gönderdik. Ekipten biri birkaç gün
-            içinde dönecek; o zamana kadar Instagram&apos;dan etkinliklerimizi takip edebilirsin.
+            Başvurunu aldık, teşekkürler! Bilgilerini e-posta adresine de gönderdik. Ekipten biri
+            birkaç gün içinde dönecek; o zamana kadar Instagram&apos;dan etkinliklerimizi takip
+            edebilirsin.
           </p>
         </div>
       </Window>
