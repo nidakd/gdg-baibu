@@ -8,5 +8,6 @@ initBotId({
     { path: "/hakkimizda", method: "POST" },
     { path: "/giris", method: "POST" },
     { path: "/katil", method: "POST" },
+    { path: "/katil/onay", method: "POST" },
   ],
 });

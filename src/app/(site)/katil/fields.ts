@@ -12,6 +12,9 @@ export const YEAR_LABELS: Record<string, string> = {
   mezun: "Mezun",
 };
 
+/** "Kendinden bahset" alanı (isteğe bağlı; yazıldıysa bu kurallar) */
+export const MESSAGE_RULES = { min: 20, max: 2000, minWords: 4, maxLinks: 3 };
+
 /** GitHub sorulan ekip */
 export const GITHUB_TEAM = "software";
 

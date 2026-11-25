@@ -3,9 +3,9 @@
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
-// Kısa sayfalarda isim şeridi çok yer kaplıyor: katılım formu, kişi profilleri, etkinlik detayları.
+// Kısa sayfalarda isim şeridi çok yer kaplıyor: katılım formu ve onayı, kişi profilleri, etkinlik detayları.
 // (404'te şerit hiç gönderilmez, bkz. SiteShell.)
-const HIDDEN = [/^\/katil\/?$/, /^\/ekip\/[^/]+\/?$/, /^\/etkinlikler\/[^/]+\/?$/];
+const HIDDEN = [/^\/katil(\/onay)?\/?$/, /^\/ekip\/[^/]+\/?$/, /^\/etkinlikler\/[^/]+\/?$/];
 
 /** İsim şeridini kısa sayfalarda gizler; gizlenince footer'ın üst boşluğu yine korunur. */
 export function FooterNamesGate({ children }: { children: ReactNode }) {
