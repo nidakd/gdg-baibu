@@ -32,21 +32,19 @@ export async function saveApplicationPeriod(form: FormData) {
     .trim()
     .slice(0, 300);
   const now = new Date().toISOString();
-  const { error } = await supabase
-    .from("site_settings")
-    .upsert([
-      { key: SETTING_KEYS.applicationsOpen, value: open, updated_at: now, updated_by: user.email },
-      ...(note
-        ? [
-            {
-              key: SETTING_KEYS.applicationsClosedNote,
-              value: note,
-              updated_at: now,
-              updated_by: user.email,
-            },
-          ]
-        : []),
-    ]);
+  const { error } = await supabase.from("site_settings").upsert([
+    { key: SETTING_KEYS.applicationsOpen, value: open, updated_at: now, updated_by: user.email },
+    ...(note
+      ? [
+          {
+            key: SETTING_KEYS.applicationsClosedNote,
+            value: note,
+            updated_at: now,
+            updated_by: user.email,
+          },
+        ]
+      : []),
+  ]);
   if (error) console.error("[panel] başvuru dönemi kaydedilemedi", error.code);
   updateTag(SETTINGS_CACHE_TAG);
   redirect(`/panel/basvurular?donem=${error ? "hata" : "kaydedildi"}`);

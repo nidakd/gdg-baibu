@@ -1,4 +1,5 @@
 import { DinoRunner } from "@/components/fun/dino-runner";
+import { getSiteLive } from "@/lib/settings";
 import { MarqueeRibbon } from "@/components/fun/marquee-ribbon";
 import { Reveal } from "@/components/motion/reveal";
 import { FocusBigPills } from "@/components/home/focus-big-pills";
@@ -9,13 +10,13 @@ import { Section } from "@/components/ui/section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { WaveBand } from "@/components/ui/wave-band";
 import { PhotoStrip } from "@/components/sections/photo-strip";
-import { getMembers, getPhotos, getSite } from "@/lib/content";
+import { getMembers, getPhotos } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
 import { Hero } from "./_components/hero";
 import { LatestEvents } from "./_components/latest-events";
 
 export default async function Home() {
-  const site = getSite();
+  const site = await getSiteLive();
   const members = await getMembers();
   const photos = getPhotos();
   // Yaklaşan etkinlik ayrı kartta; listede sadece geçmişler

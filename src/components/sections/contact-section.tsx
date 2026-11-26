@@ -1,12 +1,12 @@
 import { Asterisk } from "@/components/brand/brand-shapes";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
-import { getSite } from "@/lib/content";
+import { getSiteLive } from "@/lib/settings";
 import { ContactForm } from "./contact-form";
 
 /** "Bizimle iletişime geç" bölümü: form, sosyal bağlantılar ve yanında eğlenceli not. Ana sayfa ve hakkımızda kullanır. */
-export function ContactSection({ label, className }: { label: string; className?: string }) {
-  const site = getSite();
+export async function ContactSection({ label, className }: { label: string; className?: string }) {
+  const site = await getSiteLive();
   return (
     <Section
       id="iletisim"
