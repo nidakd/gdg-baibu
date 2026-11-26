@@ -34,8 +34,6 @@ async function Request({ searchParams }: Pick<PageProps<"/giris/onay">, "searchP
   const params = await searchParams;
   const id = typeof params.i === "string" ? params.i : "";
   const key = typeof params.k === "string" ? params.k : "";
-  // E-postada seçilen sayı: sayfa bunu kendiliğinden gönderir, burada yeniden sorulmaz
-  const picked = typeof params.s === "string" && /^[0-9]{2}$/.test(params.s) ? params.s : undefined;
   const admin = adminClient();
   const { data: row } =
     admin && /^[0-9a-f-]{36}$/.test(id)
@@ -78,8 +76,7 @@ async function Request({ searchParams }: Pick<PageProps<"/giris/onay">, "searchP
       device={row.device ?? "Bilinmeyen cihaz"}
       time={time}
       sameBrowser={sameBrowser}
-      picked={picked}
-      choices={sameBrowser || picked ? [] : codeChoices(row.code)}
+      choices={sameBrowser ? [] : codeChoices(row.code)}
     />
   );
 }
