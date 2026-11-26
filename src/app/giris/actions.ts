@@ -17,11 +17,16 @@ import { hasGmail, sendGmail } from "@/lib/gmail";
 import { safeNext } from "@/lib/panel/auth";
 import {
   describeDevice,
+  encodePending,
+  KEEP_LOGINS_DAYS,
+  LIMIT_PER_HOUR,
+  LIMIT_PER_MINUTE,
   newCode,
   newSecret,
   parsePending,
   PENDING_COOKIE,
   REQUEST_TTL_MS,
+  RESEND_AFTER_MS,
   sha256,
 } from "@/lib/panel/login-requests";
 import { adminClient } from "@/lib/supabase/admin";
@@ -35,6 +40,8 @@ export type LoginState = {
   email?: string;
   /** Bekleyen girişte iki ekranda eşleşecek sayı */
   code?: string;
+  /** Bekleyen isteğin zamanı (ms): geri sayım ve yeniden gönder */
+  at?: number;
 };
 
 const EMAIL = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
@@ -56,12 +63,18 @@ export async function sendLoginLink(_prev: LoginState, formData: FormData): Prom
 
   const admin = adminClient();
   if (admin && hasGmail) {
+    const store = await cookies();
+    // Aynı adrese bir dakika dolmadan yeniden istek: yenisi açılmaz, bekleyen istek sürer
+    const current = parsePending(store.get(PENDING_COOKIE)?.value);
+    if (current && current.email === email && Date.now() - current.at < RESEND_AFTER_MS)
+      return { status: "waiting", email, code: current.code, at: current.at };
+
     // Üye olsun olmasın aynı cevap ve aynı çerez; satır ve e-posta yanıttan sonra, sadece üyeye
     const id = crypto.randomUUID();
     const browserSecret = newSecret();
     const code = newCode();
-    const store = await cookies();
-    store.set(PENDING_COOKIE, `${id}.${browserSecret}`, {
+    const at = Date.now();
+    store.set(PENDING_COOKIE, encodePending({ id, secret: browserSecret, code, at, email, next }), {
       httpOnly: true,
       secure: origin.startsWith("https"),
       sameSite: "lax",
@@ -70,7 +83,7 @@ export async function sendLoginLink(_prev: LoginState, formData: FormData): Prom
     });
     const device = describeDevice(h.get("user-agent"));
     after(() => createRequest(admin, { id, email, browserSecret, code, device, next, origin }));
-    return { status: "waiting", email, code };
+    return { status: "waiting", email, code, at };
   }
 
   const supabase = await serverClient();
@@ -115,6 +128,21 @@ async function createRequest(admin: SupabaseClient, r: NewRequest) {
     .maybeSingle();
   if (!member) return;
 
+  // Gönderim sınırı: biri bu adrese art arda istek atarsa kutusu (ve kulübün Gmail kotası) dolmasın
+  const since = (ms: number) => new Date(Date.now() - ms).toISOString();
+  const count = async (ms: number) =>
+    (
+      await admin
+        .from("login_requests")
+        .select("id", { count: "exact", head: true })
+        .eq("email", r.email)
+        .gte("created_at", since(ms))
+    ).count ?? 0;
+  if ((await count(60_000)) >= LIMIT_PER_MINUTE || (await count(3_600_000)) >= LIMIT_PER_HOUR) {
+    console.warn("[giriş] gönderim sınırı: e-posta gönderilmedi");
+    return;
+  }
+
   // Panele yeni eklenen birinin henüz Supabase hesabı yoksa ilk girişte açılır
   const generate = () => admin.auth.admin.generateLink({ type: "magiclink", email: r.email });
   let { data, error } = await generate();
@@ -132,11 +160,18 @@ async function createRequest(admin: SupabaseClient, r: NewRequest) {
     return;
   }
 
-  // Eski istekler birikmesin (bir günden eski olanlar)
+  // Eski istekler birikmesin: başarılı girişler "Son girişler" için saklanır, diğerleri bir gün
+  const ago = (ms: number) => new Date(Date.now() - ms).toISOString();
+  const DAY = 24 * 60 * 60 * 1000;
   await admin
     .from("login_requests")
     .delete()
-    .lt("created_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+    .lt("created_at", ago(DAY))
+    .or("approved_at.is.null,used_at.is.null");
+  await admin
+    .from("login_requests")
+    .delete()
+    .lt("created_at", ago(KEEP_LOGINS_DAYS * DAY));
 
   const approveSecret = newSecret();
   const { error: insertError } = await admin.from("login_requests").insert({
@@ -192,6 +227,11 @@ export async function checkLogin(): Promise<PollResult> {
   if (!row.approved_at) return { status: "waiting" };
 
   return signInHere(admin, store, pending.id, row.token_hash, row.next_path);
+}
+
+/** "Farklı e-posta" ya da süre dolunca: bekleyen girişi bu tarayıcıdan sil */
+export async function cancelLogin() {
+  (await cookies()).delete(PENDING_COOKIE);
 }
 
 export async function signOut() {

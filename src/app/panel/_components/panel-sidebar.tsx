@@ -16,7 +16,7 @@ export async function PanelSidebar() {
         <p className="font-mono text-xs text-fg-subtle lg:mt-2">~/panel</p>
       </div>
 
-      <PanelLinks />
+      <PanelLinks isAdmin={user.role === "admin"} />
 
       <div className="hidden space-y-3 border-t-2 border-border px-5 py-5 text-sm lg:mt-auto lg:block">
         <p className="truncate font-medium" title={user.email}>
