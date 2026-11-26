@@ -22,7 +22,8 @@ const csp = [
   `style-src 'self' 'unsafe-inline'${extra(preview && "https://vercel.live")}`,
   `img-src 'self' data: blob: https://res.cloudinary.com${extra(supabaseHost && `https://${supabaseHost}`, preview && "https://vercel.live https://vercel.com")}`,
   `font-src 'self'${extra(preview && "https://vercel.live https://assets.vercel.com")}`,
-  `connect-src 'self'${extra(dev && "ws:", preview && "https://vercel.live wss://ws-us3.pusher.com")}`,
+  // Panelde fotoğraflar tarayıcıdan doğrudan Supabase Storage'a yüklenir
+  `connect-src 'self'${extra(supabaseHost && `https://${supabaseHost}`, dev && "ws:", preview && "https://vercel.live wss://ws-us3.pusher.com")}`,
   // BotID kendi yolunu (aynı adres) gizli bir çerçevede açabiliyor
   `frame-src 'self'${extra(preview && "https://vercel.live")}`,
   "worker-src 'self' blob:",
@@ -65,7 +66,8 @@ const nextConfig: NextConfig = {
             {
               protocol: "https" as const,
               hostname: supabaseHost,
-              pathname: "/storage/v1/object/public/ekip/**",
+              // Panelden yüklenenler: ekip fotoğrafları, etkinlik afişleri, kareler
+              pathname: "/storage/v1/object/public/**",
             },
           ]
         : []),

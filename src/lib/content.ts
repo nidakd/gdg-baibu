@@ -13,6 +13,10 @@ import { publicClient } from "./supabase/public";
 
 /** Panel ekipte bir şey kaydedince bu etiketle önbellek yenilenir. */
 export const TEAM_CACHE_TAG = "ekip";
+/** Panelden etkinlik kaydedilince yenilenir */
+export const EVENTS_CACHE_TAG = "etkinlikler";
+/** Panelden fotoğraf eklenince/silinince yenilenir */
+export const PHOTOS_CACHE_TAG = "kareler";
 
 export type Site = typeof siteJson;
 
@@ -65,7 +69,10 @@ export type Event = {
   tags: string[];
   speakers: Speaker[];
   photos: string[];
-  sourceUrl: string;
+  /** GDG Community sayfası; panelden eklenen etkinlikte null */
+  sourceUrl: string | null;
+  /** gdg: GDG Community senkronu, panel: panelden eklendi */
+  source: "gdg" | "panel";
   /** Türkçe metin (content/event-notes.json); yoksa sayfada İngilizce orijinal görünür */
   tr: { summary: string; paragraphs: string[] } | null;
 };
@@ -177,15 +184,83 @@ async function loadTeam(): Promise<TeamData> {
   }
 }
 
-const events: Event[] = (eventsJson as Omit<Event, "tr">[])
-  .map((e) => {
-    const note = eventNotes[e.slug];
-    return {
-      ...e,
-      tr: typeof note === "object" ? { summary: note.ozet, paragraphs: note.aciklama } : null,
-    };
-  })
-  .sort((a, b) => b.startsAt.localeCompare(a.startsAt));
+const gdgEvents: Event[] = (eventsJson as Omit<Event, "tr" | "source">[]).map((e) => {
+  const note = eventNotes[e.slug];
+  return {
+    ...e,
+    source: "gdg",
+    tr: typeof note === "object" ? { summary: note.ozet, paragraphs: note.aciklama } : null,
+  };
+});
+
+type SiteEventRow = {
+  id: string;
+  slug: string;
+  title: string;
+  starts_at: string;
+  ends_at: string;
+  format: Event["format"];
+  venue: string | null;
+  summary: string | null;
+  description: string | null;
+  cover_url: string | null;
+  tags: string[];
+};
+
+/** Panelden eklenen etkinlik: açıklama düz metin, paragraflar boş satırla ayrılır */
+export function siteEventToEvent(r: SiteEventRow): Event {
+  const paragraphs = (r.description ?? "")
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  return {
+    id: r.id,
+    slug: r.slug,
+    title: r.title,
+    startsAt: new Date(r.starts_at).toISOString(),
+    endsAt: new Date(r.ends_at).toISOString(),
+    format: r.format,
+    venue: r.venue,
+    summary: r.summary,
+    descriptionHtml: null,
+    coverUrl: r.cover_url,
+    coverAspect: null,
+    tags: r.tags,
+    speakers: [],
+    photos: [],
+    sourceUrl: null,
+    source: "panel",
+    tr: r.summary || paragraphs.length ? { summary: r.summary ?? "", paragraphs } : null,
+  };
+}
+
+export const SITE_EVENT_COLUMNS =
+  "id,slug,title,starts_at,ends_at,format,venue,summary,description,cover_url,tags";
+
+/** GDG Community + panelden yayınlananlar, en yeniden en eskiye. Panel kaydedince yenilenir. */
+async function loadEvents(): Promise<Event[]> {
+  "use cache";
+  cacheTag(EVENTS_CACHE_TAG);
+  cacheLife("hours");
+  let extra: Event[] = [];
+  try {
+    const db = publicClient();
+    if (db) {
+      const { data, error } = await db
+        .from("site_events")
+        .select(SITE_EVENT_COLUMNS)
+        .eq("published", true);
+      if (error) console.error("[etkinlik] Supabase okunamadı", error.code);
+      else extra = (data as SiteEventRow[]).map(siteEventToEvent);
+    }
+  } catch (err) {
+    console.error("[etkinlik] Supabase hatası", err);
+  }
+  const taken = new Set(gdgEvents.map((e) => e.slug));
+  return [...gdgEvents, ...extra.filter((e) => !taken.has(e.slug))].sort((a, b) =>
+    b.startsAt.localeCompare(a.startsAt),
+  );
+}
 
 export function getSite(): Site {
   return siteJson;
@@ -214,12 +289,12 @@ export async function getMembersByTeam(teamId: string): Promise<Member[]> {
 }
 
 /** En yeniden en eskiye sıralı tüm etkinlikler. */
-export function getEvents(): Event[] {
-  return events;
+export async function getEvents(): Promise<Event[]> {
+  return loadEvents();
 }
 
-export function getEventBySlug(slug: string): Event | undefined {
-  return events.find((e) => e.slug === slug);
+export async function getEventBySlug(slug: string): Promise<Event | undefined> {
+  return (await loadEvents()).find((e) => e.slug === slug);
 }
 
 /** Ana sayfadaki "etkinliklerden kareler" şeridi. Senkron events.json'u ezdiği için ayrı dosyada. */
@@ -231,22 +306,69 @@ export type Photo = {
   event: { slug: string; title: string; startsAt: string };
 };
 
-export function getPhotos(): Photo[] {
-  return photosJson.flatMap(({ event: slug, ...photo }) => {
-    const event = getEventBySlug(slug);
+type PanelPhoto = {
+  event_slug: string;
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+  on_home: boolean;
+};
+
+/** Panelden yüklenen etkinlik fotoğrafları (Supabase Storage) */
+async function loadPanelPhotos(): Promise<PanelPhoto[]> {
+  "use cache";
+  cacheTag(PHOTOS_CACHE_TAG);
+  cacheLife("hours");
+  const db = publicClient();
+  if (!db) return [];
+  const { data, error } = await db
+    .from("event_photos")
+    .select("event_slug,url,alt,width,height,on_home")
+    .order("sort_order")
+    .order("created_at");
+  if (error) {
+    console.error("[kareler] okunamadı", error.code);
+    return [];
+  }
+  return data as PanelPhoto[];
+}
+
+export async function getPhotos(): Promise<Photo[]> {
+  const [events, panel] = await Promise.all([loadEvents(), loadPanelPhotos()]);
+  const picked = [
+    ...photosJson.map(({ event, src, alt, width, height }) => ({ event, src, alt, width, height })),
+    ...panel
+      .filter((p) => p.on_home)
+      .map((p) => ({
+        event: p.event_slug,
+        src: p.url,
+        alt: p.alt,
+        width: p.width,
+        height: p.height,
+      })),
+  ];
+  return picked.flatMap(({ event: slug, ...photo }) => {
+    const event = events.find((e) => e.slug === slug);
     return event
       ? [{ ...photo, event: { slug, title: event.title, startsAt: event.startsAt } }]
       : [];
   });
 }
 
-/** Etkinlik sayfasındaki galeri: önce seçilen kareler (photos.json), sonra GDG Community "wrap-up" fotoğrafları. */
+/** Etkinlik sayfasındaki galeri: seçilen kareler (photos.json + panelden yüklenenler), sonra GDG Community "wrap-up" fotoğrafları. */
 export type GalleryPhoto = { src: string; alt: string; width?: number; height?: number };
 
-export function getEventPhotos(event: Event): GalleryPhoto[] {
-  const picked = photosJson
-    .filter((p) => p.event === event.slug)
-    .map(({ src, alt, width, height }) => ({ src, alt, width, height }));
+export async function getEventPhotos(event: Event): Promise<GalleryPhoto[]> {
+  const panel = (await loadPanelPhotos())
+    .filter((p) => p.event_slug === event.slug)
+    .map(({ url, alt, width, height }) => ({ src: url, alt, width, height }));
+  const picked = [
+    ...photosJson
+      .filter((p) => p.event === event.slug)
+      .map(({ src, alt, width, height }) => ({ src, alt, width, height })),
+    ...panel,
+  ];
   const wrapup = event.photos.map((src, i) => ({
     src,
     alt: `${event.title} etkinliğinden fotoğraf ${picked.length + i + 1}`,

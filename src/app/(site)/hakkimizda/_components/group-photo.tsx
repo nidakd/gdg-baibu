@@ -7,8 +7,8 @@ import { formatDateLong } from "@/lib/format";
 // Kare content/photos.json'dan; src değişirse burayı güncelle.
 const SRC = "/kareler/2026-10-01-info-session-19aeee45.jpg";
 
-export function GroupPhoto() {
-  const photo = getPhotos().find((p) => p.src === SRC);
+export async function GroupPhoto() {
+  const photo = (await getPhotos()).find((p) => p.src === SRC);
   if (!photo) return null;
   return (
     <figure className="mx-auto max-w-4xl rotate-[-0.6deg] rounded-card border-[3px] border-border-strong bg-surface p-2.5 shadow-sticker-lg">
@@ -25,7 +25,9 @@ export function GroupPhoto() {
         <Link href={`/etkinlikler/${photo.event.slug}`} className="font-bold hover:underline">
           {photo.event.title}
         </Link>
-        <span className="text-fg-subtle">{formatDateLong(photo.event.startsAt)} · yeni dönemin ilk buluşması</span>
+        <span className="text-fg-subtle">
+          {formatDateLong(photo.event.startsAt)} · yeni dönemin ilk buluşması
+        </span>
       </figcaption>
     </figure>
   );

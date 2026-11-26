@@ -30,7 +30,7 @@ export default async function AboutPage() {
     getWorkingTeams(),
     getMembers(),
   ]);
-  const years = getEventsPerYear();
+  const years = await getEventsPerYear();
   const maxYear = Math.max(...years.map((y) => y.count));
 
   return (

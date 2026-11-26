@@ -4,6 +4,8 @@ import { Logo } from "@/components/brand/logo";
 import { ButtonLink } from "@/components/ui/button";
 import { WaveEdge } from "@/components/ui/wave-band";
 import { getMembers, getSite } from "@/lib/content";
+import { getPostKindsWithContent, POST_KINDS } from "@/lib/posts";
+import { getSiteLive } from "@/lib/settings";
 import { FooterNames } from "./footer-names";
 import { FooterNamesGate } from "./footer-names-gate";
 
@@ -16,13 +18,19 @@ const YEAR = new Date().getFullYear();
 
 type FooterLink = { label: string; href: string };
 
-function footerLinks() {
-  const site = getSite();
+async function footerLinks() {
+  const site = await getSiteLive();
+  // Duyurular / projeler / kaynaklar sadece içerik varsa menüde
+  const extra = (await getPostKindsWithContent()).map((k) => ({
+    label: POST_KINDS[k].plural,
+    href: POST_KINDS[k].path,
+  }));
   const pages: FooterLink[] = [
     { label: "Ana sayfa", href: "/" },
     { label: "Hakkımızda", href: "/hakkimizda" },
     { label: "Ekip", href: "/ekip" },
     { label: "Etkinlikler", href: "/etkinlikler" },
+    ...extra,
     { label: "İletişim", href: "/#iletisim" },
   ];
   const social: FooterLink[] = [
@@ -55,8 +63,8 @@ export async function SiteFooter({ names: showNames = true }: { names?: boolean 
 }
 
 /** Tek satır logo + menü + katıl; altında sosyal linkler, bağımsızlık notu, telif ve imza. */
-function FooterCompact() {
-  const { site, pages, social } = footerLinks();
+async function FooterCompact() {
+  const { site, pages, social } = await footerLinks();
   return (
     <div>
       <WaveEdge fill="var(--surface)" />
@@ -140,6 +148,10 @@ function Copyright() {
       © {YEAR} {site.shortName} · <span className="whitespace-nowrap">{site.hashtag}</span> ·{" "}
       <Link href="/marka" className={LINK}>
         Marka rehberi
+      </Link>{" "}
+      ·{" "}
+      <Link href="/gizlilik" className={LINK}>
+        Gizlilik
       </Link>
     </p>
   );

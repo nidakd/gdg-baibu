@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PanelBox } from "@/app/panel/_components/panel-box";
 import { Avatar } from "@/components/team/avatar";
 import { requirePanelUser } from "@/lib/panel/auth";
+import { moveMemberPhotos } from "./actions";
 
 export const metadata = { title: "Ekip" };
 
@@ -16,8 +17,9 @@ type Row = {
 };
 
 /** Ekiplere göre üye listesi; satıra tıklayınca kişinin panel sayfası açılır. */
-export default async function PanelTeam() {
-  const { supabase } = await requirePanelUser("/panel/ekip");
+export default async function PanelTeam({ searchParams }: PageProps<"/panel/ekip">) {
+  const { supabase, user } = await requirePanelUser("/panel/ekip");
+  const { tasindi, hata } = await searchParams;
   const [{ data: teams }, { data: members }] = await Promise.all([
     supabase.from("teams").select("id,name").order("sort_order"),
     supabase
@@ -27,6 +29,9 @@ export default async function PanelTeam() {
   ]);
   const rows = (members ?? []) as Row[];
   const active = rows.filter((r) => r.active).length;
+  const external = rows.filter((r) =>
+    r.photo_url?.startsWith("https://res.cloudinary.com/"),
+  ).length;
 
   return (
     <div className="space-y-6">
@@ -44,6 +49,32 @@ export default async function PanelTeam() {
           + Yeni üye
         </Link>
       </header>
+
+      {typeof tasindi === "string" && (
+        <p role="status" className="rounded-xl bg-green-soft px-4 py-3 text-sm">
+          {tasindi} fotoğraf kulübün deposuna taşındı
+          {hata && hata !== "0" ? `, ${hata} tanesi taşınamadı (tekrar deneyebilirsin)` : ""}.
+        </p>
+      )}
+      {user.role === "admin" && external > 0 && (
+        <PanelBox title="Fotoğrafları depoya taşı">
+          <form
+            action={moveMemberPhotos}
+            className="flex flex-wrap items-center justify-between gap-3 p-5 text-sm"
+          >
+            <p className="max-w-prose text-fg-muted">
+              {external} üyenin fotoğrafı GDG Community&apos;nin sunucusundan geliyor. Kulübün
+              deposuna kopyalanırsa o profil değişse ya da silinse de sitede kalır.
+            </p>
+            <button
+              type="submit"
+              className="rounded-full border-2 border-border-strong bg-blue-soft px-4 py-2 font-medium"
+            >
+              Hepsini taşı
+            </button>
+          </form>
+        </PanelBox>
+      )}
 
       {(teams ?? []).map((team) => {
         const list = rows.filter((r) => r.team_id === team.id);

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getSite, getWorkingTeams } from "@/lib/content";
 import { openGraph } from "@/lib/seo";
+import { getSettings } from "@/lib/settings";
+import { Window } from "@/components/ui/window";
 import { JoinForm } from "./join-form";
 
 const description =
@@ -37,10 +39,12 @@ export default async function JoinPage({ searchParams }: PageProps<"/katil">) {
         </ul>
       </div>
       <Suspense>
-        <FormWithParams
-          teams={teams.map((t) => ({ id: t.id, name: t.name, tone: t.tone }))}
-          searchParams={searchParams}
-        />
+        <Closable>
+          <FormWithParams
+            teams={teams.map((t) => ({ id: t.id, name: t.name, tone: t.tone }))}
+            searchParams={searchParams}
+          />
+        </Closable>
       </Suspense>
     </div>
   );
@@ -55,4 +59,18 @@ async function FormWithParams({
   const { ekip } = await searchParams;
   const preselected = typeof ekip === "string" && teams.some((t) => t.id === ekip) ? ekip : null;
   return <JoinForm teams={teams} preselected={preselected} />;
+}
+
+/** Başvuru dönemi panelden kapatıldıysa form yerine not görünür. */
+async function Closable({ children }: { children: React.ReactNode }) {
+  const settings = await getSettings();
+  if (settings.applicationsOpen) return children;
+  return (
+    <Window title="~/katil/basvuru.json" tone="silver" meta="kapalı">
+      <div className="space-y-2 p-6" role="status">
+        <p className="font-mono text-sm text-fg-subtle">403 · başvuru dönemi kapalı</p>
+        <p className="text-base">{settings.applicationsClosedNote}</p>
+      </div>
+    </Window>
+  );
 }

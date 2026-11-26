@@ -30,7 +30,9 @@ export function FocusBigPills({ events }: { events: Event[] }) {
               className={`group flex h-full min-h-28 items-center justify-between gap-4 rounded-full border-[3px] border-ink-black px-8 py-5 text-ink-black shadow-sticker transition hover:-translate-y-1 hover:shadow-sticker-lg ${fill[area.tone]}`}
             >
               <span>
-                <span className="block text-xl leading-tight font-bold sm:text-2xl">{area.title}</span>
+                <span className="block text-xl leading-tight font-bold sm:text-2xl">
+                  {area.title}
+                </span>
                 <span className="font-mono text-xs">{count} etkinlik</span>
               </span>
               <span

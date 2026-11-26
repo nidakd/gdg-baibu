@@ -10,10 +10,16 @@ const links = [
   { href: "/panel/etkinlikler", label: "Etkinlikler", icon: "◆" },
   { href: "/panel/basvurular", label: "Başvurular", icon: "✦" },
   { href: "/panel/mesajlar", label: "Mesajlar", icon: "✉" },
+  { href: "/panel/icerik", label: "İçerik", icon: "¶" },
+  { href: "/panel/ayarlar", label: "Site ayarları", icon: "⚙" },
   { href: "/panel/rehber", label: "Rehber", icon: "?" },
 ];
 /** Sadece adminin menüsünde */
-const adminLinks = [{ href: "/panel/girisler", label: "Son girişler", icon: "⌘" }];
+const adminLinks = [
+  { href: "/panel/kullanicilar", label: "Kullanıcılar", icon: "⚑" },
+  { href: "/panel/gecmis", label: "Değişiklik geçmişi", icon: "↺" },
+  { href: "/panel/girisler", label: "Son girişler", icon: "⌘" },
+];
 
 /** Menü bağlantıları; bulunulan bölüm vurgulanır. Telefonda yatay kayar, çıkış da burada. */
 export function PanelLinks({ isAdmin = false }: { isAdmin?: boolean }) {

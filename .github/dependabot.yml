@@ -8,6 +8,12 @@ updates:
       interval: weekly
       day: tuesday
     open-pull-requests-limit: 5
+    # Lint eklentileri (typescript-eslint, eslint-config-next) desteklemeden büyük sürüme geçilmez
+    ignore:
+      - dependency-name: typescript
+        update-types: [version-update:semver-major]
+      - dependency-name: eslint
+        update-types: [version-update:semver-major]
     groups:
       kucuk-guncellemeler:
         update-types: [minor, patch]

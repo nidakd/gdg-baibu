@@ -9,6 +9,7 @@ import { checkEmail } from "@/lib/email-check";
 import { escapeHtml, looksLikeBot, multiLine, oneLine, rateLimited } from "@/lib/form-guard";
 import { sendGmail } from "@/lib/gmail";
 import { SITE_URL } from "@/lib/seo";
+import { getSettings } from "@/lib/settings";
 import { adminClient } from "@/lib/supabase/admin";
 import { publicClient } from "@/lib/supabase/public";
 import { checkDepartment, checkMessage, checkName } from "@/lib/text-guard";
@@ -48,6 +49,9 @@ export async function sendApplication(_prev: JoinState, form: FormData): Promise
     teams: form.getAll("teams").filter((t): t is string => typeof t === "string"),
   };
   const consent = form.get("consent") === "on";
+
+  if (!(await getSettings()).applicationsOpen)
+    return { status: "error", message: "Şu an başvuru almıyoruz.", values };
 
   if (looksLikeBot(form)) return { status: "ok" };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSiteLive } from "@/lib/settings";
 import { Suspense } from "react";
 import { ReleaseCard } from "@/components/events/release-card";
 import { CountUp } from "@/components/motion/count-up";
@@ -10,7 +11,6 @@ import { Section } from "@/components/ui/section";
 import { TypingTerminal } from "@/components/ui/typing-terminal";
 import { StatTile } from "@/components/ui/stat-tile";
 import { WaveBand } from "@/components/ui/wave-band";
-import { getSite } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
 import { EventArchive, EventArchiveFromUrl, type ArchiveEvent } from "./_components/event-archive";
 import { FeaturedRelease } from "./_components/featured-release";
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsPage() {
-  const site = getSite();
+  const site = await getSiteLive();
   const { upcoming, past } = await getEventTimeline();
   const archive: ArchiveEvent[] = past.map((e) => ({
     id: e.id,
