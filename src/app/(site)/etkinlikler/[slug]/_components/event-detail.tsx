@@ -23,7 +23,7 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
   const series = await getSeriesOf(event);
   const siblings = series?.events.filter((e) => e.id !== event.id) ?? [];
   const { older, newer } = await getAdjacentEvents(event.slug);
-  const photos = getEventPhotos(event);
+  const photos = await getEventPhotos(event);
   const reg = await getRegistration(event);
   const formOpen = isUpcoming && reg.mode === "site" && !isFull(reg);
   // Çok uzun ya da çok yatay afiş sayfayı bozmasın

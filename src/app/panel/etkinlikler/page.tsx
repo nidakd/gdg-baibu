@@ -208,6 +208,9 @@ function EventRow({
             <Link href={`/panel/etkinlikler/kayit?e=${e.slug}`} className="underline">
               Kayıt{registrations ? ` (${registrations})` : ""}
             </Link>
+            <Link href={`/panel/etkinlikler/fotograflar?e=${e.slug}`} className="underline">
+              Fotoğraflar
+            </Link>
             {e.source === "panel" && (
               <Link href={`/panel/etkinlikler/duzenle?id=${e.id}`} className="underline">
                 Düzenle
