@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Window } from "@/components/ui/window";
 import { sendContact } from "@/lib/contact";
 import { CONTACT_MESSAGE, type ContactField, type ContactState } from "@/lib/contact-state";
@@ -130,7 +131,10 @@ export function ContactForm({ to }: { to: string }) {
         </div>
       </form>
       <p className="border-t-2 border-border px-5 py-2.5 text-xs text-fg-subtle">
-        Adını ve e-postanı sadece sana dönmek için kullanırız, kimseyle paylaşmayız.
+        Adını ve e-postanı sadece sana dönmek için kullanırız, 1 yıl sonra sileriz.{" "}
+        <Link href="/gizlilik" className="underline">
+          Aydınlatma metni
+        </Link>
       </p>
     </Window>
   );
