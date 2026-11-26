@@ -94,8 +94,8 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
                 // GDG Community'deki orijinal metin, kapalı başlar
                 <details className="group rounded-xl border-2 border-dashed border-border px-4 py-3 text-sm">
                   <summary className="cursor-pointer font-mono text-xs text-fg-subtle marker:content-none">
-                    <span className="inline-block transition group-open:rotate-90">›</span> İngilizce
-                    orijinali (GDG Community)
+                    <span className="inline-block transition group-open:rotate-90">›</span>{" "}
+                    İngilizce orijinali (GDG Community)
                   </summary>
                   <div
                     lang="en"

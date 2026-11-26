@@ -13,7 +13,9 @@ export const SITE_URL = site.url;
 
 type OpenGraph = NonNullable<Metadata["openGraph"]>;
 
-export function openGraph(page: { title?: string; description?: string; path?: string } & Partial<OpenGraph> = {}): OpenGraph {
+export function openGraph(
+  page: { title?: string; description?: string; path?: string } & Partial<OpenGraph> = {},
+): OpenGraph {
   const { title, description, path, ...rest } = page;
   return {
     type: "website",

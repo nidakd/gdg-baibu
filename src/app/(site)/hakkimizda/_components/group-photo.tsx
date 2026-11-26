@@ -25,7 +25,9 @@ export function GroupPhoto() {
         <Link href={`/etkinlikler/${photo.event.slug}`} className="font-bold hover:underline">
           {photo.event.title}
         </Link>
-        <span className="text-fg-subtle">{formatDateLong(photo.event.startsAt)} · yeni dönemin ilk buluşması</span>
+        <span className="text-fg-subtle">
+          {formatDateLong(photo.event.startsAt)} · yeni dönemin ilk buluşması
+        </span>
       </figcaption>
     </figure>
   );
