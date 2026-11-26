@@ -4,6 +4,7 @@ import { StatTile } from "@/components/ui/stat-tile";
 import { type Event, getEvents, SITE_EVENT_COLUMNS, siteEventToEvent } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { requirePanelUser } from "@/lib/panel/auth";
+import { RankedBars, TermColumns, venueName } from "./charts";
 import { CoordinatorPicker } from "./coordinator-picker";
 
 export const metadata = { title: "Etkinlikler" };
@@ -64,14 +65,18 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
   const perTerm = terms
     .slice()
     .reverse()
-    .map((t) => [termLabel(t), past.filter((e) => termYear(e.startsAt) === t).length] as const);
+    .map((t) => ({
+      label: termLabel(t),
+      count: past.filter((e) => termYear(e.startsAt) === t).length,
+      current: t === currentTerm,
+    }));
   const tags = top(
     past.flatMap((e) => e.tags),
     6,
   );
   const venues = top(
-    past.filter((e) => e.format === "in-person" && e.venue).map((e) => e.venue!),
-    5,
+    past.filter((e) => e.format === "in-person" && e.venue).map((e) => venueName(e.venue!)),
+    6,
   );
   const coordinators = top(
     (links ?? []).map((l) => memberName.get(l.member_id) ?? "?"),
@@ -118,13 +123,17 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
           <StatTile label="koordinatörü yok" value={uncoordinated} tone="red" size="md" />
         </div>
         <div className="grid gap-4 lg:grid-cols-2">
-          <Bars title="dönemlere göre" rows={perTerm} />
-          <Bars title="türler" rows={tags} />
-          <Bars title="salonlar" rows={venues} />
-          <Bars
+          <TermColumns rows={perTerm} current={termLabel(currentTerm)} />
+          <RankedBars title="türler" rows={tags} tone="blue" total={past.length} />
+          <RankedBars title="salonlar" rows={venues} tone="yellow" total={inPerson} />
+          <RankedBars
             title="koordinatörler"
             rows={coordinators}
-            empty="Henüz koordinatör atanmadı; aşağıdaki listeden ata."
+            tone="red"
+            avatars
+            empty={
+              <>Henüz koordinatör atanmadı. Aşağıdaki listede etkinliğin yanındaki seçiciden ata.</>
+            }
           />
         </div>
       </section>
@@ -220,45 +229,6 @@ function EventRow({
         </div>
       </CoordinatorPicker>
     </li>
-  );
-}
-
-function Bars({
-  title,
-  rows,
-  empty = "Veri yok.",
-}: {
-  title: string;
-  rows: readonly (readonly [string, number])[];
-  empty?: string;
-}) {
-  const max = Math.max(1, ...rows.map(([, n]) => n));
-  return (
-    <PanelBox title={title} titleAs="h3">
-      {rows.length === 0 ? (
-        <p className="p-5 text-sm text-fg-muted">{empty}</p>
-      ) : (
-        <ul className="space-y-2 p-5">
-          {rows.map(([label, n]) => (
-            <li
-              key={label}
-              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 text-sm"
-            >
-              <span className="truncate" title={label}>
-                {label}
-              </span>
-              <span className="font-mono tabular-nums">{n}</span>
-              <span className="col-span-2 h-2 rounded-full bg-surface-2">
-                <span
-                  className="block h-full rounded-full bg-blue"
-                  style={{ width: `${(n / max) * 100}%` }}
-                />
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </PanelBox>
   );
 }
 
