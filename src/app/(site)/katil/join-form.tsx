@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Window } from "@/components/ui/window";
 import { sendApplication, type JoinField, type JoinState } from "./actions";
 import { GITHUB_TEAM, MESSAGE_RULES, YEAR_LABELS } from "./fields";
@@ -166,9 +167,13 @@ export function JoinForm({
         <label className="flex items-start gap-3 text-sm">
           <input type="checkbox" name="consent" className="mt-0.5 size-4 shrink-0" />
           <span>
-            Bilgilerimin sadece bu başvuruyu değerlendirmek ve bana dönmek için GDG on Campus AİBÜ
-            yönetimi tarafından kullanılmasını kabul ediyorum. Bilgiler kimseyle paylaşılmaz, dönem
-            sonunda silinir.
+            <Link href="/gizlilik" target="_blank" className="underline">
+              Aydınlatma metnini
+            </Link>{" "}
+            okudum. Bilgilerimin bu başvuruyu değerlendirmek ve bana dönmek için GDG on Campus AİBÜ
+            yönetimi tarafından işlenmesine ve bu amaçla yurt dışındaki hizmet sağlayıcılarda
+            (Supabase, Vercel, Google) saklanmasına açık rıza veriyorum. Bilgiler dönem sonunda
+            silinir.
           </span>
         </label>
         {err("consent") && <p className="-mt-3 text-sm text-red-ink">{err("consent")}</p>}

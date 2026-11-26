@@ -1,5 +1,5 @@
 // Ana sayfa "etkinliklerden kareler": etkinlik fotoğrafları, her kare kendi etkinliğine gider.
-// Fotoğraflar content/photos.json'da (kaynak arşiv doc/fotograflar/, 1600 px'e küçültülüp EXIF'i silinmiş).
+// Fotoğraflar content/photos.json'da ve panelden yüklenenlerde ("ana sayfada göster" işaretli) (kaynak arşiv doc/fotograflar/, 1600 px'e küçültülüp EXIF'i silinmiş).
 
 import Image from "next/image";
 import Link from "next/link";

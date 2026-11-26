@@ -18,7 +18,7 @@ import { LatestEvents } from "./_components/latest-events";
 export default async function Home() {
   const site = await getSiteLive();
   const members = await getMembers();
-  const photos = getPhotos();
+  const photos = await getPhotos();
   // Yaklaşan etkinlik ayrı kartta; listede sadece geçmişler
   const { upcoming, past } = await getEventTimeline();
   const next = upcoming[0];

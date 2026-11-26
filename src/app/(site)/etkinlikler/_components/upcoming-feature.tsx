@@ -51,7 +51,7 @@ export function UpcomingFeature({ event }: { event: Event }) {
           </div>
         )}
         <div className="mt-auto flex flex-wrap gap-3 pt-2">
-          <ButtonLink href={event.sourceUrl} tone="yellow">
+          <ButtonLink href={`/etkinlikler/${event.slug}#kayit`} tone="yellow">
             Kayıt ol
           </ButtonLink>
           <ButtonLink href={`/etkinlikler/${event.slug}`} tone="plain">
