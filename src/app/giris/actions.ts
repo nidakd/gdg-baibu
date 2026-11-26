@@ -16,6 +16,7 @@ import { escapeHtml } from "@/lib/form-guard";
 import { hasGmail, sendGmail } from "@/lib/gmail";
 import { safeNext } from "@/lib/panel/auth";
 import {
+  codeChoices,
   describeDevice,
   newCode,
   newSecret,
@@ -155,6 +156,7 @@ async function createRequest(admin: SupabaseClient, r: NewRequest) {
   }
 
   const link = `${r.origin}/giris/onay?i=${r.id}&k=${approveSecret}`;
+  const choices = codeChoices(r.code);
   const ok = await sendGmail({
     to: r.email,
     subject: "Panel girişini onayla · GDG on Campus AİBÜ",
@@ -162,10 +164,16 @@ async function createRequest(admin: SupabaseClient, r: NewRequest) {
     <div style="font-family:sans-serif;font-size:15px;line-height:1.5;color:#202124">
       <p>Merhaba,</p>
       <p><b>${escapeHtml(r.device)}</b> üzerinden GDG on Campus AİBÜ paneline giriş istendi. Onaylarsan giriş, bağlantıyı istediğin tarayıcıda açılır; bu e-postayı telefonda açman sorun değil.</p>
-      <p><a href="${escapeHtml(link)}" style="display:inline-block;background:#4285f4;color:#fff;padding:9px 16px;border-radius:999px;text-decoration:none;font-size:14px">Girişi onayla</a></p>
+      <p>Onaylamak için giriş istediğin sayfada gördüğün sayıya dokun:</p>
+      <table role="presentation" cellpadding="0" cellspacing="0"><tr>${choices
+        .map(
+          (c) =>
+            `<td style="padding-right:10px"><a href="${escapeHtml(`${link}&s=${c}`)}" style="display:inline-block;min-width:56px;text-align:center;border:2px solid #202124;border-radius:12px;padding:10px 0;font-family:monospace;font-size:24px;font-weight:bold;color:#202124;text-decoration:none">${c}</a></td>`,
+        )
+        .join("")}</tr></table>
       <p style="font-size:13px;color:#5f6368">Bağlantı 15 dakika geçerli. Bu isteği sen yapmadıysan e-postayı yok say; onay vermedikçe kimse giriş yapamaz.</p>
     </div>`,
-    text: `${r.device} üzerinden GDG on Campus AİBÜ paneline giriş istendi. Onaylamak için (15 dakika geçerli):\n${link}\n\nBu isteği sen yapmadıysan e-postayı yok say.`,
+    text: `${r.device} üzerinden GDG on Campus AİBÜ paneline giriş istendi. Giriş istediğin sayfadaki sayının bağlantısını aç (15 dakika geçerli):\n${choices.map((c) => `${c}: ${link}&s=${c}`).join("\n")}\n\nBu isteği sen yapmadıysan e-postayı yok say.`,
   });
   if (!ok) console.error("[giriş] onay e-postası gönderilemedi");
 }

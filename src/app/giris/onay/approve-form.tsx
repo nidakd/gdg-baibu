@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { approveLogin, type ApproveState } from "./actions";
 
 const box = "space-y-4 rounded-2xl border-2 border-border bg-surface p-5";
@@ -14,13 +14,23 @@ type Props = {
   device: string;
   time: string;
   sameBrowser: boolean;
+  /** E-postadaki sayı bağlantısından gelindiyse o sayı; form kendiliğinden gönderilir */
+  picked?: string;
   choices: string[];
 };
 
-export function ApproveForm({ id, k, device, time, sameBrowser, choices }: Props) {
+export function ApproveForm({ id, k, device, time, sameBrowser, picked, choices }: Props) {
   const [state, action, pending] = useActionState<ApproveState, FormData>(approveLogin, {
     status: "idle",
   });
+  const form = useRef<HTMLFormElement>(null);
+  const auto = sameBrowser || Boolean(picked);
+
+  // Tek dokunuş: sayfa açılınca onay kendiliğinden gider. GET ile değil JS ile gönderildiği için
+  // bağlantıları önceden tarayan e-posta güvenlik servisleri onay veremez ya da iptal edemez.
+  useEffect(() => {
+    if (auto) form.current?.requestSubmit();
+  }, [auto]);
 
   if (state.status === "approved")
     return (
@@ -57,13 +67,18 @@ export function ApproveForm({ id, k, device, time, sameBrowser, choices }: Props
     );
 
   return (
-    <form action={action} className={box}>
+    <form ref={form} action={action} className={box}>
       <input type="hidden" name="i" value={id} />
       <input type="hidden" name="k" value={k} />
+      {picked && <input type="hidden" name="sayi" value={picked} />}
       <p className="text-sm text-fg-muted">
         <b className="text-fg">{device}</b> · saat {time}
       </p>
-      {sameBrowser ? (
+      {picked ? (
+        <p className="text-sm" role="status">
+          Onaylanıyor…
+        </p>
+      ) : sameBrowser ? (
         <button type="submit" disabled={pending} className={primary}>
           {pending ? "Giriş yapılıyor…" : "Panele gir"}
         </button>
