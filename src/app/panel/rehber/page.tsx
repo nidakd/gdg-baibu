@@ -96,13 +96,6 @@ export default async function Guide() {
               gün) görünür.
             </p>
           </Topic>
-          <Topic title="Yedek">
-            <p>
-              Veritabanı her pazar GitHub Actions&apos;ta şifreli yedeklenir (&quot;Veritabanı
-              yedeği&quot;, 90 gün). Açmak için yedek parolası gerekir; parola Nida&apos;da.
-              Fotoğraf dosyaları yedekte yok, Supabase Storage&apos;da duruyor.
-            </p>
-          </Topic>
         </>
       )}
 
