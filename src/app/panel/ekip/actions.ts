@@ -140,3 +140,48 @@ export async function setActive(form: FormData) {
   // Listeden mi kişi sayfasından mı gelindiyse oraya dönülür
   redirect(form.get("donus") === "kisi" ? `/panel/ekip/duzenle?id=${id}` : "/panel/ekip");
 }
+
+/**
+ * GDG Community'deki (Cloudinary) profil fotoğraflarını kulübün Supabase Storage'ına kopyalar ve
+ * adresleri günceller: fotoğraflar o hesaplardan silinse ya da değişse de sitede kalır. Sadece admin.
+ */
+export async function moveMemberPhotos() {
+  const { supabase, user } = await requirePanelUser("/panel/ekip");
+  if (user.role !== "admin") redirect("/panel/ekip");
+  const { data } = await supabase
+    .from("team_members")
+    .select("id,slug,photo_url")
+    .like("photo_url", "https://res.cloudinary.com/%");
+  let moved = 0;
+  let failed = 0;
+  for (const m of data ?? []) {
+    try {
+      const res = await fetch(m.photo_url, {
+        headers: { Accept: "image/webp,image/jpeg" },
+        signal: AbortSignal.timeout(10_000),
+      });
+      const type = res.headers.get("content-type")?.split(";")[0] ?? "";
+      if (!res.ok || !PHOTO_TYPES[type]) throw new Error(`${res.status} ${type}`);
+      const body = await res.arrayBuffer();
+      if (body.byteLength > MAX_PHOTO) throw new Error("büyük");
+      const path = `${m.slug}-${Date.now()}.${PHOTO_TYPES[type]}`;
+      const up = await supabase.storage
+        .from("ekip")
+        .upload(path, body, { contentType: type, cacheControl: "31536000" });
+      if (up.error) throw up.error;
+      const photo_url = supabase.storage.from("ekip").getPublicUrl(path).data.publicUrl;
+      const { error } = await supabase.from("team_members").update({ photo_url }).eq("id", m.id);
+      if (error) throw error;
+      moved++;
+    } catch (err) {
+      console.error(
+        "[panel] fotoğraf taşınamadı",
+        m.slug,
+        err instanceof Error ? err.message : err,
+      );
+      failed++;
+    }
+  }
+  updateTag(TEAM_CACHE_TAG);
+  redirect(`/panel/ekip?tasindi=${moved}&hata=${failed}`);
+}

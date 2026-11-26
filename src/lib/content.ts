@@ -15,6 +15,8 @@ import { publicClient } from "./supabase/public";
 export const TEAM_CACHE_TAG = "ekip";
 /** Panelden etkinlik kaydedilince yenilenir */
 export const EVENTS_CACHE_TAG = "etkinlikler";
+/** Panelden fotoğraf eklenince/silinince yenilenir */
+export const PHOTOS_CACHE_TAG = "kareler";
 
 export type Site = typeof siteJson;
 
@@ -304,9 +306,49 @@ export type Photo = {
   event: { slug: string; title: string; startsAt: string };
 };
 
+type PanelPhoto = {
+  event_slug: string;
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+  on_home: boolean;
+};
+
+/** Panelden yüklenen etkinlik fotoğrafları (Supabase Storage) */
+async function loadPanelPhotos(): Promise<PanelPhoto[]> {
+  "use cache";
+  cacheTag(PHOTOS_CACHE_TAG);
+  cacheLife("hours");
+  const db = publicClient();
+  if (!db) return [];
+  const { data, error } = await db
+    .from("event_photos")
+    .select("event_slug,url,alt,width,height,on_home")
+    .order("sort_order")
+    .order("created_at");
+  if (error) {
+    console.error("[kareler] okunamadı", error.code);
+    return [];
+  }
+  return data as PanelPhoto[];
+}
+
 export async function getPhotos(): Promise<Photo[]> {
-  const events = await loadEvents();
-  return photosJson.flatMap(({ event: slug, ...photo }) => {
+  const [events, panel] = await Promise.all([loadEvents(), loadPanelPhotos()]);
+  const picked = [
+    ...photosJson.map(({ event, src, alt, width, height }) => ({ event, src, alt, width, height })),
+    ...panel
+      .filter((p) => p.on_home)
+      .map((p) => ({
+        event: p.event_slug,
+        src: p.url,
+        alt: p.alt,
+        width: p.width,
+        height: p.height,
+      })),
+  ];
+  return picked.flatMap(({ event: slug, ...photo }) => {
     const event = events.find((e) => e.slug === slug);
     return event
       ? [{ ...photo, event: { slug, title: event.title, startsAt: event.startsAt } }]
@@ -314,13 +356,19 @@ export async function getPhotos(): Promise<Photo[]> {
   });
 }
 
-/** Etkinlik sayfasındaki galeri: önce seçilen kareler (photos.json), sonra GDG Community "wrap-up" fotoğrafları. */
+/** Etkinlik sayfasındaki galeri: seçilen kareler (photos.json + panelden yüklenenler), sonra GDG Community "wrap-up" fotoğrafları. */
 export type GalleryPhoto = { src: string; alt: string; width?: number; height?: number };
 
-export function getEventPhotos(event: Event): GalleryPhoto[] {
-  const picked = photosJson
-    .filter((p) => p.event === event.slug)
-    .map(({ src, alt, width, height }) => ({ src, alt, width, height }));
+export async function getEventPhotos(event: Event): Promise<GalleryPhoto[]> {
+  const panel = (await loadPanelPhotos())
+    .filter((p) => p.event_slug === event.slug)
+    .map(({ url, alt, width, height }) => ({ src: url, alt, width, height }));
+  const picked = [
+    ...photosJson
+      .filter((p) => p.event === event.slug)
+      .map(({ src, alt, width, height }) => ({ src, alt, width, height })),
+    ...panel,
+  ];
   const wrapup = event.photos.map((src, i) => ({
     src,
     alt: `${event.title} etkinliğinden fotoğraf ${picked.length + i + 1}`,
