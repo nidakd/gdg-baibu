@@ -3,17 +3,6 @@ import { PanelBox } from "@/app/panel/_components/panel-box";
 import { type Event, getEvents, SITE_EVENT_COLUMNS, siteEventToEvent } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { requirePanelUser } from "@/lib/panel/auth";
-import {
-  Delta,
-  Kpi,
-  Meter,
-  type MonthBar,
-  MonthlyChart,
-  RankedList,
-  Spark,
-  venueName,
-  WeekdayChart,
-} from "./charts";
 import { CoordinatorPicker } from "./coordinator-picker";
 
 export const metadata = { title: "Etkinlikler" };
@@ -30,56 +19,57 @@ const termLabel = (y: number) => `${y}–${String((y + 1) % 100).padStart(2, "0"
 /** Sunucuda istek anında bir kez değerlendirilir */
 const nowIso = () => new Date().toISOString();
 
-const MONTHS = [
-  "Ocak",
-  "Şubat",
-  "Mart",
-  "Nisan",
-  "Mayıs",
-  "Haziran",
-  "Temmuz",
-  "Ağustos",
-  "Eylül",
-  "Ekim",
-  "Kasım",
-  "Aralık",
-];
-const DAYS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
-
-/** Türkiye saatiyle (UTC+3) tarih parçaları */
-const trDate = (iso: string) => new Date(Date.parse(iso) + 3 * 60 * 60 * 1000);
-const monthKey = (iso: string) => trDate(iso).toISOString().slice(0, 7);
-
-/** Son 12 ay (bu ay dahil) için geçmiş / yaklaşan sayıları */
-function lastMonths(events: Event[], now: string): MonthBar[] {
-  const d = trDate(now);
-  const out: MonthBar[] = [];
-  for (let i = 11; i >= 0; i--) {
-    const m = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() - i, 1));
-    const key = m.toISOString().slice(0, 7);
-    const these = events.filter((e) => monthKey(e.startsAt) === key);
-    out.push({
-      key,
-      label: `${MONTHS[m.getUTCMonth()]} ${m.getUTCFullYear()}`,
-      past: these.filter((e) => e.startsAt < now).length,
-      upcoming: these.filter((e) => e.startsAt >= now).length,
-      current: i === 0,
-    });
-  }
-  return out;
+const DAY = 24 * 60 * 60 * 1000;
+const dayDiff = (a: string, b: string) => Math.round((Date.parse(a) - Date.parse(b)) / DAY);
+function daysUntil(iso: string, now: string) {
+  const d = dayDiff(iso, now);
+  return d <= 0 ? "bugün" : d === 1 ? "yarın" : `${d} gün sonra`;
+}
+function daysAgo(iso: string, now: string) {
+  const d = dayDiff(now, iso);
+  return d <= 0 ? "bugün" : d === 1 ? "dün" : `${d} gün önce`;
 }
 
-/** En çoktan aza, ilk n */
-function top<T extends string>(items: T[], n: number): [T, number][] {
-  const counts = new Map<T, number>();
-  for (const i of items) counts.set(i, (counts.get(i) ?? 0) + 1);
-  return [...counts].sort((a, b) => b[1] - a[1]).slice(0, n);
+/** Bir bakışta: sitenin kart dilinde küçük kart; bağlantı varsa tıklanır. */
+function Glance({
+  label,
+  value,
+  note,
+  tone,
+  href,
+}: {
+  label: string;
+  value: string;
+  note: string;
+  tone: string;
+  href?: string;
+}) {
+  const body = (
+    <>
+      <span className="block font-mono text-xs text-fg-subtle">{`// ${label}`}</span>
+      <span className="mt-1 block text-2xl font-bold tracking-tight">{value}</span>
+      <span className="mt-1 block truncate text-sm text-fg-muted" title={note}>
+        {note}
+      </span>
+    </>
+  );
+  const box = `block rounded-card border-2 border-border-strong px-4 py-3 shadow-sticker-sm dark:bg-surface ${tone}`;
+  return href ? (
+    <Link
+      href={href}
+      className={`${box} hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-sticker`}
+    >
+      {body}
+    </Link>
+  ) : (
+    <div className={box}>{body}</div>
+  );
 }
 
 /** Etkinlik analizi ve listesi; her etkinliğe core team'den koordinatör atanır. */
 export default async function Events({ searchParams }: PageProps<"/panel/etkinlikler">) {
   const { supabase } = await requirePanelUser("/panel/etkinlikler");
-  const { donem } = await searchParams;
+  const { donem, eksik } = await searchParams;
   const [{ data: memberRows }, { data: links }, { data: drafts }, { data: regs }] =
     await Promise.all([
       supabase.from("team_members").select("id,name,active").order("sort_order"),
@@ -91,7 +81,6 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
   for (const r of regs ?? []) regCount.set(r.event_slug, (regCount.get(r.event_slug) ?? 0) + 1);
   const draftIds = new Set((drafts ?? []).map((d) => d.id));
   const members = (memberRows ?? []) as Member[];
-  const memberName = new Map(members.map((m) => [m.id, m.name]));
   const byEvent = new Map<string, string[]>();
   for (const l of links ?? [])
     byEvent.set(l.event_id, [...(byEvent.get(l.event_id) ?? []), l.member_id]);
@@ -104,38 +93,29 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
   const currentTerm = termYear(now);
   const terms = [...new Set(all.map((e) => termYear(e.startsAt)))].sort((a, b) => b - a);
   const selected = typeof donem === "string" && /^[0-9]{4}$/.test(donem) ? Number(donem) : null;
-  const list = selected ? all.filter((e) => termYear(e.startsAt) === selected) : all;
+  const needsCoordinator = (e: Event) =>
+    !draftIds.has(e.id) &&
+    !byEvent.get(e.id)?.length &&
+    (e.startsAt >= now || termYear(e.startsAt) === currentTerm);
+  const missingOnly = eksik === "1";
+  const list = missingOnly
+    ? all.filter(needsCoordinator)
+    : selected
+      ? all.filter((e) => termYear(e.startsAt) === selected)
+      : all;
 
   const published = all.filter((e) => !draftIds.has(e.id));
   const thisTerm = past.filter((e) => termYear(e.startsAt) === currentTerm).length;
-  // Geçen dönemin aynı noktasına kadar (bir yıl önceki bugün)
-  const yearAgo = new Date(Date.parse(now) - 365 * 24 * 60 * 60 * 1000).toISOString();
-  const lastTermSoFar = past.filter(
+  // Geçen yılın aynı gününe kadar geçen dönemde yapılanlar
+  const yearAgo = new Date(Date.parse(now) - 365 * DAY).toISOString();
+  const lastYearSoFar = past.filter(
     (e) => termYear(e.startsAt) === currentTerm - 1 && e.startsAt < yearAgo,
   ).length;
-  const upcomingCount = published.filter((e) => e.startsAt >= now).length;
-  const inPerson = past.filter((e) => e.format === "in-person").length;
-  const coordinated = past.filter((e) => byEvent.get(e.id)?.length).length;
-
-  const termsAsc = terms.slice().reverse();
-  const perTerm = termsAsc.map((t) => past.filter((e) => termYear(e.startsAt) === t).length);
-  const months = lastMonths(published, now);
-  const weekdays = DAYS.map((label, i) => ({
-    label,
-    count: past.filter((e) => (trDate(e.startsAt).getUTCDay() + 6) % 7 === i).length,
-  }));
-  const tags = top(
-    past.flatMap((e) => e.tags),
-    6,
-  );
-  const venues = top(
-    past.filter((e) => e.format === "in-person" && e.venue).map((e) => venueName(e.venue!)),
-    6,
-  );
-  const coordinators = top(
-    (links ?? []).map((l) => memberName.get(l.member_id) ?? "?"),
-    8,
-  );
+  const next = published
+    .filter((e) => e.startsAt >= now)
+    .sort((a, b) => a.startsAt.localeCompare(b.startsAt))[0];
+  const lastEvent = past.find((e) => !draftIds.has(e.id));
+  const missing = all.filter(needsCoordinator).length;
 
   return (
     <div className="space-y-8">
@@ -158,61 +138,39 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
 
       <section aria-labelledby="analiz" className="space-y-4">
         <h2 id="analiz" className="font-mono text-sm text-fg-subtle">
-          {"// analiz"}
+          {"// bir bakışta"}
         </h2>
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <Kpi label="Toplam etkinlik" value={past.length} sub={`${termsAsc.length} dönem`}>
-            <Spark values={perTerm} labels={termsAsc.map(termLabel)} />
-          </Kpi>
-          <Kpi
-            label={`Bu dönem · ${termLabel(currentTerm)}`}
-            value={
-              <span className="flex items-center gap-3">
-                {thisTerm}
-                <Delta now={thisTerm} before={lastTermSoFar} />
-              </span>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Glance
+            label="sıradaki"
+            tone="bg-yellow-soft"
+            href={next ? `/panel/etkinlikler/kayit?e=${next.slug}` : "/panel/etkinlikler/yeni"}
+            value={next ? daysUntil(next.startsAt, now) : "yok"}
+            note={
+              next
+                ? `${next.title} · ${regCount.get(next.slug) ?? 0} kayıt`
+                : "Yaklaşan etkinlik yok, ekle →"
             }
-            sub={`Geçen yıl bu zamana kadar ${lastTermSoFar}${upcomingCount ? ` · ${upcomingCount} yaklaşan` : ""}`}
           />
-          <Kpi
-            label="Yüz yüze"
-            value={past.length ? `%${Math.round((inPerson / past.length) * 100)}` : "—"}
-            sub={`${inPerson} yüz yüze · ${past.length - inPerson} online`}
-          >
-            <Meter value={inPerson} total={past.length} />
-          </Kpi>
-          <Kpi
-            label="Koordinatör atanmış"
-            value={
-              <>
-                {coordinated}
-                <span className="text-xl text-fg-subtle">/{past.length}</span>
-              </>
-            }
-            sub="Aşağıdaki listeden ata"
-          >
-            <Meter value={coordinated} total={past.length} />
-          </Kpi>
-        </div>
-        <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
-          <MonthlyChart months={months} />
-          <WeekdayChart days={weekdays} />
-        </div>
-        <div className="grid gap-4 lg:grid-cols-3">
-          <RankedList title="Türler" subtitle="Etiketlere göre" rows={tags} total={past.length} />
-          <RankedList
-            title="Salonlar"
-            subtitle="Yüz yüze etkinlikler"
-            rows={venues}
-            total={inPerson}
+          <Glance
+            label={`bu dönem · ${termLabel(currentTerm)}`}
+            tone="bg-green-soft"
+            href={`/panel/etkinlikler?donem=${currentTerm}`}
+            value={`${thisTerm} etkinlik`}
+            note={`Geçen yıl bu zamana kadar ${lastYearSoFar}`}
           />
-          <RankedList
-            title="Koordinatörler"
-            subtitle="Yürüttüğü etkinlik"
-            rows={coordinators}
-            total={Math.max(1, coordinated)}
-            avatars
-            empty="Henüz koordinatör atanmadı; aşağıdaki listede etkinliğin yanından ata."
+          <Glance
+            label="son etkinlik"
+            tone="bg-blue-soft"
+            value={lastEvent ? daysAgo(lastEvent.startsAt, now) : "—"}
+            note={lastEvent?.title ?? ""}
+          />
+          <Glance
+            label="koordinatörü eksik"
+            tone={missing ? "bg-red-soft" : "bg-silver-soft"}
+            href={missing ? "/panel/etkinlikler?eksik=1#liste" : undefined}
+            value={missing ? `${missing} etkinlik` : "hepsi tamam"}
+            note={missing ? "Bu dönem ve yaklaşanlar · göster →" : "Bu dönemin hepsine atanmış"}
           />
         </div>
       </section>
@@ -222,14 +180,21 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
           {"// liste"}
         </h2>
         <nav aria-label="Döneme göre" className="flex flex-wrap gap-2 font-mono text-sm">
-          <FilterLink href="/panel/etkinlikler" active={!selected}>
+          <FilterLink href="/panel/etkinlikler" active={!selected && !missingOnly}>
             hepsi
           </FilterLink>
           {terms.map((t) => (
-            <FilterLink key={t} href={`/panel/etkinlikler?donem=${t}`} active={selected === t}>
+            <FilterLink
+              key={t}
+              href={`/panel/etkinlikler?donem=${t}`}
+              active={!missingOnly && selected === t}
+            >
               {termLabel(t)}
             </FilterLink>
           ))}
+          <FilterLink href="/panel/etkinlikler?eksik=1" active={missingOnly}>
+            koordinatörü eksik
+          </FilterLink>
         </nav>
         <PanelBox title="~/panel/etkinlikler" meta={`${list.length} etkinlik`}>
           <ul className="divide-y-2 divide-border">
