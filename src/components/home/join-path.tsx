@@ -26,7 +26,10 @@ export function JoinPath({ whatsapp, form }: { whatsapp: string; form: string })
             className="absolute top-8 bottom-8 left-8 w-0 border-l-[3px] border-dashed border-fg/40 md:top-8 md:right-[16%] md:bottom-auto md:left-[16%] md:w-auto md:border-t-[3px] md:border-l-0"
           />
           {STEPS.map((s, i) => (
-            <li key={s.cmd} className="relative flex gap-5 md:flex-col md:items-center md:text-center">
+            <li
+              key={s.cmd}
+              className="relative flex gap-5 md:flex-col md:items-center md:text-center"
+            >
               <span
                 className={`grid size-16 shrink-0 place-items-center rounded-full border-[3px] border-ink-black font-mono text-2xl font-bold text-ink-black shadow-sticker ${s.dot}`}
               >

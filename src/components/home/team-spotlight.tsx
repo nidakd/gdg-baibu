@@ -55,14 +55,18 @@ export function TeamSpotlight({ members }: { members: SpotlightMember[] }) {
               className="animate-[spotlight-in_400ms_ease-out] object-cover"
             />
           ) : (
-            <span className="grid h-full place-items-center font-mono text-3xl">{initials(m.name)}</span>
+            <span className="grid h-full place-items-center font-mono text-3xl">
+              {initials(m.name)}
+            </span>
           )}
         </span>
         <span key={m.slug} className="block animate-[spotlight-in_400ms_ease-out] space-y-2">
           <span className="block font-mono text-xs text-fg-subtle">
             {m.team} · {m.role}
           </span>
-          <span className="block text-3xl font-bold tracking-tight group-hover:underline">{m.name}</span>
+          <span className="block text-3xl font-bold tracking-tight group-hover:underline">
+            {m.name}
+          </span>
           <span className="line-clamp-3 min-h-[4.5rem] text-fg-muted">{m.intro}</span>
           <span className="inline-block pt-1 font-mono text-sm">profili aç →</span>
         </span>

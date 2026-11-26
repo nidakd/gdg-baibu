@@ -40,7 +40,7 @@ export function EventGallery({ photos }: { photos: GalleryPhoto[] }) {
               type="button"
               onClick={() => show(i)}
               aria-label={`Büyüt: ${p.alt}`}
-              className={`group block w-full cursor-zoom-in rounded-xl border-2 border-border-strong bg-surface p-1.5 shadow-sticker-sm transition duration-300 hover:rotate-0 hover:scale-[1.03] focus-visible:rotate-0 ${TILTS[i % TILTS.length]}`}
+              className={`group block w-full cursor-zoom-in rounded-xl border-2 border-border-strong bg-surface p-1.5 shadow-sticker-sm transition duration-300 hover:scale-[1.03] hover:rotate-0 focus-visible:rotate-0 ${TILTS[i % TILTS.length]}`}
             >
               <span
                 className="relative block overflow-hidden rounded-lg"
