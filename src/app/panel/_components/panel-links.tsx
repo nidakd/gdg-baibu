@@ -7,6 +7,7 @@ import { signOut } from "@/app/giris/actions";
 const links = [
   { href: "/panel", label: "Özet", icon: "◎" },
   { href: "/panel/ekip", label: "Ekip", icon: "☺" },
+  { href: "/panel/etkinlikler", label: "Etkinlikler", icon: "◆" },
   { href: "/panel/basvurular", label: "Başvurular", icon: "✦" },
   { href: "/panel/mesajlar", label: "Mesajlar", icon: "✉" },
 ];
