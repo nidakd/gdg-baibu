@@ -65,7 +65,8 @@ const nextConfig: NextConfig = {
             {
               protocol: "https" as const,
               hostname: supabaseHost,
-              pathname: "/storage/v1/object/public/ekip/**",
+              // Panelden yüklenenler: ekip fotoğrafları, etkinlik afişleri, kareler
+              pathname: "/storage/v1/object/public/**",
             },
           ]
         : []),
