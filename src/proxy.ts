@@ -35,13 +35,33 @@ async function memberSlugs(): Promise<Set<string>> {
   }
 }
 
+let eventCache: { slugs: Set<string>; at: number } | null = null;
+
+/** GDG Community etkinlikleri + panelden yayınlananlar */
+async function knownEventSlugs(): Promise<Set<string>> {
+  if (!hasSupabase) return eventSlugs;
+  if (eventCache && Date.now() - eventCache.at < MEMBER_TTL_MS) return eventCache.slugs;
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/site_events?select=slug&published=eq.true`, {
+      headers: { apikey: SUPABASE_KEY },
+      signal: AbortSignal.timeout(2000),
+    });
+    if (!res.ok) throw new Error(String(res.status));
+    const rows = (await res.json()) as { slug: string }[];
+    eventCache = { slugs: new Set([...eventSlugs, ...rows.map((r) => r.slug)]), at: Date.now() };
+    return eventCache.slugs;
+  } catch {
+    return eventCache?.slugs ?? eventSlugs;
+  }
+}
+
 export async function proxy(request: NextRequest) {
   const [, section, slug] = request.nextUrl.pathname.split("/");
 
   if (section === "panel") return panelGate(request);
 
   if (slug) {
-    const known = section === "ekip" ? await memberSlugs() : eventSlugs;
+    const known = section === "ekip" ? await memberSlugs() : await knownEventSlugs();
     if (!known.has(decode(slug) ?? "")) {
       return NextResponse.rewrite(new URL("/_bulunamadi", request.url));
     }

@@ -12,7 +12,7 @@ export async function getEventTimeline(): Promise<EventTimeline> {
   "use cache";
   cacheLife("hours");
   const now = Date.now();
-  const events = getEvents();
+  const events = await getEvents();
   return {
     // yaklaşanlar en yakından başlar, geçmişler en yeniden
     upcoming: events.filter((e) => Date.parse(e.endsAt) >= now).reverse(),
@@ -21,8 +21,8 @@ export async function getEventTimeline(): Promise<EventTimeline> {
 }
 
 /** Kronolojik komşular: daha eski ve daha yeni etkinlik. */
-export function getAdjacentEvents(slug: string): { older?: Event; newer?: Event } {
-  const events = getEvents();
+export async function getAdjacentEvents(slug: string): Promise<{ older?: Event; newer?: Event }> {
+  const events = await getEvents();
   const i = events.findIndex((e) => e.slug === slug);
   if (i === -1) return {};
   return { newer: events[i - 1], older: events[i + 1] };

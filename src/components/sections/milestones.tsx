@@ -9,8 +9,8 @@ const dots: Record<Milestone["type"], string> = {
 };
 
 /** Kilometre taşları tek satırlık yatay çizgide; dar ekranda yana kayar. */
-export function Milestones() {
-  const milestones = getMilestones().reverse();
+export async function Milestones() {
+  const milestones = (await getMilestones()).reverse();
   return (
     <div className="-mx-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
       <ol className="relative flex min-w-max gap-2 lg:min-w-0">

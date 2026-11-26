@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/seo";
 // Sayfalar + her etkinlik ve her üye profili. Etkinliklerin tarihi "son değişiklik" olarak geçer.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = (path: string) => `${SITE_URL}${path}`;
-  const events = getEvents();
+  const events = await getEvents();
   return [
     { url: url("/"), lastModified: events[0]?.startsAt, priority: 1 },
     { url: url("/etkinlikler"), lastModified: events[0]?.startsAt, priority: 0.8 },

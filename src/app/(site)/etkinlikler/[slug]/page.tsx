@@ -7,13 +7,13 @@ import { formatDate } from "@/lib/format";
 import { openGraph } from "@/lib/seo";
 import { EventDetail } from "./_components/event-detail";
 
-export function generateStaticParams() {
-  return getEvents().map((e) => ({ slug: e.slug }));
+export async function generateStaticParams() {
+  return (await getEvents()).map((e) => ({ slug: e.slug }));
 }
 
 export async function generateMetadata(props: PageProps<"/etkinlikler/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
-  const event = getEventBySlug(slug);
+  const event = await getEventBySlug(slug);
   if (!event) notFound();
   const description =
     event.tr?.summary ?? event.summary ?? `${formatDate(event.startsAt)} · ${event.venue ?? ""}`;

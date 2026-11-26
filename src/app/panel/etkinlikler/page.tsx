@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PanelBox } from "@/app/panel/_components/panel-box";
 import { StatTile } from "@/components/ui/stat-tile";
-import { type Event, getEvents } from "@/lib/content";
+import { type Event, getEvents, SITE_EVENT_COLUMNS, siteEventToEvent } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { requirePanelUser } from "@/lib/panel/auth";
 import { CoordinatorPicker } from "./coordinator-picker";
@@ -31,10 +31,16 @@ function top<T extends string>(items: T[], n: number): [T, number][] {
 export default async function Events({ searchParams }: PageProps<"/panel/etkinlikler">) {
   const { supabase } = await requirePanelUser("/panel/etkinlikler");
   const { donem } = await searchParams;
-  const [{ data: memberRows }, { data: links }] = await Promise.all([
-    supabase.from("team_members").select("id,name,active").order("sort_order"),
-    supabase.from("event_coordinators").select("event_id,member_id"),
-  ]);
+  const [{ data: memberRows }, { data: links }, { data: drafts }, { data: regs }] =
+    await Promise.all([
+      supabase.from("team_members").select("id,name,active").order("sort_order"),
+      supabase.from("event_coordinators").select("event_id,member_id"),
+      supabase.from("site_events").select(SITE_EVENT_COLUMNS).eq("published", false),
+      supabase.from("registrations").select("event_slug").is("cancelled_at", null),
+    ]);
+  const regCount = new Map<string, number>();
+  for (const r of regs ?? []) regCount.set(r.event_slug, (regCount.get(r.event_slug) ?? 0) + 1);
+  const draftIds = new Set((drafts ?? []).map((d) => d.id));
   const members = (memberRows ?? []) as Member[];
   const memberName = new Map(members.map((m) => [m.id, m.name]));
   const byEvent = new Map<string, string[]>();
@@ -42,8 +48,10 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
     byEvent.set(l.event_id, [...(byEvent.get(l.event_id) ?? []), l.member_id]);
 
   const now = nowIso();
-  const all = [...getEvents()].sort((a, b) => b.startsAt.localeCompare(a.startsAt));
-  const past = all.filter((e) => e.startsAt < now);
+  const all = [...(await getEvents()), ...(drafts ?? []).map(siteEventToEvent)].sort((a, b) =>
+    b.startsAt.localeCompare(a.startsAt),
+  );
+  const past = all.filter((e) => e.startsAt < now && !draftIds.has(e.id));
   const currentTerm = termYear(now);
   const terms = [...new Set(all.map((e) => termYear(e.startsAt)))].sort((a, b) => b - a);
   const selected = typeof donem === "string" && /^[0-9]{4}$/.test(donem) ? Number(donem) : null;
@@ -72,12 +80,21 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
 
   return (
     <div className="space-y-8">
-      <header className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">Etkinlikler</h1>
-        <p className="text-fg-muted">
-          GDG Community&apos;deki etkinlikler (her pazartesi eşitlenir). Koordinatörleri buradan
-          ata; sadece panelde görünür.
-        </p>
+      <header className="flex flex-wrap items-end justify-between gap-4">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight">Etkinlikler</h1>
+          <p className="max-w-prose text-fg-muted">
+            GDG Community&apos;deki etkinlikler her pazartesi eşitlenir; orada olmayanları buradan
+            ekle. Koordinatörler sadece panelde görünür; kayıt ayarı ve katılımcılar
+            &quot;Kayıt&quot;ta.
+          </p>
+        </div>
+        <Link
+          href="/panel/etkinlikler/yeni"
+          className="rounded-full border-2 border-border-strong bg-green px-4 py-2 text-sm font-medium text-ink-black"
+        >
+          + Yeni etkinlik
+        </Link>
       </header>
 
       <section aria-labelledby="analiz" className="space-y-4">
@@ -135,6 +152,8 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
                 upcoming={e.startsAt >= now}
                 chosen={byEvent.get(e.id) ?? []}
                 members={members}
+                draft={draftIds.has(e.id)}
+                registrations={regCount.get(e.slug) ?? 0}
               />
             ))}
           </ul>
@@ -149,11 +168,15 @@ function EventRow({
   upcoming,
   chosen,
   members,
+  draft,
+  registrations,
 }: {
   event: Event;
   upcoming: boolean;
   chosen: string[];
   members: Member[];
+  draft: boolean;
+  registrations: number;
 }) {
   // Seçim listesi: aktif üyeler + (artık aktif olmasa da) zaten atanmış olanlar
   const options = members.filter((m) => m.active || chosen.includes(m.id));
@@ -166,8 +189,8 @@ function EventRow({
       >
         <div className="min-w-0">
           <Link
-            href={`/etkinlikler/${e.slug}`}
-            target="_blank"
+            href={draft ? `/panel/etkinlikler/duzenle?id=${e.id}` : `/etkinlikler/${e.slug}`}
+            target={draft ? undefined : "_blank"}
             className="font-medium hover:underline"
           >
             {e.title}
@@ -176,6 +199,20 @@ function EventRow({
             {formatDate(e.startsAt)} ·{" "}
             {e.format === "online" ? "çevrimiçi" : (e.venue ?? "yüz yüze")}
             {upcoming && <span className="ml-2 font-mono text-xs text-green-ink">yaklaşan</span>}
+            {draft && <span className="ml-2 font-mono text-xs text-fg-subtle">taslak</span>}
+            {e.source === "panel" && !draft && (
+              <span className="ml-2 font-mono text-xs text-blue-ink">panelden</span>
+            )}
+          </p>
+          <p className="flex flex-wrap gap-3 pt-1 text-sm">
+            <Link href={`/panel/etkinlikler/kayit?e=${e.slug}`} className="underline">
+              Kayıt{registrations ? ` (${registrations})` : ""}
+            </Link>
+            {e.source === "panel" && (
+              <Link href={`/panel/etkinlikler/duzenle?id=${e.id}`} className="underline">
+                Düzenle
+              </Link>
+            )}
           </p>
         </div>
       </CoordinatorPicker>
