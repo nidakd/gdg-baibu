@@ -55,8 +55,8 @@ function Waiting({ email, code }: { email?: string; code?: string }) {
         <span className="text-green-ink">✓</span> Onay bağlantısı gönderildi: {email}
       </p>
       <p className="text-sm text-fg-muted">
-        Bu adres panelde kayıtlıysa birkaç dakika içinde bir e-posta gelecek. E-postayı istediğin
-        cihazda (telefonda da olur) aç ve bu sayıya dokun:
+        Bu adres panelde kayıtlıysa birkaç dakika içinde bir e-posta gelecek. Bağlantıyı istediğin
+        cihazda (telefonda da olur) aç ve şu sayıyı seç:
       </p>
       <p
         className="text-center font-mono text-5xl font-bold tracking-widest"
