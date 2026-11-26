@@ -10,18 +10,22 @@ import { getEventBySlug, getEventPhotos, type Event } from "@/lib/content";
 import { getAdjacentEvents, getEventTimeline, sanitizeDescription } from "@/lib/events";
 import { formatDate, formatDateLong, formatTimeRange, releaseTag } from "@/lib/format";
 import { getSeriesOf } from "@/lib/insights";
+import { getRegistration, isFull, type Registration } from "@/lib/registration";
+import { RegisterForm } from "./register-form";
 
 export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug]">, "params">) {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await getEventBySlug(slug);
   if (!event) notFound();
 
   const { upcoming } = await getEventTimeline();
   const isUpcoming = upcoming.some((e) => e.id === event.id);
-  const series = getSeriesOf(event);
+  const series = await getSeriesOf(event);
   const siblings = series?.events.filter((e) => e.id !== event.id) ?? [];
-  const { older, newer } = getAdjacentEvents(event.slug);
+  const { older, newer } = await getAdjacentEvents(event.slug);
   const photos = getEventPhotos(event);
+  const reg = await getRegistration(event);
+  const formOpen = isUpcoming && reg.mode === "site" && !isFull(reg);
   // Çok uzun ya da çok yatay afiş sayfayı bozmasın
   const posterBox = Math.min(Math.max(event.coverAspect ?? 1, 0.7), 1.6);
 
@@ -49,11 +53,7 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
             <Info label="tarih">{formatDateLong(event.startsAt)}</Info>
             <Info label="saat">{formatTimeRange(event.startsAt, event.endsAt)}</Info>
             <Info label="yer">{event.format === "online" ? "Online" : (event.venue ?? "—")}</Info>
-            <div className="flex flex-wrap gap-3 pt-2">
-              <ButtonLink href={event.sourceUrl} tone={isUpcoming ? "yellow" : "plain"}>
-                {isUpcoming ? "Kayıt ol" : "GDG Community sayfası"}
-              </ButtonLink>
-            </div>
+            <RegisterAction event={event} reg={reg} isUpcoming={isUpcoming} formOpen={formOpen} />
           </Card>
         </div>
 
@@ -94,8 +94,8 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
                 // GDG Community'deki orijinal metin, kapalı başlar
                 <details className="group rounded-xl border-2 border-dashed border-border px-4 py-3 text-sm">
                   <summary className="cursor-pointer font-mono text-xs text-fg-subtle marker:content-none">
-                    <span className="inline-block transition group-open:rotate-90">›</span> İngilizce
-                    orijinali (GDG Community)
+                    <span className="inline-block transition group-open:rotate-90">›</span>{" "}
+                    İngilizce orijinali (GDG Community)
                   </summary>
                   <div
                     lang="en"
@@ -113,6 +113,16 @@ export async function EventDetail({ params }: Pick<PageProps<"/etkinlikler/[slug
             />
           ) : (
             event.summary && <p className="max-w-prose text-fg-muted">{event.summary}</p>
+          )}
+
+          {formOpen && (
+            <section id="kayit" className="max-w-prose scroll-mt-24 space-y-4">
+              <h2 className="text-2xl font-bold">Kayıt ol</h2>
+              <RegisterForm
+                slug={event.slug}
+                left={reg.capacity !== null ? reg.capacity - reg.count : null}
+              />
+            </section>
           )}
 
           {event.speakers.length > 0 && (
@@ -208,4 +218,39 @@ function EventLink({
       <span className="mt-1 block font-bold group-hover:underline">{event.title}</span>
     </Link>
   );
+}
+
+/** Soldaki kartın düğmesi: kayıt nerede alınıyorsa oraya. */
+function RegisterAction({
+  event,
+  reg,
+  isUpcoming,
+  formOpen,
+}: {
+  event: Event;
+  reg: Registration;
+  isUpcoming: boolean;
+  formOpen: boolean;
+}) {
+  let action: React.ReactNode = null;
+  if (formOpen)
+    action = (
+      <ButtonLink href="#kayit" tone="yellow">
+        Kayıt ol
+      </ButtonLink>
+    );
+  else if (isUpcoming && reg.mode === "site")
+    action = <p className="font-mono text-xs text-red-ink">kontenjan doldu</p>;
+  else if (isUpcoming && reg.mode === "kapali")
+    action = <p className="font-mono text-xs text-fg-subtle">kayıt kapalı</p>;
+  else if (event.sourceUrl)
+    action = (
+      <ButtonLink
+        href={event.sourceUrl}
+        tone={isUpcoming && reg.mode === "gdg" ? "yellow" : "plain"}
+      >
+        {isUpcoming && reg.mode === "gdg" ? "Kayıt ol" : "GDG Community sayfası"}
+      </ButtonLink>
+    );
+  return action && <div className="flex flex-wrap gap-3 pt-2">{action}</div>;
 }

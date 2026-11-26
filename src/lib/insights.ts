@@ -1,5 +1,5 @@
 // Etkinlik arşivinden türetilen özetler: rakamlar, etkinlik serileri ve kilometre taşları.
-// Elle sayı yazmak yerine hepsi content/events.json'dan hesaplanır.
+// Elle sayı yazmak yerine hepsi etkinlik listesinden (GDG Community + panel) hesaplanır.
 
 import type { Tone } from "@/components/ui/button";
 import milestonesJson from "../../content/milestones.json";
@@ -40,13 +40,13 @@ const seriesPatterns: { id: string; title: string; pattern: RegExp }[] = [
 ];
 
 /** Etkinliğin ait olduğu seri, varsa. */
-export function getSeriesOf(event: Event): Series | undefined {
-  return getSeries().find((s) => s.events.some((e) => e.id === event.id));
+export async function getSeriesOf(event: Event): Promise<Series | undefined> {
+  return (await getSeries()).find((s) => s.events.some((e) => e.id === event.id));
 }
 
 /** Birden fazla oturumu olan etkinlik serileri, en kalabalıktan başlayarak. */
-export function getSeries(): Series[] {
-  const events = getEvents();
+export async function getSeries(): Promise<Series[]> {
+  const events = await getEvents();
   return seriesPatterns
     .map(({ id, title, pattern }) => {
       const matched = events.filter((e) => pattern.test(e.title));
@@ -58,9 +58,9 @@ export function getSeries(): Series[] {
 }
 
 /** Yıllara göre etkinlik sayısı, eskiden yeniye. */
-export function getEventsPerYear(): { year: string; count: number }[] {
+export async function getEventsPerYear(): Promise<{ year: string; count: number }[]> {
   const counts = new Map<string, number>();
-  for (const e of getEvents()) {
+  for (const e of await getEvents()) {
     const year = e.startsAt.slice(0, 4);
     counts.set(year, (counts.get(year) ?? 0) + 1);
   }
@@ -93,8 +93,8 @@ export type Milestone = {
 };
 
 /** content/milestones.json, en yeniden eskiye; etkinlik bağlantısı kırıksa derleme hata verir. */
-export function getMilestones(): Milestone[] {
-  const slugs = new Set(getEvents().map((e) => e.slug));
+export async function getMilestones(): Promise<Milestone[]> {
+  const slugs = new Set((await getEvents()).map((e) => e.slug));
   return milestonesJson
     .map((m) => {
       const event = "event" in m ? m.event : undefined;
