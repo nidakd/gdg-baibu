@@ -1,10 +1,19 @@
 import Link from "next/link";
 import { PanelBox } from "@/app/panel/_components/panel-box";
-import { StatTile } from "@/components/ui/stat-tile";
 import { type Event, getEvents, SITE_EVENT_COLUMNS, siteEventToEvent } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { requirePanelUser } from "@/lib/panel/auth";
-import { RankedBars, TermColumns, venueName } from "./charts";
+import {
+  Delta,
+  Kpi,
+  Meter,
+  type MonthBar,
+  MonthlyChart,
+  RankedList,
+  Spark,
+  venueName,
+  WeekdayChart,
+} from "./charts";
 import { CoordinatorPicker } from "./coordinator-picker";
 
 export const metadata = { title: "Etkinlikler" };
@@ -20,6 +29,45 @@ const termLabel = (y: number) => `${y}–${String((y + 1) % 100).padStart(2, "0"
 
 /** Sunucuda istek anında bir kez değerlendirilir */
 const nowIso = () => new Date().toISOString();
+
+const MONTHS = [
+  "Ocak",
+  "Şubat",
+  "Mart",
+  "Nisan",
+  "Mayıs",
+  "Haziran",
+  "Temmuz",
+  "Ağustos",
+  "Eylül",
+  "Ekim",
+  "Kasım",
+  "Aralık",
+];
+const DAYS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
+
+/** Türkiye saatiyle (UTC+3) tarih parçaları */
+const trDate = (iso: string) => new Date(Date.parse(iso) + 3 * 60 * 60 * 1000);
+const monthKey = (iso: string) => trDate(iso).toISOString().slice(0, 7);
+
+/** Son 12 ay (bu ay dahil) için geçmiş / yaklaşan sayıları */
+function lastMonths(events: Event[], now: string): MonthBar[] {
+  const d = trDate(now);
+  const out: MonthBar[] = [];
+  for (let i = 11; i >= 0; i--) {
+    const m = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() - i, 1));
+    const key = m.toISOString().slice(0, 7);
+    const these = events.filter((e) => monthKey(e.startsAt) === key);
+    out.push({
+      key,
+      label: `${MONTHS[m.getUTCMonth()]} ${m.getUTCFullYear()}`,
+      past: these.filter((e) => e.startsAt < now).length,
+      upcoming: these.filter((e) => e.startsAt >= now).length,
+      current: i === 0,
+    });
+  }
+  return out;
+}
 
 /** En çoktan aza, ilk n */
 function top<T extends string>(items: T[], n: number): [T, number][] {
@@ -58,18 +106,24 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
   const selected = typeof donem === "string" && /^[0-9]{4}$/.test(donem) ? Number(donem) : null;
   const list = selected ? all.filter((e) => termYear(e.startsAt) === selected) : all;
 
+  const published = all.filter((e) => !draftIds.has(e.id));
   const thisTerm = past.filter((e) => termYear(e.startsAt) === currentTerm).length;
+  // Geçen dönemin aynı noktasına kadar (bir yıl önceki bugün)
+  const yearAgo = new Date(Date.parse(now) - 365 * 24 * 60 * 60 * 1000).toISOString();
+  const lastTermSoFar = past.filter(
+    (e) => termYear(e.startsAt) === currentTerm - 1 && e.startsAt < yearAgo,
+  ).length;
+  const upcomingCount = published.filter((e) => e.startsAt >= now).length;
   const inPerson = past.filter((e) => e.format === "in-person").length;
-  const uncoordinated = past.filter((e) => !byEvent.get(e.id)?.length).length;
+  const coordinated = past.filter((e) => byEvent.get(e.id)?.length).length;
 
-  const perTerm = terms
-    .slice()
-    .reverse()
-    .map((t) => ({
-      label: termLabel(t),
-      count: past.filter((e) => termYear(e.startsAt) === t).length,
-      current: t === currentTerm,
-    }));
+  const termsAsc = terms.slice().reverse();
+  const perTerm = termsAsc.map((t) => past.filter((e) => termYear(e.startsAt) === t).length);
+  const months = lastMonths(published, now);
+  const weekdays = DAYS.map((label, i) => ({
+    label,
+    count: past.filter((e) => (trDate(e.startsAt).getUTCDay() + 6) % 7 === i).length,
+  }));
   const tags = top(
     past.flatMap((e) => e.tags),
     6,
@@ -106,34 +160,59 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
         <h2 id="analiz" className="font-mono text-sm text-fg-subtle">
           {"// analiz"}
         </h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <StatTile label="etkinlik (toplam)" value={past.length} tone="blue" size="md" />
-          <StatTile
-            label={`bu dönem (${termLabel(currentTerm)})`}
-            value={thisTerm}
-            tone="green"
-            size="md"
-          />
-          <StatTile
-            label="yüz yüze"
-            value={past.length ? `%${Math.round((inPerson / past.length) * 100)}` : "—"}
-            tone="yellow"
-            size="md"
-          />
-          <StatTile label="koordinatörü yok" value={uncoordinated} tone="red" size="md" />
-        </div>
-        <div className="grid gap-4 lg:grid-cols-2">
-          <TermColumns rows={perTerm} current={termLabel(currentTerm)} />
-          <RankedBars title="türler" rows={tags} tone="blue" total={past.length} />
-          <RankedBars title="salonlar" rows={venues} tone="yellow" total={inPerson} />
-          <RankedBars
-            title="koordinatörler"
-            rows={coordinators}
-            tone="red"
-            avatars
-            empty={
-              <>Henüz koordinatör atanmadı. Aşağıdaki listede etkinliğin yanındaki seçiciden ata.</>
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <Kpi label="Toplam etkinlik" value={past.length} sub={`${termsAsc.length} dönem`}>
+            <Spark values={perTerm} labels={termsAsc.map(termLabel)} />
+          </Kpi>
+          <Kpi
+            label={`Bu dönem · ${termLabel(currentTerm)}`}
+            value={
+              <span className="flex items-center gap-3">
+                {thisTerm}
+                <Delta now={thisTerm} before={lastTermSoFar} />
+              </span>
             }
+            sub={`Geçen yıl bu zamana kadar ${lastTermSoFar}${upcomingCount ? ` · ${upcomingCount} yaklaşan` : ""}`}
+          />
+          <Kpi
+            label="Yüz yüze"
+            value={past.length ? `%${Math.round((inPerson / past.length) * 100)}` : "—"}
+            sub={`${inPerson} yüz yüze · ${past.length - inPerson} online`}
+          >
+            <Meter value={inPerson} total={past.length} />
+          </Kpi>
+          <Kpi
+            label="Koordinatör atanmış"
+            value={
+              <>
+                {coordinated}
+                <span className="text-xl text-fg-subtle">/{past.length}</span>
+              </>
+            }
+            sub="Aşağıdaki listeden ata"
+          >
+            <Meter value={coordinated} total={past.length} />
+          </Kpi>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
+          <MonthlyChart months={months} />
+          <WeekdayChart days={weekdays} />
+        </div>
+        <div className="grid gap-4 lg:grid-cols-3">
+          <RankedList title="Türler" subtitle="Etiketlere göre" rows={tags} total={past.length} />
+          <RankedList
+            title="Salonlar"
+            subtitle="Yüz yüze etkinlikler"
+            rows={venues}
+            total={inPerson}
+          />
+          <RankedList
+            title="Koordinatörler"
+            subtitle="Yürüttüğü etkinlik"
+            rows={coordinators}
+            total={Math.max(1, coordinated)}
+            avatars
+            empty="Henüz koordinatör atanmadı; aşağıdaki listede etkinliğin yanından ata."
           />
         </div>
       </section>
