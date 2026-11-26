@@ -10,6 +10,7 @@ const links = [
   { href: "/panel/etkinlikler", label: "Etkinlikler", icon: "◆" },
   { href: "/panel/basvurular", label: "Başvurular", icon: "✦" },
   { href: "/panel/mesajlar", label: "Mesajlar", icon: "✉" },
+  { href: "/panel/rehber", label: "Rehber", icon: "?" },
 ];
 /** Sadece adminin menüsünde */
 const adminLinks = [{ href: "/panel/girisler", label: "Son girişler", icon: "⌘" }];

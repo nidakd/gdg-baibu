@@ -1,0 +1,59 @@
+# Haftalık veritabanı yedeği. Supabase'in ücretsiz planında indirilebilir yedek yok; bu iş her pazar
+# public + private şemalarını (tablolar ve veri) pg_dump ile alır, ŞİFRELER ve 90 gün saklar.
+# Repo herkese açık: şifresiz yedek, giriş yapmış herkesin indirebileceği bir artifact olurdu.
+#
+# Gerekli secret'lar (Settings → Secrets and variables → Actions):
+#   SUPABASE_DB_URL    Supabase → Connect → Session pooler bağlantı adresi (şifre dahil)
+#   BACKUP_PASSPHRASE  uzun, rastgele bir parola (bir parola yöneticisinde sakla; yedeği açmak için gerekir)
+#
+# Açmak: Actions → son çalışma → "veritabani-yedegi" indir, zip'i aç, sonra
+#   gpg --decrypt yedek.sql.gz.gpg | gunzip > yedek.sql
+# Storage'daki dosyalar (fotoğraflar) bu yedekte yok; sadece adresleri var.
+
+name: Veritabanı yedeği
+
+on:
+  schedule:
+    - cron: "0 3 * * 0" # pazar 06:00 (TR)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  yedek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Secret'lar tanımlı mı
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          PASS: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          if [ -z "$DB_URL" ] || [ -z "$PASS" ]; then
+            echo "::error::SUPABASE_DB_URL ve BACKUP_PASSPHRASE secret'ları eklenmeli (dosyanın başındaki nota bak)"
+            exit 1
+          fi
+
+      # Sunucu Postgres 17; pg_dump aynı ana sürüm olmalı
+      - name: Yedek al ve şifrele
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          PASS: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          docker run --rm -e DB_URL postgres:17 \
+            sh -c 'pg_dump "$DB_URL" --schema=public --schema=private --no-owner --no-privileges' \
+            | gzip -9 \
+            | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 3 --symmetric --cipher-algo AES256 \
+                -o yedek.sql.gz.gpg 3<<<"$PASS"
+          ls -lh yedek.sql.gz.gpg
+          # Boş ya da bozuk yedek sessizce geçmesin
+          test "$(stat -c %s yedek.sql.gz.gpg)" -gt 2000
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: veritabani-yedegi
+          path: yedek.sql.gz.gpg
+          retention-days: 90
+          if-no-files-found: error
