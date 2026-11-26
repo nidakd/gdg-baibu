@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { PanelFeedback } from "./_components/panel-feedback";
 import { PanelSidebar } from "./_components/panel-sidebar";
 
 export const metadata: Metadata = {
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 // Sayfalar çerez okur (oturum); hepsi Suspense içinde akar.
 export default function PanelLayout({ children }: LayoutProps<"/panel">) {
   return (
-    <div className="min-h-dvh lg:grid lg:grid-cols-[15rem_1fr]">
+    <div className="panel-ui min-h-dvh lg:grid lg:grid-cols-[15rem_1fr]">
+      <Suspense>
+        <PanelFeedback />
+      </Suspense>
       <Suspense fallback={<div className="h-14 bg-surface-2 lg:h-dvh" />}>
         <PanelSidebar />
       </Suspense>
