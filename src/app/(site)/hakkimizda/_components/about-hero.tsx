@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
+import { getSiteLive } from "@/lib/settings";
 import { Avatar } from "@/components/team/avatar";
-import { getMembers, getSite } from "@/lib/content";
+import { getMembers } from "@/lib/content";
 import { formatMonth } from "@/lib/format";
 
 /** Hakkımızda girişi: solda metin, sağda core team fotoğraflarından kolaj. */
 export async function AboutHero() {
-  const site = getSite();
+  const site = await getSiteLive();
   const members = await getMembers();
   // Fotoğraflar farklı boyut ve hafif kaymayla, elle yapıştırılmış gibi
   const sizes = [88, 64, 76, 60, 84, 68, 72];

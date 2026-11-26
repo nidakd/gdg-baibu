@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
+import { getSiteLive } from "@/lib/settings";
 import { PillShapes } from "@/components/brand/pill-shapes";
 import { ButtonLink } from "@/components/ui/button";
 import { TypingTerminal, type TerminalLine } from "@/components/ui/typing-terminal";
-import { getMembers, getSite, getWorkingTeams } from "@/lib/content";
+import { getMembers, getWorkingTeams } from "@/lib/content";
 import { getEventTimeline } from "@/lib/events";
 import { formatDate } from "@/lib/format";
 
 export async function Hero() {
-  const site = getSite();
+  const site = await getSiteLive();
   const { upcoming, past } = await getEventTimeline();
   const next = upcoming[0];
   const lines: TerminalLine[] = [
