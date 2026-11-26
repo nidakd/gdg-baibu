@@ -4,7 +4,7 @@ import { StatTile } from "@/components/ui/stat-tile";
 import { type Event, getEvents } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { requirePanelUser } from "@/lib/panel/auth";
-import { setCoordinators } from "./actions";
+import { CoordinatorPicker } from "./coordinator-picker";
 
 export const metadata = { title: "Etkinlikler" };
 
@@ -135,8 +135,6 @@ export default async function Events({ searchParams }: PageProps<"/panel/etkinli
                 upcoming={e.startsAt >= now}
                 chosen={byEvent.get(e.id) ?? []}
                 members={members}
-                memberName={memberName}
-                term={selected}
               />
             ))}
           </ul>
@@ -151,21 +149,21 @@ function EventRow({
   upcoming,
   chosen,
   members,
-  memberName,
-  term,
 }: {
   event: Event;
   upcoming: boolean;
   chosen: string[];
   members: Member[];
-  memberName: Map<string, string>;
-  term: number | null;
 }) {
   // Seçim listesi: aktif üyeler + (artık aktif olmasa da) zaten atanmış olanlar
   const options = members.filter((m) => m.active || chosen.includes(m.id));
   return (
     <li id={`e-${e.id}`} className="space-y-2 px-5 py-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <CoordinatorPicker
+        eventId={e.id}
+        options={options.map(({ id, name }) => ({ id, name }))}
+        initial={chosen}
+      >
         <div className="min-w-0">
           <Link
             href={`/etkinlikler/${e.slug}`}
@@ -180,46 +178,7 @@ function EventRow({
             {upcoming && <span className="ml-2 font-mono text-xs text-green-ink">yaklaşan</span>}
           </p>
         </div>
-        <p className="text-sm">
-          {chosen.length ? (
-            chosen.map((id) => memberName.get(id) ?? "?").join(", ")
-          ) : (
-            <span className="text-fg-subtle">koordinatör yok</span>
-          )}
-        </p>
-      </div>
-      <details className="text-sm">
-        <summary className="cursor-pointer text-fg-muted hover:text-fg">
-          Koordinatörleri düzenle
-        </summary>
-        <form action={setCoordinators} className="mt-3 space-y-3">
-          <input type="hidden" name="event" value={e.id} />
-          {term && <input type="hidden" name="donem" value={term} />}
-          <fieldset className="flex flex-wrap gap-2">
-            <legend className="sr-only">Koordinatörler</legend>
-            {options.map((m) => (
-              <label
-                key={m.id}
-                className="flex cursor-pointer items-center gap-2 rounded-full border-2 border-border px-3 py-1 has-checked:border-border-strong has-checked:bg-blue-soft"
-              >
-                <input
-                  type="checkbox"
-                  name="koordinator"
-                  value={m.id}
-                  defaultChecked={chosen.includes(m.id)}
-                />
-                {m.name}
-              </label>
-            ))}
-          </fieldset>
-          <button
-            type="submit"
-            className="rounded-full border-2 border-border-strong bg-blue px-4 py-1.5 font-medium text-ink-black shadow-sticker-sm"
-          >
-            Kaydet
-          </button>
-        </form>
-      </details>
+      </CoordinatorPicker>
     </li>
   );
 }
