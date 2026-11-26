@@ -36,6 +36,12 @@ export async function approveLogin(_prev: ApproveState, form: FormData): Promise
   const store = await cookies();
   const pending = parsePending(store.get(PENDING_COOKIE)?.value);
   if (pending?.id === id && sha256(pending.secret) === row.browser_hash) {
+    // "Son girişler" başarılı girişi approved_at + used_at ile tanır
+    await admin
+      .from("login_requests")
+      .update({ approved_at: new Date().toISOString() })
+      .eq("id", id)
+      .is("approved_at", null);
     const result = await signInHere(admin, store, id, row.token_hash, row.next_path);
     if (result.status === "done" && result.next) redirect(result.next);
     return { status: "gone" };

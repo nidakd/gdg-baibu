@@ -10,16 +10,18 @@ const links = [
   { href: "/panel/basvurular", label: "Başvurular", icon: "✦" },
   { href: "/panel/mesajlar", label: "Mesajlar", icon: "✉" },
 ];
+/** Sadece adminin menüsünde */
+const adminLinks = [{ href: "/panel/girisler", label: "Son girişler", icon: "⌘" }];
 
 /** Menü bağlantıları; bulunulan bölüm vurgulanır. Telefonda yatay kayar, çıkış da burada. */
-export function PanelLinks() {
+export function PanelLinks({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
   const isActive = (href: string) =>
     href === "/panel" ? pathname === "/panel" : pathname.startsWith(href);
   return (
     <nav aria-label="Panel" className="overflow-x-auto px-2 pb-2 lg:px-3 lg:pb-0">
       <ul className="flex gap-1 lg:flex-col">
-        {links.map((l) => (
+        {(isAdmin ? [...links, ...adminLinks] : links).map((l) => (
           <li key={l.href}>
             <Link
               href={l.href}
