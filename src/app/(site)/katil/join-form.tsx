@@ -172,8 +172,7 @@ export function JoinForm({
             </Link>{" "}
             okudum. Bilgilerimin bu başvuruyu değerlendirmek ve bana dönmek için GDG on Campus AİBÜ
             yönetimi tarafından işlenmesine ve bu amaçla yurt dışındaki hizmet sağlayıcılarda
-            (Supabase, Vercel, Google) saklanmasına açık rıza veriyorum. Bilgiler dönem sonunda
-            silinir.
+            (Supabase, Vercel, Google) saklanmasına açık rıza veriyorum.
           </span>
         </label>
         {err("consent") && <p className="-mt-3 text-sm text-red-ink">{err("consent")}</p>}
