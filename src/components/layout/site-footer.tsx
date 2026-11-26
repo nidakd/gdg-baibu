@@ -140,6 +140,10 @@ function Copyright() {
       © {YEAR} {site.shortName} · <span className="whitespace-nowrap">{site.hashtag}</span> ·{" "}
       <Link href="/marka" className={LINK}>
         Marka rehberi
+      </Link>{" "}
+      ·{" "}
+      <Link href="/gizlilik" className={LINK}>
+        Gizlilik
       </Link>
     </p>
   );
