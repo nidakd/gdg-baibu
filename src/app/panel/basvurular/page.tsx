@@ -4,7 +4,8 @@ import { PanelBox } from "@/app/panel/_components/panel-box";
 import { getTeams } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { requirePanelUser } from "@/lib/panel/auth";
-import { updateApplication } from "./actions";
+import { getSettings } from "@/lib/settings";
+import { saveApplicationPeriod, updateApplication } from "./actions";
 import { STATUSES } from "./statuses";
 
 export const metadata = { title: "Başvurular" };
@@ -26,7 +27,7 @@ type Row = {
 
 export default async function Applications({ searchParams }: PageProps<"/panel/basvurular">) {
   const { supabase } = await requirePanelUser("/panel/basvurular");
-  const { durum, eposta } = await searchParams;
+  const { durum, eposta, donem } = await searchParams;
   const filter = typeof durum === "string" && durum in STATUSES ? durum : null;
   // E-posta onayı süzgeci: onayli | onaysiz
   const verified = eposta === "onayli" || eposta === "onaysiz" ? eposta : null;
@@ -40,7 +41,7 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
   if (filter) query = query.eq("status", filter);
   if (verified === "onayli") query = query.not("email_verified_at", "is", null);
   if (verified === "onaysiz") query = query.is("email_verified_at", null);
-  const [{ data }, teams] = await Promise.all([query, getTeams()]);
+  const [{ data }, teams, settings] = await Promise.all([query, getTeams(), getSettings()]);
   const teamName = new Map(teams.map((t) => [t.id, t.name]));
   const rows = (data ?? []) as Row[];
 
@@ -54,6 +55,57 @@ export default async function Applications({ searchParams }: PageProps<"/panel/b
           doğrularsa &quot;✓ onaylı&quot; görünür. Onaysızlarda adresin gerçek olduğu kanıtlanmadı.
         </p>
       </header>
+
+      <PanelBox
+        title="Başvuru dönemi"
+        meta={
+          <span className={settings.applicationsOpen ? "text-green-ink" : "text-red-ink"}>
+            {settings.applicationsOpen ? "● açık" : "● kapalı"}
+          </span>
+        }
+      >
+        <form action={saveApplicationPeriod} className="space-y-3 p-5">
+          <label className="flex items-center gap-3 text-sm">
+            <input
+              type="checkbox"
+              name="open"
+              defaultChecked={settings.applicationsOpen}
+              className="size-4"
+            />
+            /katil formu başvuru alıyor
+          </label>
+          <label className="block space-y-1.5 text-sm">
+            <span className="font-mono text-xs text-fg-subtle">
+              Kapalıyken /katil&apos;de görünen not
+            </span>
+            <textarea
+              name="note"
+              rows={2}
+              maxLength={300}
+              defaultValue={settings.applicationsClosedNote}
+              className="w-full resize-y rounded-xl border-2 border-border-strong bg-surface px-3 py-2"
+            />
+          </label>
+          <div className="flex items-center gap-3">
+            <button
+              type="submit"
+              className="rounded-full border-2 border-border-strong bg-green px-4 py-1.5 text-sm font-medium text-ink-black"
+            >
+              Kaydet
+            </button>
+            {donem === "kaydedildi" && (
+              <span role="status" className="text-sm text-green-ink">
+                Kaydedildi.
+              </span>
+            )}
+            {donem === "hata" && (
+              <span role="alert" className="text-sm text-red-ink">
+                Kaydedilemedi.
+              </span>
+            )}
+          </div>
+        </form>
+      </PanelBox>
 
       <nav aria-label="Duruma göre" className="flex flex-wrap gap-2 font-mono text-sm">
         <FilterLink href="/panel/basvurular" active={!filter && !verified}>
