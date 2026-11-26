@@ -1,21 +1,41 @@
 "use server";
 
-// Şifresiz giriş: e-postaya tek kullanımlık bağlantı. Kimin panelde olduğu söylenmez
-// (her durumda aynı cevap); yetki panel_users tablosundan gelir, Supabase hesabından değil.
+// Şifresiz giriş. Kimin panelde olduğu söylenmez (her durumda aynı cevap); yetki panel_users
+// tablosundan gelir, Supabase hesabından değil.
+//
+// Asıl yol (gizli anahtar + Gmail varsa): cihazlar arası giriş, bkz. lib/panel/login-requests.ts.
+// Oturum bağlantının istendiği tarayıcıda açılır; e-postadaki bağlantı sadece onay verir.
+// Yedek yol: Supabase'in kendi e-postası (PKCE; sadece istendiği tarayıcıda açılırsa çalışır).
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { checkBotId } from "botid/server";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { after } from "next/server";
 import { escapeHtml } from "@/lib/form-guard";
 import { hasGmail, sendGmail } from "@/lib/gmail";
 import { safeNext } from "@/lib/panel/auth";
+import {
+  describeDevice,
+  newCode,
+  newSecret,
+  parsePending,
+  PENDING_COOKIE,
+  REQUEST_TTL_MS,
+  sha256,
+} from "@/lib/panel/login-requests";
 import { adminClient } from "@/lib/supabase/admin";
 import { hasSupabase } from "@/lib/supabase/env";
+import { finish, type PollResult, signInHere } from "@/lib/panel/login-session";
 import { serverClient } from "@/lib/supabase/server";
 
-export type LoginState = { status: "idle" | "sent" | "error"; message?: string; email?: string };
+export type LoginState = {
+  status: "idle" | "sent" | "waiting" | "error";
+  message?: string;
+  email?: string;
+  /** Bekleyen girişte iki ekranda eşleşecek sayı */
+  code?: string;
+};
 
 const EMAIL = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
 
@@ -33,27 +53,33 @@ export async function sendLoginLink(_prev: LoginState, formData: FormData): Prom
 
   const h = await headers();
   const origin = `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host")}`;
-  const callback = `${origin}/auth/callback?sonra=${encodeURIComponent(next)}`;
 
-  // Asıl yol: bağlantıyı biz üretip kulüp Gmail'inden gönderiyoruz. Bağlantı token_hash taşır,
-  // her tarayıcıda/cihazda açılır; Supabase'in saatlik e-posta sınırına ve şablonuna bağlı değil.
   const admin = adminClient();
   if (admin && hasGmail) {
-    // Cevaptan sonra çalışır: yanıt süresinden e-postanın panelde olup olmadığı anlaşılmasın
-    after(() => sendViaGmail(admin, email, callback));
-    return { status: "sent", email };
+    // Üye olsun olmasın aynı cevap ve aynı çerez; satır ve e-posta yanıttan sonra, sadece üyeye
+    const id = crypto.randomUUID();
+    const browserSecret = newSecret();
+    const code = newCode();
+    const store = await cookies();
+    store.set(PENDING_COOKIE, `${id}.${browserSecret}`, {
+      httpOnly: true,
+      secure: origin.startsWith("https"),
+      sameSite: "lax",
+      path: "/",
+      maxAge: REQUEST_TTL_MS / 1000,
+    });
+    const device = describeDevice(h.get("user-agent"));
+    after(() => createRequest(admin, { id, email, browserSecret, code, device, next, origin }));
+    return { status: "waiting", email, code };
   }
 
-  // Yedek (gizli anahtar ya da Gmail ayarı olmayan ortamlar): Supabase'in kendi e-postası.
-  // Bu bağlantı PKCE'dir: sadece istendiği tarayıcıda açılırsa giriş yapar.
   const supabase = await serverClient();
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
       // İlk girişte Supabase hesabı açılır; yetki yine de sadece panel_users'taki e-postalara
-      // (panel_users'ta olmayan biri giriş yapsa bile RLS hiçbir şey göstermez ve yazdırmaz)
       shouldCreateUser: true,
-      emailRedirectTo: callback,
+      emailRedirectTo: `${origin}/auth/callback?sonra=${encodeURIComponent(next)}`,
     },
   });
   // Supabase'in kendi e-posta servisi saatte birkaç e-postayla sınırlı: bunu açıkça söyle
@@ -70,49 +96,102 @@ export async function sendLoginLink(_prev: LoginState, formData: FormData): Prom
   return { status: "sent", email };
 }
 
-/**
- * Sadece panel_users'taki adreslere bağlantı gider; diğerlerine sessizce hiçbir şey gönderilmez
- * (cevap yine aynı) ve Supabase hesabı da açılmaz. Panele yeni eklenen birinin henüz hesabı
- * yoksa ilk girişte açılır.
- */
-async function sendViaGmail(admin: SupabaseClient, email: string, callback: string) {
+type NewRequest = {
+  id: string;
+  email: string;
+  browserSecret: string;
+  code: string;
+  device: string;
+  next: string;
+  origin: string;
+};
+
+/** Sadece panel_users'taki adrese: Supabase giriş anahtarı üretilir, satır yazılır, onay e-postası gider. */
+async function createRequest(admin: SupabaseClient, r: NewRequest) {
   const { data: member } = await admin
     .from("panel_users")
     .select("email")
-    .eq("email", email)
+    .eq("email", r.email)
     .maybeSingle();
   if (!member) return;
 
-  const generate = () => admin.auth.admin.generateLink({ type: "magiclink", email });
+  // Panele yeni eklenen birinin henüz Supabase hesabı yoksa ilk girişte açılır
+  const generate = () => admin.auth.admin.generateLink({ type: "magiclink", email: r.email });
   let { data, error } = await generate();
   if (error) {
-    const created = await admin.auth.admin.createUser({ email, email_confirm: true });
+    const created = await admin.auth.admin.createUser({ email: r.email, email_confirm: true });
     if (created.error) {
       console.error("[giriş] hesap açılamadı:", created.error.code ?? created.error.status);
       return;
     }
     ({ data, error } = await generate());
   }
-  const hash = data?.properties?.hashed_token;
-  if (error || !hash) {
-    console.error("[giriş] bağlantı üretilemedi:", error?.code ?? error?.status ?? "boş");
+  const tokenHash = data?.properties?.hashed_token;
+  if (error || !tokenHash) {
+    console.error("[giriş] anahtar üretilemedi:", error?.code ?? error?.status ?? "boş");
     return;
   }
 
-  const link = `${callback}&token_hash=${encodeURIComponent(hash)}&type=email`;
+  // Eski istekler birikmesin (bir günden eski olanlar)
+  await admin
+    .from("login_requests")
+    .delete()
+    .lt("created_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+
+  const approveSecret = newSecret();
+  const { error: insertError } = await admin.from("login_requests").insert({
+    id: r.id,
+    email: r.email,
+    browser_hash: sha256(r.browserSecret),
+    approve_hash: sha256(approveSecret),
+    token_hash: tokenHash,
+    code: r.code,
+    device: r.device,
+    next_path: r.next,
+  });
+  if (insertError) {
+    console.error("[giriş] istek kaydedilemedi:", insertError.code);
+    return;
+  }
+
+  const link = `${r.origin}/giris/onay?i=${r.id}&k=${approveSecret}`;
   const ok = await sendGmail({
-    to: email,
-    subject: "Panel giriş bağlantın · GDG on Campus AİBÜ",
+    to: r.email,
+    subject: "Panel girişini onayla · GDG on Campus AİBÜ",
     html: `
     <div style="font-family:sans-serif;font-size:15px;line-height:1.5;color:#202124">
       <p>Merhaba,</p>
-      <p>GDG on Campus AİBÜ paneline girmek için aşağıdaki düğmeye bas. Bağlantı tek kullanımlık ve 1 saat geçerli; istediğin cihazda açabilirsin.</p>
-      <p><a href="${escapeHtml(link)}" style="display:inline-block;background:#4285f4;color:#fff;padding:9px 16px;border-radius:999px;text-decoration:none;font-size:14px">Panele giriş yap</a></p>
-      <p style="font-size:13px;color:#5f6368">Bu isteği sen yapmadıysan e-postayı yok say; bağlantıya tıklanmadıkça kimse giriş yapamaz.</p>
+      <p><b>${escapeHtml(r.device)}</b> üzerinden GDG on Campus AİBÜ paneline giriş istendi. Onaylarsan giriş, bağlantıyı istediğin tarayıcıda açılır; bu e-postayı telefonda açman sorun değil.</p>
+      <p><a href="${escapeHtml(link)}" style="display:inline-block;background:#4285f4;color:#fff;padding:9px 16px;border-radius:999px;text-decoration:none;font-size:14px">Girişi onayla</a></p>
+      <p style="font-size:13px;color:#5f6368">Bağlantı 15 dakika geçerli. Bu isteği sen yapmadıysan e-postayı yok say; onay vermedikçe kimse giriş yapamaz.</p>
     </div>`,
-    text: `GDG on Campus AİBÜ paneline girmek için bu bağlantıyı aç (tek kullanımlık, 1 saat geçerli):\n${link}\n\nBu isteği sen yapmadıysan e-postayı yok say.`,
+    text: `${r.device} üzerinden GDG on Campus AİBÜ paneline giriş istendi. Onaylamak için (15 dakika geçerli):\n${link}\n\nBu isteği sen yapmadıysan e-postayı yok say.`,
   });
-  if (!ok) console.error("[giriş] giriş e-postası gönderilemedi");
+  if (!ok) console.error("[giriş] onay e-postası gönderilemedi");
+}
+
+export type { PollResult } from "@/lib/panel/login-session";
+
+/** Bekleyen tarayıcı sorar: onay geldiyse oturum burada açılır. */
+export async function checkLogin(): Promise<PollResult> {
+  const admin = adminClient();
+  const store = await cookies();
+  const pending = parsePending(store.get(PENDING_COOKIE)?.value);
+  if (!admin || !pending) return { status: "gone" };
+
+  const { data: row } = await admin
+    .from("login_requests")
+    .select("browser_hash,token_hash,next_path,expires_at,approved_at,used_at")
+    .eq("id", pending.id)
+    .maybeSingle();
+  // Satır henüz yoksa (e-posta yolda) ya da hiç olmayacaksa (üye değil): beklemeye devam;
+  // çerez 15 dakikada kendiliğinden düşer
+  if (!row) return { status: "waiting" };
+  if (row.browser_hash !== sha256(pending.secret) || row.used_at) return finish(store, "gone");
+  if (new Date(row.expires_at).getTime() < Date.now()) return finish(store, "gone");
+  if (!row.approved_at) return { status: "waiting" };
+
+  return signInHere(admin, store, pending.id, row.token_hash, row.next_path);
 }
 
 export async function signOut() {
