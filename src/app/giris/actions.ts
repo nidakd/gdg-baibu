@@ -161,7 +161,7 @@ async function createRequest(admin: SupabaseClient, r: NewRequest) {
     html: `
     <div style="font-family:sans-serif;font-size:15px;line-height:1.5;color:#202124">
       <p>Merhaba,</p>
-      <p><b>${escapeHtml(r.device)}</b> üzerinden GDG on Campus AİBÜ paneline giriş istendi. Onaylarsan giriş, bağlantıyı istediğin tarayıcıda açılır; bu e-postayı telefonda açman sorun değil.</p>
+      <p><b>${escapeHtml(r.device)}</b> üzerinden GDG on Campus AİBÜ paneline giriş istendi. Girişi onaylamak için aşağıdaki düğmeye bas.</p>
       <p><a href="${escapeHtml(link)}" style="display:inline-block;background:#4285f4;color:#fff;padding:9px 16px;border-radius:999px;text-decoration:none;font-size:14px">Girişi onayla</a></p>
       <p style="font-size:13px;color:#5f6368">Bağlantı 15 dakika geçerli. Bu isteği sen yapmadıysan e-postayı yok say; onay vermedikçe kimse giriş yapamaz.</p>
     </div>`,
